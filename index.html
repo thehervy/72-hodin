@@ -146,6 +146,8 @@
       font-size: 100%; /* 16px default */
       scroll-behavior: smooth;
       box-sizing: border-box;
+      overflow-x: hidden;
+      max-width: 100%;
     }
 
     html[data-font-size="normal"] {
@@ -164,6 +166,11 @@
       box-sizing: inherit;
     }
 
+    img, svg, video, canvas, audio, iframe, embed, object {
+      max-width: 100%;
+      height: auto;
+    }
+
     /* ==========================================================================
        ZÁKLADNÍ RESETY & TYPOGRAFIE (vše v REM)
        ========================================================================== */
@@ -178,6 +185,7 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       overflow-x: hidden;
+      max-width: 100%;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -252,7 +260,7 @@
       background-color: var(--color-emergency);
       color: #ffffff;
       box-shadow: var(--shadow-md);
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 1rem;
     }
 
     .emergency-bar-container {
@@ -265,11 +273,10 @@
       gap: 0.5rem 1rem;
     }
 
-    .emergency-numbers {
+    .emergency-header-row {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 0.375rem 0.75rem;
+      gap: 0.75rem;
     }
 
     .emergency-title {
@@ -281,6 +288,12 @@
       align-items: center;
       gap: 0.35rem;
       white-space: nowrap;
+    }
+
+    .emergency-buttons-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .emergency-call-btn {
@@ -295,10 +308,10 @@
       font-weight: 800;
       font-size: 1.0625rem;
       min-height: 2.75rem;
-      min-width: 4rem;
       justify-content: center;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
       transition: all var(--transition-fast);
+      white-space: nowrap;
     }
 
     .emergency-call-btn:hover, .emergency-call-btn:focus {
@@ -318,7 +331,7 @@
     .a11y-controls {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.375rem;
     }
 
     .a11y-btn {
@@ -336,6 +349,7 @@
       justify-content: center;
       gap: 0.35rem;
       transition: background var(--transition-fast);
+      white-space: nowrap;
     }
 
     .a11y-btn:hover, .a11y-btn:focus {
@@ -349,9 +363,10 @@
       background: var(--bg-surface);
       border-bottom: 1px solid var(--border-subtle);
       position: sticky;
-      top: 3.8rem;
+      top: var(--emergency-bar-height, 3.8rem);
       z-index: 900;
       box-shadow: var(--shadow-sm);
+      transition: top 0.15s ease;
     }
 
     .nav-container {
@@ -370,6 +385,7 @@
       gap: 0.75rem;
       text-decoration: none;
       color: var(--text-main);
+      min-width: 0;
     }
 
     .brand-logo {
@@ -383,12 +399,19 @@
       justify-content: center;
       font-weight: 900;
       font-size: 1.125rem;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      min-width: 0;
+      overflow: hidden;
     }
 
     .brand-name {
       font-size: 1.125rem;
       font-weight: 800;
       line-height: 1.2;
+      display: block;
     }
 
     .brand-sub {
@@ -396,6 +419,7 @@
       color: var(--text-muted);
       font-weight: 500;
       display: block;
+      white-space: nowrap;
     }
 
     .nav-menu {
@@ -444,6 +468,7 @@
       min-height: 2.75rem;
       align-items: center;
       gap: 0.5rem;
+      flex-shrink: 0;
     }
 
     /* ==========================================================================
@@ -1088,10 +1113,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      max-width: 100%;
     }
 
     .download-info {
       max-width: 42rem;
+      min-width: 0;
     }
 
     .download-info h4 {
@@ -1112,21 +1139,36 @@
     .download-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      gap: 0.25rem 0.5rem;
       background: var(--color-primary);
       color: #ffffff;
-      padding: 0.625rem 1.125rem;
+      padding: 0.625rem 1rem;
       border-radius: var(--radius-md);
       text-decoration: none;
       font-weight: 700;
       font-size: 0.9375rem;
-      white-space: nowrap;
-      transition: background var(--transition-fast);
+      line-height: 1.35;
+      white-space: normal;
+      word-break: normal;
+      max-width: 100%;
+      transition: background var(--transition-fast), transform var(--transition-fast);
     }
 
     .download-btn:hover, .download-btn:focus {
       background: var(--color-primary-hover);
       color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .download-file-size {
+      font-size: 0.75rem;
+      font-weight: 500;
+      opacity: 0.85;
+      display: inline-block;
+      white-space: nowrap;
     }
 
     /* FOOTER */
@@ -1216,11 +1258,54 @@
     }
 
     /* ==========================================================================
-       RESPONSIVNÍ BREAKPOINTY
+       RESPONSIVNÍ BREAKPOINTY (Mobilní UX/UI optimalizace)
        ========================================================================== */
-    @media (max-width: 58rem) {
+    @media (max-width: 68rem) {
+      .emergency-bar {
+        padding: 0.35rem 0.5rem;
+      }
+
+      .emergency-bar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.3rem;
+        width: 100%;
+      }
+
+      .emergency-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .emergency-title {
+        font-size: 0.8125rem;
+        white-space: nowrap;
+      }
+
+      .emergency-buttons-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.25rem;
+        width: 100%;
+      }
+
+      .emergency-call-btn {
+        min-width: 0;
+        min-height: 2.35rem;
+        padding: 0.25rem 0.15rem;
+        font-size: 0.875rem;
+        gap: 0.2rem;
+      }
+
+      .emergency-call-btn span.label {
+        display: none; /* Skryje texty SOS, Hasiči, Záchranka, Policie pro 1 řádek na mobilu */
+      }
+
       .site-header {
-        top: 6.2rem; /* Vyšší odstup kvůli zalamování tísňové lišty */
+        top: var(--emergency-bar-height, 4.8rem);
       }
       
       .nav-menu {
@@ -1233,8 +1318,11 @@
         border-bottom: 2px solid var(--border-subtle);
         box-shadow: var(--shadow-lg);
         flex-direction: column;
-        padding: 1rem;
-        gap: 0.5rem;
+        padding: 0.75rem;
+        gap: 0.35rem;
+        max-height: calc(100vh - var(--emergency-bar-height, 4.8rem) - 4rem);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .nav-menu.open {
@@ -1247,13 +1335,238 @@
 
       .nav-link {
         width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 1.0625rem;
+        padding: 0.65rem 0.875rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 48rem) {
+      .container {
+        padding: 0 0.5rem;
+        width: 100%;
+        max-width: 100%;
       }
 
-      .emergency-numbers {
+      .section-card {
+        padding: 0.875rem 0.625rem;
+        margin-bottom: 1.25rem;
+        border-radius: var(--radius-lg);
+        scroll-margin-top: calc(var(--emergency-bar-height, 4.8rem) + 3.8rem);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.25rem;
+      }
+
+      .nav-container {
+        padding: 0.35rem 0.5rem;
+        gap: 0.5rem;
+      }
+
+      .brand {
+        gap: 0.5rem;
+      }
+
+      .brand-logo {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+      }
+
+      .brand-name {
+        font-size: clamp(0.85rem, 3.8vw, 1.05rem);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        padding: 0.35rem 0.65rem;
+        min-height: 2.35rem;
+        font-size: 0.9375rem;
+      }
+
+      .hero-section {
+        padding: 1.5rem 0 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .hero-lead {
+        font-size: 1.0625rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero-quote {
+        padding: 0.625rem 0.75rem;
+        margin-bottom: 1.25rem;
+        font-size: 0.9375rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
         width: 100%;
-        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        font-size: 0.9375rem;
+        padding: 0.625rem 1rem;
+        min-height: 2.75rem;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      .card-item {
+        padding: 0.875rem 0.75rem;
+      }
+
+      .alert-box {
+        padding: 0.75rem;
+        gap: 0.625rem;
+        margin-bottom: 1rem;
+      }
+
+      .checklist-item {
+        padding: 0.625rem 0.625rem;
+        gap: 0.625rem;
+      }
+
+      .checklist-item input[type="checkbox"] {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .checklist-text {
+        font-size: 0.9375rem;
+      }
+
+      .checklist-subtext {
+        font-size: 0.8125rem;
+      }
+
+      summary.styled-summary {
+        padding: 0.75rem 0.875rem;
+        font-size: 1rem;
+      }
+
+      .details-body {
+        padding: 0 0.75rem 0.75rem;
+      }
+
+      .download-card {
+        padding: 0.875rem 0.75rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+
+      .download-card > div:last-child {
+        display: flex;
+        flex-direction: column !important;
+        width: 100%;
+        gap: 0.5rem;
+      }
+
+      .download-btn {
+        width: 100%;
+        padding: 0.625rem 0.75rem;
+        min-height: 2.75rem;
+      }
+
+      .readiness-test {
+        padding: 0.875rem 0.625rem;
+      }
+
+      .breathing-widget {
+        padding: 1.25rem 0.75rem;
+      }
+
+      .breathing-circle-outer {
+        width: 10.5rem;
+        height: 10.5rem;
+        margin: 1rem auto;
+      }
+
+      .breathing-circle-inner {
+        width: 5.25rem;
+        height: 5.25rem;
+        font-size: 0.9375rem;
+      }
+
+      .breathing-circle-inner.inhale {
+        width: 9.25rem;
+        height: 9.25rem;
+      }
+
+      .breathing-circle-inner.exhale {
+        width: 5.25rem;
+        height: 5.25rem;
+      }
+
+      .breathing-status {
+        font-size: 1.15rem;
+      }
+
+      .breathing-counter {
+        font-size: 1.75rem;
+      }
+
+      .table-responsive {
+        margin-bottom: 1rem;
+        border-radius: var(--radius-md);
+      }
+
+      table.data-table th, table.data-table td {
+        padding: 0.55rem 0.625rem;
+        font-size: 0.85rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .site-footer {
+        padding: 2rem 0 1.5rem;
+      }
+    }
+
+    @media (max-width: 24rem) {
+      .emergency-title-sub {
+        display: none;
+      }
+
+      .a11y-text {
+        display: none;
+      }
+
+      .emergency-call-btn {
+        font-size: 0.8125rem;
+        padding: 0.25rem 0.1rem;
+        gap: 0.15rem;
+        min-height: 2.25rem;
+      }
+
+      .emergency-call-btn .em-icon {
+        font-size: 0.85rem;
       }
     }
   </style>
@@ -1266,32 +1579,34 @@
   <!-- STICKY NOUZOVÁ LIŠTA (Vždy navrchu, rychlé volání 112, 150, 155, 158) -->
   <aside class="emergency-bar" aria-label="Tísňová volání">
     <div class="emergency-bar-container">
-      <div class="emergency-numbers">
+      <div class="emergency-header-row">
         <div class="emergency-title">
-          <span aria-hidden="true">🚨</span> Tísňová čísla ČR (zdarma 24/7):
+          <span aria-hidden="true">🚨</span> <span>Tísňová čísla ČR<span class="emergency-title-sub"> (zdarma 24/7)</span>:</span>
         </div>
-        <a href="tel:112" class="emergency-call-btn" title="Volejte Jednotné tísňové volání 112 (vícejazyčné)">
-          📞 112 <span class="label">SOS</span>
-        </a>
-        <a href="tel:150" class="emergency-call-btn" title="Volejte Hasiče 150">
-          🚒 150 <span class="label">Hasiči</span>
-        </a>
-        <a href="tel:155" class="emergency-call-btn" title="Volejte Záchrannou službu 155">
-          🚑 155 <span class="label">Záchranka</span>
-        </a>
-        <a href="tel:158" class="emergency-call-btn" title="Volejte Policii ČR 158">
-          🚔 158 <span class="label">Policie</span>
-        </a>
+        <!-- OVLÁDÁNÍ PŘÍSTUPNOSTI (A11Y) -->
+        <div class="a11y-controls">
+          <button type="button" class="a11y-btn" id="btn-font-size" aria-label="Změnit velikost písma webu (100% / 125% / 150%)" title="Zvětšit písmo">
+            <span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A↑</span> <span class="a11y-text">Písmo</span>
+          </button>
+          <button type="button" class="a11y-btn" id="btn-theme-toggle" aria-label="Přepnout tmavý a světlý režim" title="Přepnout motiv">
+            <span id="theme-icon" aria-hidden="true">🌙</span> <span class="a11y-text">Režim</span>
+          </button>
+        </div>
       </div>
 
-      <!-- OVLÁDÁNÍ PŘÍSTUPNOSTI (A11Y) -->
-      <div class="a11y-controls">
-        <button type="button" class="a11y-btn" id="btn-font-size" aria-label="Změnit velikost písma webu (100% / 120% / 140%)" title="Zvětšit písmo">
-          <span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A↑</span> Písmo
-        </button>
-        <button type="button" class="a11y-btn" id="btn-theme-toggle" aria-label="Přepnout tmavý a světlý režim" title="Přepnout motiv">
-          <span id="theme-icon" aria-hidden="true">🌙</span> Režim
-        </button>
+      <div class="emergency-buttons-row">
+        <a href="tel:112" class="emergency-call-btn" title="Volejte Jednotné tísňové volání 112 (vícejazyčné)">
+          <span class="em-icon" aria-hidden="true">📞</span><span class="em-num">112</span><span class="label">SOS</span>
+        </a>
+        <a href="tel:150" class="emergency-call-btn" title="Volejte Hasiče 150">
+          <span class="em-icon" aria-hidden="true">🚒</span><span class="em-num">150</span><span class="label">Hasiči</span>
+        </a>
+        <a href="tel:155" class="emergency-call-btn" title="Volejte Záchrannou službu 155">
+          <span class="em-icon" aria-hidden="true">🚑</span><span class="em-num">155</span><span class="label">Záchranka</span>
+        </a>
+        <a href="tel:158" class="emergency-call-btn" title="Volejte Policii ČR 158">
+          <span class="em-icon" aria-hidden="true">🚔</span><span class="em-num">158</span><span class="label">Policie</span>
+        </a>
       </div>
     </div>
   </aside>
@@ -1301,7 +1616,7 @@
     <div class="nav-container">
       <a href="#" class="brand" aria-label="Cimrmanových 72 hodin - Návrat na úvod">
         <div class="brand-logo" aria-hidden="true">72h</div>
-        <div>
+        <div class="brand-text">
           <span class="brand-name">Cimrmanových 72 hodin</span>
           <span class="brand-sub">Občanský manuál pro nepěkné časy</span>
         </div>
@@ -1505,10 +1820,10 @@
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
             <a href="data-manual/01a_Krizova_pripravenost_domacnosti_manual.pdf" download class="download-btn">
-              📥 Manuál domácnosti (PDF, 240 KB)
+              📥 Manuál domácnosti <span class="download-file-size">(PDF, 240 KB)</span>
             </a>
             <a href="data-manual/01b_Checklist_pro_domacnosti.pdf" download class="download-btn">
-              📥 Evakuační checklist (PDF, 149 KB)
+              📥 Evakuační checklist <span class="download-file-size">(PDF, 149 KB)</span>
             </a>
           </div>
         </div>
@@ -1654,7 +1969,7 @@
             <p>Mějte tento 1stránkový list vytištěný a připevněný na vnitřní straně vchodových dveří.</p>
           </div>
           <a href="data-manual/01b_Checklist_pro_domacnosti.pdf" download class="download-btn">
-            📥 Evakuační checklist (PDF, 149 KB)
+            📥 Evakuační checklist <span class="download-file-size">(PDF, 149 KB)</span>
           </a>
         </div>
       </section>
@@ -1828,10 +2143,10 @@
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
             <a href="data-manual/02a_Krizova_pripravenost_pro_lidi_zijici_osamele_manual.pdf" download class="download-btn">
-              📥 Manuál pro osamělé (PDF, 80 KB)
+              📥 Manuál pro osamělé <span class="download-file-size">(PDF, 80 KB)</span>
             </a>
             <a href="data-manual/02b_Checklist_pro_lidi_zijici_osamele.pdf" download class="download-btn">
-              📥 Checklist pro osamělé (PDF, 91 KB)
+              📥 Checklist pro osamělé <span class="download-file-size">(PDF, 91 KB)</span>
             </a>
           </div>
         </div>
@@ -2046,7 +2361,7 @@
             <p>Kompletní 13stránkový adresář všech institucí, řetězce velení a offline informačních postupů.</p>
           </div>
           <a href="data-manual/03_Krizove_kontakty_a_pokyny_CR.pdf" download class="download-btn">
-            📥 Krizové kontakty a pokyny ČR (PDF, 120 KB)
+            📥 Krizové kontakty a pokyny ČR <span class="download-file-size">(PDF, 120 KB)</span>
           </a>
         </div>
       </section>
@@ -2195,7 +2510,7 @@
             <p>Obsáhlý 18stránkový rádce se všemi technikami psychohygieny, sebepéče a záchranných kontaktů.</p>
           </div>
           <a href="data-manual/04_Prvni_psychicka_pomoc_v_krizovych_situacich.pdf" download class="download-btn">
-            📥 Psychická první pomoc (PDF, 111 KB)
+            📥 Psychická první pomoc <span class="download-file-size">(PDF, 111 KB)</span>
           </a>
         </div>
       </section>
@@ -2302,7 +2617,7 @@
             <p>Ověřené postupy vypracované ve spolupráci s centrem Locika, NUDZ a dětskými psychology.</p>
           </div>
           <a href="data-manual/05_Jak_mluvit_s_detmi_pri_krizovych%20situacich_manual_kontakty.pdf" download class="download-btn">
-            📥 Komunikace s dětmi (PDF, 82 KB)
+            📥 Komunikace s dětmi <span class="download-file-size">(PDF, 82 KB)</span>
           </a>
         </div>
       </section>
@@ -2408,7 +2723,7 @@
               Kompletní vydání obsahující veškeré příručky, podrobné návody, checklisty a krizové pokyny v jednom uceleném dokumentu.
             </p>
             <a href="data-manual/06_Obcansky_manual_pro_nepekne_casy_KOMPLET.pdf" download class="btn btn-primary" style="margin-top:auto;">
-              📥 Stáhnout kompletní knihu (PDF, 1.17 MB)
+              📥 Stáhnout kompletní knihu <span class="download-file-size" style="color:#ffffff; opacity:0.85;">(PDF, 1.17 MB)</span>
             </a>
           </div>
 
@@ -2417,7 +2732,7 @@
             <h4>📄 00. Úvodní slovo a obsah složky</h4>
             <p class="text-muted" style="font-size:0.9rem;">Filozofie celého projektu, poselství pro sousedskou pomoc a přehled sady.</p>
             <a href="data-manual/00_Uvodni_slovo_a_obsah_slozky.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout úvod (PDF, 72 KB)
+              📥 Stáhnout úvod <span class="download-file-size">(PDF, 72 KB)</span>
             </a>
           </div>
 
@@ -2426,7 +2741,7 @@
             <h4>📄 01a. Krizová připravenost domácnosti (manuál)</h4>
             <p class="text-muted" style="font-size:0.9rem;">Kompletní průvodce pro rodiny: voda, potraviny, energie, hygiena a digitální bezpečnost.</p>
             <a href="data-manual/01a_Krizova_pripravenost_domacnosti_manual.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout manuál domácnosti (PDF, 240 KB)
+              📥 Stáhnout manuál domácnosti <span class="download-file-size">(PDF, 240 KB)</span>
             </a>
           </div>
 
@@ -2435,7 +2750,7 @@
             <h4>📋 01b. Evakuační checklist pro domácnosti</h4>
             <p class="text-muted" style="font-size:0.9rem;">Přehledný 1stránkový akční seznam kroků pro opuštění domova pod časovým tlakem.</p>
             <a href="data-manual/01b_Checklist_pro_domacnosti.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout evakuační checklist (PDF, 149 KB)
+              📥 Stáhnout evakuační checklist <span class="download-file-size">(PDF, 149 KB)</span>
             </a>
           </div>
 
@@ -2444,7 +2759,7 @@
             <h4>📄 02a. Krizová připravenost pro lidi žijící osaměle</h4>
             <p class="text-muted" style="font-size:0.9rem;">13stránkový průvodce záchrannou sítí, registrací u obce, technologiemi a psychologií izolace.</p>
             <a href="data-manual/02a_Krizova_pripravenost_pro_lidi_zijici_osamele_manual.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout manuál pro osamělé (PDF, 80 KB)
+              📥 Stáhnout manuál pro osamělé <span class="download-file-size">(PDF, 80 KB)</span>
             </a>
           </div>
 
@@ -2453,7 +2768,7 @@
             <h4>📋 02b. Checklist pro lidi žijící osaměle</h4>
             <p class="text-muted" style="font-size:0.9rem;">Interaktivní kontrolní seznam v 9 kategoriích sestavený na míru jednočlenným domácnostem.</p>
             <a href="data-manual/02b_Checklist_pro_lidi_zijici_osamele.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout checklist pro osamělé (PDF, 91 KB)
+              📥 Stáhnout checklist pro osamělé <span class="download-file-size">(PDF, 91 KB)</span>
             </a>
           </div>
 
@@ -2462,7 +2777,7 @@
             <h4>📄 03. Krizové kontakty a informační zdroje ČR</h4>
             <p class="text-muted" style="font-size:0.9rem;">Rejstřík tísňových čísel, specializovaných linek, rádiových frekvencí a sirén.</p>
             <a href="data-manual/03_Krizove_kontakty_a_pokyny_CR.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout kontakty a pokyny (PDF, 120 KB)
+              📥 Stáhnout kontakty a pokyny <span class="download-file-size">(PDF, 120 KB)</span>
             </a>
           </div>
 
@@ -2471,7 +2786,7 @@
             <h4>📄 04. První psychická pomoc v krizových situacích</h4>
             <p class="text-muted" style="font-size:0.9rem;">18 stran praktických rad pro zvládání paniky, šoku, traumatu a podporu blízkých.</p>
             <a href="data-manual/04_Prvni_psychicka_pomoc_v_krizovych_situacich.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout psychickou pomoc (PDF, 111 KB)
+              📥 Stáhnout psychickou pomoc <span class="download-file-size">(PDF, 111 KB)</span>
             </a>
           </div>
 
@@ -2480,7 +2795,7 @@
             <h4>📄 05. Jak mluvit s dětmi při krizových situacích</h4>
             <p class="text-muted" style="font-size:0.9rem;">Doporučení dle věku dítěte, 10 zásad pro rodiče, varovné signály a krizové linky pro rodinu.</p>
             <a href="data-manual/05_Jak_mluvit_s_detmi_pri_krizovych%20situacich_manual_kontakty.pdf" download class="download-btn" style="margin-top:auto;">
-              📥 Stáhnout komunikaci s dětmi (PDF, 82 KB)
+              📥 Stáhnout komunikaci s dětmi <span class="download-file-size">(PDF, 82 KB)</span>
             </a>
           </div>
         </div>
@@ -2547,18 +2862,31 @@
       let currentFontIndex = 0;
       const fontSizeBtn = document.getElementById("btn-font-size");
 
+      function updateEmergencyBarHeight() {
+        const emBar = document.querySelector(".emergency-bar");
+        if (emBar && htmlEl && htmlEl.style && htmlEl.style.setProperty) {
+          const h = emBar.offsetHeight || 56;
+          htmlEl.style.setProperty("--emergency-bar-height", h + "px");
+        }
+      }
+      updateEmergencyBarHeight();
+      if (typeof window !== "undefined" && window.addEventListener) {
+        window.addEventListener("resize", updateEmergencyBarHeight);
+      }
+
       function updateFontSizeBtn(size) {
         if (!fontSizeBtn) return;
         if (size === "large") {
-          fontSizeBtn.innerHTML = '<span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A+</span> Písmo 125%';
+          fontSizeBtn.innerHTML = '<span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A+</span> <span class="a11y-text">Písmo 125%</span>';
           fontSizeBtn.setAttribute("title", "Aktuální velikost: 125 %. Kliknutím zvětšíte na 150 %");
         } else if (size === "xlarge") {
-          fontSizeBtn.innerHTML = '<span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A++</span> Písmo 150%';
+          fontSizeBtn.innerHTML = '<span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A++</span> <span class="a11y-text">Písmo 150%</span>';
           fontSizeBtn.setAttribute("title", "Aktuální velikost: 150 %. Kliknutím vrátíte na 100 %");
         } else {
-          fontSizeBtn.innerHTML = '<span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A</span> Písmo 100%';
+          fontSizeBtn.innerHTML = '<span aria-hidden="true" style="font-size:1.15rem; font-weight:900;">A</span> <span class="a11y-text">Písmo 100%</span>';
           fontSizeBtn.setAttribute("title", "Aktuální velikost: 100 %. Kliknutím zvětšíte na 125 %");
         }
+        setTimeout(updateEmergencyBarHeight, 50);
       }
 
       const savedFontSize = localStorage.getItem("72h_font_size") || "normal";
@@ -2587,10 +2915,10 @@
         if (!themeBtn) return;
         const isDark = theme === "dark" || (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (isDark) {
-          themeBtn.innerHTML = '<span aria-hidden="true">☀️</span> Světlý';
+          themeBtn.innerHTML = '<span aria-hidden="true">☀️</span> <span class="a11y-text">Světlý</span>';
           themeBtn.setAttribute("title", "Přepnout na světlý režim");
         } else {
-          themeBtn.innerHTML = '<span aria-hidden="true">🌙</span> Tmavý';
+          themeBtn.innerHTML = '<span aria-hidden="true">🌙</span> <span class="a11y-text">Tmavý</span>';
           themeBtn.setAttribute("title", "Přepnout na tmavý režim");
         }
       }
@@ -2644,6 +2972,14 @@
               mobileBtn.setAttribute("aria-expanded", "false");
             }
           });
+        });
+
+        // Zavření kliknutím mimo otevřené menu
+        document.addEventListener("click", (e) => {
+          if (navMenu.classList.contains("open") && !navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+            navMenu.classList.remove("open");
+            mobileBtn.setAttribute("aria-expanded", "false");
+          }
         });
 
         // Zavření klávesou Escape
