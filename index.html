@@ -762,6 +762,74 @@
       gap: 0.5rem;
     }
 
+    /* Odkazy ke stažení mobilních aplikací */
+    .app-links-row {
+      margin-top: auto;
+      padding-top: 0.875rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .store-badge-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text-main);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      line-height: 1.2;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .store-badge-btn:hover, .store-badge-btn:focus {
+      background: var(--bg-surface-elevated);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .store-badge-icon {
+      width: 1.15rem;
+      height: 1.15rem;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    :root[data-theme="dark"] .store-apple-icon,
+    [data-theme="dark"] .store-apple-icon {
+      filter: invert(1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root[data-theme="auto"] .store-apple-icon {
+        filter: invert(1);
+      }
+    }
+
+    .store-fallback-icon {
+      font-size: 1rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+
+    .store-badge-text {
+      white-space: nowrap;
+    }
+
     /* ==========================================================================
        INTERAKTIVNÍ CHECKLISTY S PROGRESEM A LOCALSTORAGE
        ========================================================================== */
@@ -1596,6 +1664,13 @@
       .emergency-call-btn .em-icon {
         font-size: 0.85rem;
       }
+
+      .store-badge-btn {
+        flex: 1 1 calc(50% - 0.25rem);
+        justify-content: center;
+        padding: 0.35rem 0.5rem;
+        font-size: 0.8125rem;
+      }
     }
   </style>
 </head>
@@ -2322,22 +2397,70 @@
             <p>Nejdůležitější aplikace v ČR. Stisknutím tlačítka SOS automaticky odešle záchranářům vaši přesnou GPS polohu, stav baterie a předvyplněné zdravotní údaje.</p>
             <p><strong>Obsahuje také:</strong> Lokátor nejbližších AED defibrilátorů, nouzový tichý chat a příručku 72 hodin.</p>
             <p><small>Dostupná zdarma pro Android i iOS (přes 3,5 milionu uživatelů v ČR).</small></p>
+            <div class="app-links-row">
+              <a href="https://play.google.com/store/apps/details?id=cz.medicalit.zachranka" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Záchranku na Google Play (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true">▶</span>
+                <span class="store-badge-text">Google Play</span>
+              </a>
+              <a href="https://apps.apple.com/cz/app/z%C3%A1chranka/id1060965306" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Záchranku na App Store (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="" width="16" height="18" class="store-badge-icon store-apple-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true"></span>
+                <span class="store-badge-text">App Store</span>
+              </a>
+            </div>
           </div>
 
           <div class="card-item">
             <h4>🌧️ Počasí ČHMÚ + Výstrahy</h4>
             <p>Oficiální radarové snímky a personalizované výstrahy před extrémními bouřkami, povodněmi, větrem a náledím s rozlišením 1 km.</p>
             <p><strong>K-appka:</strong> Upozornění na přívalové srážky 30 minut předem.</p>
+            <div class="app-links-row">
+              <a href="https://play.google.com/store/apps/details?id=cz.chmu.pocasi" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Počasí ČHMÚ na Google Play (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true">▶</span>
+                <span class="store-badge-text">Google Play</span>
+              </a>
+              <a href="https://apps.apple.com/cz/app/po%C4%8Das%C3%AD-%C4%8Dhm%C3%BA/id6477815234" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Počasí ČHMÚ na App Store (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="" width="16" height="18" class="store-badge-icon store-apple-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true"></span>
+                <span class="store-badge-text">App Store</span>
+              </a>
+            </div>
           </div>
 
           <div class="card-item">
             <h4>📢 MUNIPOLIS</h4>
             <p>Přímo propojuje přes 3 500 českých obcí s občany. Dostanete okamžité varování o havárii vody, výpadku proudu nebo příkazu k evakuaci formou notifikace a nouzové SMS.</p>
+            <div class="app-links-row">
+              <a href="https://play.google.com/store/apps/details?id=cz.mobilnirozhlas.app" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout MUNIPOLIS na Google Play (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true">▶</span>
+                <span class="store-badge-text">Google Play</span>
+              </a>
+              <a href="https://apps.apple.com/cz/app/munipolis/id1081512140" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout MUNIPOLIS na App Store (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="" width="16" height="18" class="store-badge-icon store-apple-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true"></span>
+                <span class="store-badge-text">App Store</span>
+              </a>
+            </div>
           </div>
 
           <div class="card-item">
             <h4>🗺️ Mapy.cz (Offline stažení)</h4>
             <p>Stáhněte si do mobilu offline mapu svého kraje dopředu. V krizovém stavu při výpadku mobilního internetu funguje navigace i turistické trasy bez signálu.</p>
+            <div class="app-links-row">
+              <a href="https://play.google.com/store/apps/details?id=cz.seznam.mapy" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Mapy.cz na Google Play (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true">▶</span>
+                <span class="store-badge-text">Google Play</span>
+              </a>
+              <a href="https://apps.apple.com/cz/app/id411411101" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Mapy.cz na App Store (otevře se v novém okně)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="" width="16" height="18" class="store-badge-icon store-apple-icon" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';" loading="lazy">
+                <span class="store-fallback-icon" style="display:none;" aria-hidden="true"></span>
+                <span class="store-badge-text">App Store</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -3361,6 +3484,18 @@
           if (typeof window.umami !== "undefined" && window.umami.track) {
             const rawName = link.getAttribute("href").split("/").pop() || "manual.pdf";
             window.umami.track("Stazeni PDF", { soubor: decodeURIComponent(rawName) });
+          }
+        });
+      });
+
+      document.querySelectorAll('.store-badge-btn').forEach(link => {
+        link.addEventListener("click", () => {
+          if (localStorage.getItem("umami.disabled") === "1") return;
+          if (typeof window.umami !== "undefined" && window.umami.track) {
+            const store = link.querySelector(".store-badge-text") ? link.querySelector(".store-badge-text").textContent.trim() : "Store";
+            const card = link.closest(".card-item");
+            const app = card && card.querySelector("h4") ? card.querySelector("h4").textContent.trim() : "App";
+            window.umami.track("Odkaz na aplikaci", { aplikace: app, obchod: store });
           }
         });
       });
