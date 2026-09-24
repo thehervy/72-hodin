@@ -297,77 +297,24 @@
       will-change: transform;
     }
 
-    /* 1. ŘÁDKA: TÍSŇOVÁ VOLÁNÍ */
-    .emergency-bar {
-      background-color: var(--color-emergency);
-      color: #ffffff;
-      padding: 0.3rem 0.5rem;
-      width: 100%;
-    }
-
-    .emergency-bar-container {
-      max-width: 80rem;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .emergency-buttons-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.35rem;
-      width: 100%;
-    }
-
-    .emergency-call-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.25rem;
-      background: rgba(255, 255, 255, 0.96);
-      color: #991b1b;
-      padding: 0.25rem 0.2rem;
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.9375rem;
-      min-height: 2.25rem;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      transition: all var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .emergency-call-btn:hover, .emergency-call-btn:focus {
-      background: #ffffff;
-      color: #7f1d1d;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .emergency-call-btn span.label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      opacity: 0.85;
-      margin-left: 0.15rem;
-    }
-
-    /* 2. ŘÁDKA: HLAVNÍ NAVIGACE & HLAVIČKA */
-    .site-header {
+    /* 1. ŘÁDEK: LOGO, VELIKOST PÍSMA + MOTIV, FLEXIBILNÍ MEZERA, NOUZOVÁ TLAČÍTKA */
+    .nav-row-top {
       background: var(--bg-surface);
       border-bottom: 1px solid var(--border-subtle);
       width: 100%;
     }
 
-    .nav-container {
+    .nav-container-top {
       max-width: 80rem;
       margin: 0 auto;
       padding: 0.4rem 0.75rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
+      gap: 0.65rem;
       position: relative;
     }
 
+    /* VLEVO: LOGO (Zelené 72 HODIN + 2 řádky textu) */
     .brand {
       display: flex;
       align-items: center;
@@ -379,50 +326,71 @@
     }
 
     .brand-logo {
-      width: 2.35rem;
-      height: 2.35rem;
-      background: var(--color-primary);
-      color: #ffffff;
-      border-radius: var(--radius-md);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.25rem;
+      background: var(--color-primary);
+      color: #ffffff;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-md);
       font-weight: 900;
       font-size: 1.15rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      min-height: 2.35rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       transition: transform var(--transition-fast), background var(--transition-fast);
-    }
-
-    .brand:hover .brand-logo, .brand:focus .brand-logo {
-      transform: scale(1.05);
-      background: var(--color-primary-hover);
-    }
-
-    .brand-text {
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .brand-name {
-      font-size: 1.125rem;
-      font-weight: 800;
-      line-height: 1.2;
-      display: block;
-    }
-
-    .brand-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      display: block;
       white-space: nowrap;
     }
 
-    .header-right-controls {
+    .brand:hover .brand-logo,
+    .brand:focus .brand-logo {
+      transform: scale(1.03);
+      background: var(--color-primary-hover);
+    }
+
+    .brand-logo .brand-num {
+      font-weight: 900;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .brand-logo .brand-word {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      line-height: 1.2;
+    }
+
+    .brand-title {
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.015em;
+      white-space: nowrap;
+    }
+
+    .brand-subtitle {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* A11Y OVLÁDÁNÍ (VELIKOST PÍSMA + PŘEPÍNAČ REŽIMU) */
+    .header-tools {
       display: flex;
       align-items: center;
       gap: 0.35rem;
-      margin-left: auto;
       flex-shrink: 0;
     }
 
@@ -457,6 +425,69 @@
       font-size: 1.15rem;
     }
 
+    /* FLEXIBILNÍ MEZERA */
+    .nav-spacer {
+      flex: 1 1 auto;
+      min-width: 0.5rem;
+    }
+
+    /* NAPRAVO: NOUZOVÁ TLAČÍTKA NA TELEFONNÍ ČÍSLA (ŠÍŘKA DLE OBSAHU TLAČÍTKA) */
+    .header-emergency-group {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .emergency-call-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      background: var(--color-emergency);
+      color: #ffffff;
+      padding: 0.3125rem 0.625rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.875rem;
+      min-height: 2.35rem;
+      width: auto; /* Šířka dle obsahu tlačítka */
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .emergency-call-btn:hover, .emergency-call-btn:focus {
+      background: var(--color-emergency-hover);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    .emergency-call-btn .em-icon {
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .emergency-call-btn .em-num {
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: 0.9375rem;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .emergency-call-btn .em-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      opacity: 0.92;
+      line-height: 1;
+      margin-left: 0.1rem;
+    }
+
+    /* MOBILNÍ MENU TOGGLE (NA DESKTOPU A TABLETU SKRYTO) */
     .mobile-menu-toggle {
       display: none;
       background: var(--bg-surface-alt);
@@ -480,6 +511,31 @@
       color: var(--color-primary);
     }
 
+    /* ==========================================================================
+       2. ŘÁDEK: POLOŽKY MENU A AKTIVNÍ STAV PŘI SCROLLINGU
+       ========================================================================== */
+    .nav-row-bottom {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      width: 100%;
+    }
+
+    .nav-container-bottom {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: 0.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .nav-container-bottom::-webkit-scrollbar {
+      display: none;
+    }
+
     .nav-menu {
       display: flex;
       align-items: center;
@@ -487,31 +543,61 @@
       list-style: none;
       margin: 0;
       padding: 0;
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+
+    .nav-menu li {
+      flex-shrink: 0;
     }
 
     .nav-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.375rem;
-      padding: 0.5rem 0.75rem;
+      gap: 0.35rem;
+      padding: 0.4rem 0.75rem;
       border-radius: var(--radius-md);
       color: var(--text-main);
+      background: transparent;
+      border: none;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9375rem;
+      font-size: 0.9rem;
       white-space: nowrap;
-      min-height: 2.35rem;
+      min-height: 2.25rem;
       transition: background var(--transition-fast), color var(--transition-fast);
+      cursor: pointer;
     }
 
+    /* Při hoveru pouze zobrazit tmavší background (bez rámečku, bez posunu) */
     .nav-link:hover, .nav-link:focus {
       background: var(--bg-surface-alt);
-      color: var(--color-primary);
+      color: var(--text-main);
     }
 
+    /* Graficky znázorněný aktivní stav (plný zelený podklad tlačítka bez rámečku) */
     .nav-link.active {
-      background: var(--color-primary-light);
-      color: var(--color-primary-text);
+      background: var(--color-primary) !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      border: none !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Tmavý režim pro aktivní stav */
+    [data-theme="dark"] .nav-link.active,
+    :root[data-theme="dark"] .nav-link.active {
+      background: var(--color-primary) !important;
+      color: #042f2e !important;
+      border: none !important;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root[data-theme="auto"] .nav-link.active {
+        background: var(--color-primary) !important;
+        color: #042f2e !important;
+        border: none !important;
+      }
     }
 
     /* ==========================================================================
@@ -1373,62 +1459,59 @@
     /* ==========================================================================
        RESPONSIVNÍ BREAKPOINTY (Mobilní UX/UI optimalizace)
        ========================================================================== */
+    /* Přizpůsobení pro tablety a menší monitory (do 68rem / 1088px) - zachování 2-řádkového menu */
     @media (max-width: 68rem) {
-      .emergency-buttons-row {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.25rem;
+      .nav-container-top {
+        gap: 0.5rem;
+      }
+
+      .brand-title {
+        font-size: 0.875rem;
+      }
+
+      .brand-subtitle {
+        font-size: 0.725rem;
       }
 
       .emergency-call-btn {
-        min-width: 0;
-        min-height: 2.25rem;
-        padding: 0.25rem 0.15rem;
-        font-size: 0.875rem;
+        padding: 0.28rem 0.5rem;
+        font-size: 0.8125rem;
         gap: 0.2rem;
       }
 
-      .emergency-call-btn span.label {
-        display: none; /* Skryje texty SOS, Hasiči, Záchranka, Policie pro 1 řádek na mobilu */
+      .emergency-call-btn .em-num {
+        font-size: 0.875rem;
       }
 
-      .brand-text {
-        display: none; /* Na mobilu nechat POUZE LOGO 72 vlevo */
-      }
-
-      .mobile-menu-toggle {
-        display: inline-flex;
-      }
-      
-      .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--bg-surface);
-        border-bottom: 2px solid var(--border-subtle);
-        box-shadow: var(--shadow-lg);
-        flex-direction: column;
-        padding: 0.75rem;
-        gap: 0.35rem;
-        max-height: calc(100vh - var(--fixed-nav-height, 90px));
-        max-height: calc(100dvh - var(--fixed-nav-height, 90px));
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        z-index: 1001;
-      }
-
-      .nav-menu.open {
-        display: flex;
+      .emergency-call-btn .em-label {
+        font-size: 0.725rem;
       }
 
       .nav-link {
-        width: 100%;
-        padding: 0.65rem 0.875rem;
-        font-size: 1rem;
+        font-size: 0.85rem;
+        padding: 0.325rem 0.55rem;
       }
     }
 
+    /* Kompaktní tablety (do 58rem / 928px) - zachování 2 řádků, úspora místa pro tlačítka */
+    @media (max-width: 58rem) {
+      .header-tools .a11y-text {
+        display: none; /* Zobrazí pouze A↑ pro úsporu místa na kompaktních tabletech */
+      }
+
+      .brand-logo {
+        font-size: 1.05rem;
+        padding: 0.3rem 0.5rem;
+      }
+
+      .emergency-call-btn {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.775rem;
+        gap: 0.15rem;
+      }
+    }
+
+    /* Mobilní telefony (< 48rem / 768px): přechod na mobilní menu s plnou dostupností */
     @media (max-width: 48rem) {
       .container {
         padding: 0 0.5rem;
@@ -1455,9 +1538,22 @@
         font-size: 1.25rem;
       }
 
-      .nav-container {
+      .nav-spacer {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: inline-flex;
+        margin-left: auto;
+        padding: 0.35rem 0.65rem;
+        min-height: 2.35rem;
+        font-size: 0.9375rem;
+      }
+
+      .nav-container-top {
+        flex-wrap: wrap;
         padding: 0.35rem 0.5rem;
-        gap: 0.5rem;
+        gap: 0.35rem;
       }
 
       .brand {
@@ -1465,26 +1561,66 @@
       }
 
       .brand-logo {
-        width: 2rem;
-        height: 2rem;
-        font-size: 1rem;
+        font-size: 0.95rem;
+        padding: 0.25rem 0.45rem;
+        min-height: 2.1rem;
       }
 
-      .brand-name {
-        font-size: clamp(0.85rem, 3.8vw, 1.05rem);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      .brand-title {
+        font-size: 0.85rem;
       }
 
-      .brand-sub {
+      .header-emergency-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.25rem;
+        padding-top: 0.2rem;
+      }
+
+      .header-emergency-group .emergency-call-btn {
+        width: 100%;
+        min-height: 2.2rem;
+        padding: 0.25rem 0.15rem;
+        font-size: 0.8125rem;
+      }
+
+      .nav-row-bottom {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-surface);
+        border-bottom: 2px solid var(--border-subtle);
+        box-shadow: var(--shadow-lg);
+        max-height: calc(100vh - var(--fixed-nav-height, 100px));
+        max-height: calc(100dvh - var(--fixed-nav-height, 100px));
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1001;
       }
 
-      .mobile-menu-toggle {
-        padding: 0.35rem 0.65rem;
-        min-height: 2.35rem;
-        font-size: 0.9375rem;
+      .nav-row-bottom.open {
+        display: block;
+      }
+
+      .nav-container-bottom {
+        padding: 0.75rem;
+        overflow-x: visible;
+      }
+
+      .nav-menu {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.35rem;
+        width: 100%;
+      }
+
+      .nav-link {
+        width: 100%;
+        padding: 0.65rem 0.875rem;
+        font-size: 1rem;
       }
 
       .hero-section {
@@ -1665,6 +1801,14 @@
         font-size: 0.85rem;
       }
 
+      .emergency-call-btn .em-label {
+        display: none; /* Skryje texty SOS, Hasiči atd. pro maximální čitelnost čísel */
+      }
+
+      .brand-subtitle {
+        display: none; /* Na malých displejích zobrazit 72 HODIN + Občanský manuál */
+      }
+
       .store-badge-btn {
         flex: 1 1 calc(50% - 0.25rem);
         justify-content: center;
@@ -1679,68 +1823,75 @@
   <!-- Přístupný odkaz pro čtečky: přeskočit na hlavní obsah -->
   <a href="#hlavni-obsah" class="skip-link">Přejít k hlavnímu obsahu (Skip to content)</a>
 
-  <!-- FIXNÍ NAVIGAČNÍ PANEL (Vždy nahoře při scrollování) -->
-  <div class="fixed-nav-wrapper" id="top-nav">
-    <!-- 1. ŘÁDKA: Pouze tísňová čísla ČR (bez textu nadpisu) -->
-    <aside class="emergency-bar" aria-label="Tísňová volání">
-      <div class="emergency-bar-container">
-        <div class="emergency-buttons-row">
-          <a href="tel:112" class="emergency-call-btn" title="Volejte Jednotné tísňové volání 112 (vícejazyčné)">
-            <span class="em-icon" aria-hidden="true">📞</span><span class="em-num">112</span><span class="label">SOS</span>
-          </a>
-          <a href="tel:150" class="emergency-call-btn" title="Volejte Hasiče 150">
-            <span class="em-icon" aria-hidden="true">🚒</span><span class="em-num">150</span><span class="label">Hasiči</span>
-          </a>
-          <a href="tel:155" class="emergency-call-btn" title="Volejte Záchrannou službu 155">
-            <span class="em-icon" aria-hidden="true">🚑</span><span class="em-num">155</span><span class="label">Záchranka</span>
-          </a>
-          <a href="tel:158" class="emergency-call-btn" title="Volejte Policii ČR 158">
-            <span class="em-icon" aria-hidden="true">🚔</span><span class="em-num">158</span><span class="label">Policie</span>
-          </a>
-        </div>
-      </div>
-    </aside>
-
-    <!-- 2. ŘÁDKA: Vlevo logo 72 (klik přesune nahoru), vpravo písmo, motiv (pouze ikona) a menu -->
-    <header class="site-header">
-      <div class="nav-container">
-        <!-- Vlevo: Logo 72 (klik přesune uživatele nahoru) -->
-        <a href="#" class="brand" aria-label="Cimrmanových 72 hodin - Návrat na začátek stránky" title="Návrat nahoru">
-          <div class="brand-logo" aria-hidden="true">72</div>
+  <!-- FIXNÍ NAVIGAČNÍ PANEL (Vždy nahoře při scrollování pro desktop i tablet) -->
+  <header class="fixed-nav-wrapper" id="top-nav">
+    <!-- 1. ŘÁDEK: Logo, A11y ovládání, flexibilní mezera a nouzová tlačítka napravo -->
+    <div class="nav-row-top">
+      <div class="nav-container-top">
+        <!-- Vlevo: Logo 72 HODIN + 2 řádky: Občanský manuál / pro nepěkné časy -->
+        <a href="#" class="brand" aria-label="72 HODIN - Občanský manuál pro nepěkné časy - Návrat na začátek stránky" title="Návrat nahoru">
+          <div class="brand-logo" aria-hidden="true">
+            <span class="brand-num">72</span>
+            <span class="brand-word">HODIN</span>
+          </div>
           <div class="brand-text">
-            <span class="brand-name">Cimrmanových 72 hodin</span>
-            <span class="brand-sub">Občanský manuál pro nepěkné časy</span>
+            <span class="brand-title">Občanský manuál</span>
+            <span class="brand-subtitle">pro nepěkné časy</span>
           </div>
         </a>
 
-        <!-- Vpravo: Tlačítko velikosti písma, přepínač režimu (pouze ikona) a menu -->
-        <div class="header-right-controls">
+        <!-- Tlačítko pro velikost písma a přepínač světlého a tmavého režimu -->
+        <div class="header-tools">
           <button type="button" class="a11y-btn" id="btn-font-size" aria-label="Změnit velikost písma webu (100% / 125% / 150%)" title="Zvětšit písmo">
             <span aria-hidden="true" style="font-weight:900;">A↑</span> <span class="a11y-text">Písmo</span>
           </button>
           <button type="button" class="a11y-btn a11y-theme-btn" id="btn-theme-toggle" aria-label="Přepnout tmavý a světlý režim" title="Přepnout motiv">
             <span id="theme-icon" aria-hidden="true">🌙</span>
           </button>
-          <button type="button" class="mobile-menu-toggle" id="mobile-menu-btn" aria-expanded="false" aria-controls="main-nav-menu" aria-label="Otevřít navigační menu">
-            <span aria-hidden="true">☰</span> <span class="menu-label">Menu</span>
-          </button>
         </div>
 
-        <nav aria-label="Hlavní navigace webu">
-          <ul class="nav-menu" id="main-nav-menu">
-            <li><a href="#domacnost" class="nav-link">🏠 Domácnost</a></li>
-            <li><a href="#evakuace" class="nav-link">🎒 Evakuace</a></li>
-            <li><a href="#osameli" class="nav-link">👤 Osamělí</a></li>
-            <li><a href="#kontakty" class="nav-link">📞 Kontakty & Info</a></li>
-            <li><a href="#psychika" class="nav-link">🧠 Psychická pomoc</a></li>
-            <li><a href="#deti" class="nav-link">👶 Děti v krizi</a></li>
-            <li><a href="#rodinny-plan" class="nav-link">📝 Můj krizový plán</a></li>
-            <li><a href="#ke-stazeni" class="nav-link">📄 PDF ke stažení</a></li>
-          </ul>
-        </nav>
+        <!-- Flexibilní mezera -->
+        <div class="nav-spacer" aria-hidden="true"></div>
+
+        <!-- Napravo v menu: Nouzová tlačítka na telefonní čísla (šířka dle obsahu tlačítka) -->
+        <div class="header-emergency-group" role="region" aria-label="Nouzová telefonní čísla ČR">
+          <a href="tel:112" class="emergency-call-btn em-112" title="Volejte Jednotné tísňové volání 112 (vícejazyčné)">
+            <span class="em-icon" aria-hidden="true">📞</span><span class="em-num">112</span><span class="em-label">SOS</span>
+          </a>
+          <a href="tel:150" class="emergency-call-btn em-150" title="Volejte Hasiče 150">
+            <span class="em-icon" aria-hidden="true">🚒</span><span class="em-num">150</span><span class="em-label">Hasiči</span>
+          </a>
+          <a href="tel:155" class="emergency-call-btn em-155" title="Volejte Záchrannou službu 155">
+            <span class="em-icon" aria-hidden="true">🚑</span><span class="em-num">155</span><span class="em-label">Záchranka</span>
+          </a>
+          <a href="tel:158" class="emergency-call-btn em-158" title="Volejte Policii ČR 158">
+            <span class="em-icon" aria-hidden="true">🚔</span><span class="em-num">158</span><span class="em-label">Policie</span>
+          </a>
+        </div>
+
+        <!-- Mobilní hamburger tlačítko pro úzké obrazovky telefonů -->
+        <button type="button" class="mobile-menu-toggle" id="mobile-menu-btn" aria-expanded="false" aria-controls="main-nav-menu" aria-label="Otevřít navigační menu">
+          <span aria-hidden="true">☰</span> <span class="menu-label">Menu</span>
+        </button>
       </div>
-    </header>
-  </div>
+    </div>
+
+    <!-- 2. ŘÁDEK: Položky menu s grafickým znázorněním aktivní sekce při scrollingu -->
+    <nav class="nav-row-bottom" id="nav-row-bottom" aria-label="Hlavní navigace webu">
+      <div class="nav-container-bottom">
+        <ul class="nav-menu" id="main-nav-menu">
+          <li><a href="#domacnost" class="nav-link">🏠 Domácnost</a></li>
+          <li><a href="#evakuace" class="nav-link">🎒 Evakuace</a></li>
+          <li><a href="#osameli" class="nav-link">👤 Osamělí</a></li>
+          <li><a href="#kontakty" class="nav-link">📞 Kontakty & Info</a></li>
+          <li><a href="#psychika" class="nav-link">🧠 Psychická pomoc</a></li>
+          <li><a href="#deti" class="nav-link">👶 Děti v krizi</a></li>
+          <li><a href="#rodinny-plan" class="nav-link">📝 Můj krizový plán</a></li>
+          <li><a href="#ke-stazeni" class="nav-link">📄 PDF ke stažení</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
   <!-- HLAVNÍ OBSAH -->
   <main id="hlavni-obsah" class="main-content">
@@ -3152,53 +3303,216 @@
       }
 
       // ------------------------------------------------------------------------
-      // 3. MOBILNÍ NAVIGACE & KLIK NA LOGO
+      // 3. MOBILNÍ NAVIGACE, KLIK NA LOGO & SCROLLSPY (AKTIVNÍ STAV MENU)
       // ------------------------------------------------------------------------
-      // Kliknutí na logo 72 přesune uživatele plynule nahoru na začátek stránky
+      // Kliknutí na logo 72 HODIN přesune uživatele plynule nahoru na začátek stránky
       const brandLogoLink = document.querySelector(".brand");
-      if (brandLogoLink) {
-        brandLogoLink.addEventListener("click", (e) => {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: "smooth" });
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const navMenu = document.getElementById("main-nav-menu");
+      const navRowBottom = document.getElementById("nav-row-bottom");
+      const navLinks = Array.from(document.querySelectorAll("#main-nav-menu .nav-link"));
+
+      // Bezpečné získání ID sekce pro jakékoliv prostředí (přímý soubor, GitHub, HTMLPreview, subdoména)
+      function getNavTargetId(link) {
+        if (link.hash && link.hash.length > 1) {
+          return link.hash.replace(/^#/, "");
+        }
+        const rawHref = link.getAttribute("href") || "";
+        const hashIdx = rawHref.indexOf("#");
+        if (hashIdx !== -1 && hashIdx < rawHref.length - 1) {
+          return rawHref.substring(hashIdx + 1);
+        }
+        return "";
+      }
+
+      const navSections = [];
+      navLinks.forEach(link => {
+        const targetId = getNavTargetId(link);
+        if (targetId) {
+          const sec = document.getElementById(targetId);
+          if (sec) {
+            navSections.push({ id: targetId, section: sec, link: link });
+          }
+        }
+      });
+
+      function setActiveNavButton(activeId) {
+        navSections.forEach(item => {
+          if (item.id === activeId) {
+            if (!item.link.classList.contains("active")) {
+              item.link.classList.add("active");
+              item.link.setAttribute("aria-current", "location");
+
+              // Horizontální vystředění aktivní položky v kontejneru menu na tabletech
+              const navContainer = document.querySelector(".nav-container-bottom");
+              if (navContainer && navContainer.scrollWidth > navContainer.clientWidth) {
+                const targetLeft = item.link.offsetLeft - (navContainer.clientWidth / 2) + (item.link.offsetWidth / 2);
+                navContainer.scrollTo({ left: targetLeft, behavior: "smooth" });
+              }
+            }
+          } else {
+            item.link.classList.remove("active");
+            item.link.removeAttribute("aria-current");
+          }
         });
       }
 
-      const mobileBtn = document.getElementById("mobile-menu-btn");
-      const navMenu = document.getElementById("main-nav-menu");
+      let isManualClick = false;
+      let manualClickTimeout = null;
 
-      if (mobileBtn && navMenu) {
+      function updateActiveNavSection() {
+        if (isManualClick || navSections.length === 0) return;
+
+        const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+        const topNav = document.getElementById("top-nav");
+        const navHeight = topNav ? topNav.offsetHeight : 100;
+        const docHeight = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.offsetHeight
+        );
+        const winHeight = window.innerHeight;
+
+        // Pokud je uživatel na úplném konci stránky, aktivní je poslední sekce (ke-stazeni)
+        if (scrollY + winHeight >= docHeight - 80) {
+          setActiveNavButton(navSections[navSections.length - 1].id);
+          return;
+        }
+
+        // Dynamická detekce: bod pod fixní navigací, kde se aktuálně nachází čtený obsah
+        const triggerY = navHeight + 80;
+        let currentSectionId = null;
+
+        for (let i = 0; i < navSections.length; i++) {
+          const rect = navSections[i].section.getBoundingClientRect();
+          if (rect.top <= triggerY) {
+            currentSectionId = navSections[i].id;
+          } else {
+            break;
+          }
+        }
+
+        // Pokud je uživatel úplně nahoře (před první sekcí v Hero), aktivní je 1. sekce (Domácnost)
+        if (!currentSectionId && navSections.length > 0) {
+          currentSectionId = navSections[0].id;
+        }
+
+        if (currentSectionId) {
+          setActiveNavButton(currentSectionId);
+        }
+      }
+
+      if (brandLogoLink) {
+        brandLogoLink.addEventListener("click", (e) => {
+          isManualClick = true;
+          clearTimeout(manualClickTimeout);
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          if (navSections.length > 0) {
+            setActiveNavButton(navSections[0].id);
+          }
+          if (history.pushState) {
+            history.pushState(null, "", window.location.pathname);
+          }
+          manualClickTimeout = setTimeout(() => {
+            isManualClick = false;
+            updateActiveNavSection();
+          }, 800);
+        });
+      }
+
+      if (mobileBtn) {
         mobileBtn.addEventListener("click", () => {
-          const isOpen = navMenu.classList.toggle("open");
+          const isOpen = navRowBottom ? navRowBottom.classList.toggle("open") : (navMenu && navMenu.classList.toggle("open"));
           mobileBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
         });
 
         // Zavření menu po kliknutí na odkaz
-        navMenu.querySelectorAll("a").forEach(link => {
-          link.addEventListener("click", () => {
-            if (navMenu.classList.contains("open")) {
-              navMenu.classList.remove("open");
-              mobileBtn.setAttribute("aria-expanded", "false");
-            }
+        if (navMenu) {
+          navMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+              if (navRowBottom && navRowBottom.classList.contains("open")) {
+                navRowBottom.classList.remove("open");
+                mobileBtn.setAttribute("aria-expanded", "false");
+              } else if (navMenu.classList.contains("open")) {
+                navMenu.classList.remove("open");
+                mobileBtn.setAttribute("aria-expanded", "false");
+              }
+            });
           });
-        });
+        }
 
         // Zavření kliknutím mimo otevřené menu
         document.addEventListener("click", (e) => {
-          if (navMenu.classList.contains("open") && !navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-            navMenu.classList.remove("open");
+          const isMenuOpen = (navRowBottom && navRowBottom.classList.contains("open")) || (navMenu && navMenu.classList.contains("open"));
+          if (isMenuOpen && !e.target.closest("#nav-row-bottom") && !e.target.closest("#mobile-menu-btn")) {
+            if (navRowBottom) navRowBottom.classList.remove("open");
+            if (navMenu) navMenu.classList.remove("open");
             mobileBtn.setAttribute("aria-expanded", "false");
           }
         });
 
         // Zavření klávesou Escape
         document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && navMenu.classList.contains("open")) {
-            navMenu.classList.remove("open");
-            mobileBtn.setAttribute("aria-expanded", "false");
-            mobileBtn.focus();
+          if (e.key === "Escape") {
+            const isMenuOpen = (navRowBottom && navRowBottom.classList.contains("open")) || (navMenu && navMenu.classList.contains("open"));
+            if (isMenuOpen) {
+              if (navRowBottom) navRowBottom.classList.remove("open");
+              if (navMenu) navMenu.classList.remove("open");
+              mobileBtn.setAttribute("aria-expanded", "false");
+              mobileBtn.focus();
+            }
           }
         });
       }
+
+      let isScrollTicking = false;
+      function handleScrollThrottled() {
+        if (!isScrollTicking) {
+          window.requestAnimationFrame(() => {
+            updateActiveNavSection();
+            isScrollTicking = false;
+          });
+          isScrollTicking = true;
+        }
+      }
+
+      window.addEventListener("scroll", handleScrollThrottled, { passive: true });
+      document.addEventListener("scroll", handleScrollThrottled, { passive: true });
+      window.addEventListener("resize", () => {
+        updateFixedNavHeight();
+        handleScrollThrottled();
+      }, { passive: true });
+
+      // Při kliknutí na odkaz v menu okamžitě označit příslušné tlačítko a plynule posunout
+      navSections.forEach(item => {
+        item.link.addEventListener("click", (e) => {
+          isManualClick = true;
+          clearTimeout(manualClickTimeout);
+          setActiveNavButton(item.id);
+
+          const topNav = document.getElementById("top-nav");
+          const navOffset = (topNav ? topNav.offsetHeight : 95) + 15;
+          const rect = item.section.getBoundingClientRect();
+          const targetY = rect.top + window.pageYOffset - navOffset;
+
+          e.preventDefault();
+          window.scrollTo({ top: targetY, behavior: "smooth" });
+
+          if (history.pushState) {
+            history.pushState(null, "", "#" + item.id);
+          }
+
+          manualClickTimeout = setTimeout(() => {
+            isManualClick = false;
+            updateActiveNavSection();
+          }, 800);
+        });
+      });
+
+      // Úvodní vyhodnocení po načtení stránky
+      updateActiveNavSection();
 
       // ------------------------------------------------------------------------
       // 4. CHECKLISTY S PERSISTENCÍ V LOCALSTORAGE A PROGRESEM
