@@ -4,6 +4,8 @@ from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 
+OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def create_svg_favicon():
     font = TTFont('C:\\Windows\\Fonts\\segoeuib.ttf')
     glyphset = font.getGlyphSet()
@@ -38,7 +40,7 @@ def create_svg_favicon():
   <path d="{path7} {path2}" fill="#ffffff"/>
 </svg>
 '''
-    with open('favicon.svg', 'w', encoding='utf-8') as f:
+    with open(os.path.join(OUTPUT_DIR, 'favicon.svg'), 'w', encoding='utf-8') as f:
         f.write(svg_content)
     print('Created favicon.svg')
 
@@ -59,19 +61,19 @@ def create_raster_favicons():
 
     # Apple Touch Icon 180x180
     img180 = img512.resize((180, 180), Image.Resampling.LANCZOS)
-    img180.save('apple-touch-icon.png', optimize=True)
+    img180.save(os.path.join(OUTPUT_DIR, 'apple-touch-icon.png'), optimize=True)
 
     # 32x32 PNG
     img32 = img512.resize((32, 32), Image.Resampling.LANCZOS)
-    img32.save('favicon-32x32.png', optimize=True)
+    img32.save(os.path.join(OUTPUT_DIR, 'favicon-32x32.png'), optimize=True)
 
     # 16x16 PNG
     img16 = img512.resize((16, 16), Image.Resampling.LANCZOS)
-    img16.save('favicon-16x16.png', optimize=True)
+    img16.save(os.path.join(OUTPUT_DIR, 'favicon-16x16.png'), optimize=True)
 
     # Multi-resolution ICO (16, 32, 48)
     img48 = img512.resize((48, 48), Image.Resampling.LANCZOS)
-    img512.save('favicon.ico', format='ICO', sizes=[(16, 16), (32, 32), (48, 48)])
+    img512.save(os.path.join(OUTPUT_DIR, 'favicon.ico'), format='ICO', sizes=[(16, 16), (32, 32), (48, 48)])
     print('Created raster favicons: apple-touch-icon.png, favicon-32x32.png, favicon-16x16.png, favicon.ico')
 
 def create_social_thumbnail():
@@ -136,9 +138,9 @@ def create_social_thumbnail():
     draw.text((rx + 28, ry + 10), '72hodin.info', font=font_domain, fill='#0f766e')
 
     final_thumb = Image.alpha_composite(base, overlay).convert('RGB')
-    final_thumb.save('72hodin-thumbnail.png', optimize=True)
+    final_thumb.save(os.path.join(OUTPUT_DIR, '72hodin-thumbnail.png'), optimize=True)
     # Also save jpg version as backup
-    final_thumb.save('72hodin-thumbnail.jpg', quality=94, optimize=True)
+    final_thumb.save(os.path.join(OUTPUT_DIR, '72hodin-thumbnail.jpg'), quality=94, optimize=True)
     print('Created 72hodin-thumbnail.png and 72hodin-thumbnail.jpg (1200x630)')
 
 if __name__ == '__main__':
