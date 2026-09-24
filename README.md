@@ -41,7 +41,25 @@ Projekt je ve stabilní produkční verzi nasazené přes GitHub Pages s vlastn�
   * Plná podpora ovládání z klávesnice a odečítačů obrazovky.
 * **Respekt k soukromí:**
   * Žádné sledovací cookies, žádná otravná cookie lišta.
-  * Odlehčené měření návštěvnosti přes nezávislé Umami Analytics v souladu s GDPR.
+  * Transparentní anonymní měření návštěvnosti přes open-source Umami Analytics s možností okamžitého opt-outu.
+
+---
+
+## 🔒 Ochrana soukromí a analytika (Umami)
+
+Web využívá pro základní přehled o návštěvnosti nezávislý open-source nástroj **[Umami Analytics](https://umami.is/)**.
+
+### Proč se nemusíte bát (žádné sledování ani skryté praktiky):
+* 🍪 **Žádné cookies:** Do vašeho prohlížeče se neukládají vůbec žádné sledovací soubory cookies.
+* 🛡️ **Žádné profilování uživatelů:** Nesledujeme vaši identitu, historii prohlížení ani pohyb po jiných webech.
+* 👤 **Žádné osobní údaje:** IP adresy se neukládají do databáze a veškerá data jsou plně anonymizována.
+* 🇪🇺 **100% v souladu s GDPR:** Nástroj slouží čistě k tomu, abychom věděli, kolik lidí manuál čte a které krizové příručky nejvíce pomáhají. Data nejsou nikomu prodávána ani komerčně využívána.
+
+### Jak měření v prohlížeči vypnout / zapnout (Opt-Out):
+Pokud si přesto nepřejete, aby se vaše zobrazení anonymně započítávalo do souhrnné statistiky návštěvnosti, můžete sledování jednoduše jedním kliknutím vypnout:
+
+* 🚫 **[Vypnout sledování pro tento prohlížeč](https://72hodin.info/?umami=off)** – do vašeho prohlížeče uloží lokální značku `umami.disabled = 1` a veškeré měření okamžitě zastaví.
+* ✅ **[Znovu zapnout sledování](https://72hodin.info/?umami=on)** – vrátí měření do výchozího stavu.
 
 ---
 
