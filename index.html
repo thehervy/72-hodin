@@ -2467,24 +2467,54 @@
         <!-- Výpadek internetu & Sirény -->
         <h3>Jak získat informace při výpadku elektřiny a internetu</h3>
         <div class="grid-2">
+          <!-- Karta 1: Český rozhlas Radiožurnál -->
           <div class="card-item">
-            <h4>📻 Páteřní FM frekvence Radiožurnálu</h4>
-            <p>Český rozhlas Radiožurnál je oficiálním celostátním krizovým vysílačem se záložním generátorovým napájením. Nalaďte na svém bateriovém rádiu:</p>
-            <ul style="font-family:var(--font-mono); font-size:0.95rem;">
-              <li><strong>Praha:</strong> 94,6 MHz</li>
-              <li><strong>Brno:</strong> 89,5 MHz</li>
-              <li><strong>Ostrava:</strong> 101,4 MHz</li>
-              <li><strong>Plzeň:</strong> 89,1 MHz</li>
-              <li><strong>Pardubice / Hradec:</strong> 89,7 MHz</li>
-              <li><strong>České Budějovice:</strong> 91,1 MHz</li>
-              <li><strong>Liberec:</strong> 95,9 MHz</li>
-              <li><strong>Jihlava:</strong> 90,7 MHz</li>
-              <li><strong>Ústí nad Labem:</strong> 90,9 MHz</li>
-              <li><strong>Zlín:</strong> 99,5 MHz</li>
+            <h4>📻 Český rozhlas Radiožurnál</h4>
+            <p>Oficiální celostátní krizový rozhlas se záložním generátorovým napájením. Při blackoutu nalaďte na bateriovém či klikovém rádiu nebo v autě (RDS kód <strong>232F</strong>):</p>
+            <ul style="font-family:var(--font-mono); font-size:0.9rem; margin-bottom:1rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(9.5rem, 1fr)); gap:0.25rem 0.5rem; list-style:none; padding-left:0;">
+              <li>• <strong>Praha:</strong> 94,6 MHz</li>
+              <li>• <strong>Brno:</strong> 89,5 MHz</li>
+              <li>• <strong>Ostrava:</strong> 101,4 MHz</li>
+              <li>• <strong>Plzeň:</strong> 89,1 MHz</li>
+              <li>• <strong>Pardubice:</strong> 89,7 MHz</li>
+              <li>• <strong>Č. Budějovice:</strong> 91,1 MHz</li>
+              <li>• <strong>Liberec:</strong> 95,9 MHz</li>
+              <li>• <strong>Jihlava:</strong> 90,7 MHz</li>
+              <li>• <strong>Ústí n. L.:</strong> 90,9 MHz</li>
+              <li>• <strong>Zlín:</strong> 99,5 MHz</li>
             </ul>
-            <p><small>Tip pro autorádio: Kód RDS krizového hlášení je <strong>232F</strong>.</small></p>
+            <div class="app-links-row">
+              <a href="https://radiozurnal.rozhlas.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Spustit živé vysílání Radiožurnálu (otevře se v novém okně)">
+                <span aria-hidden="true">🔴</span>
+                <span class="store-badge-text">Živé vysílání (přehrávač)</span>
+              </a>
+              <a href="https://www.irozhlas.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Otevřít textové zpravodajství iROZHLAS.cz (otevře se v novém okně)">
+                <span aria-hidden="true">📰</span>
+                <span class="store-badge-text">iROZHLAS.cz (textová verze)</span>
+              </a>
+            </div>
           </div>
 
+          <!-- Karta 2: Česká televize ČT24 -->
+          <div class="card-item">
+            <h4>📺 Česká televize ČT24</h4>
+            <p>Nepřetržitý krizový zpravodajský kanál České televize. Bezplatně dostupný v pozemním vysílání DVB-T2 (multiplex 21), v kabelových sítích, na satelitu i přes internet.</p>
+            <p><strong>Při přetížení serverů / slabém signálu:</strong> Využijte oficiální Teletext ČT – načte se v jednotkách kB textu okamžitě i při výpadcích videa a na pomalém mobilním připojení.</p>
+            <div class="app-links-row">
+              <a href="https://ct24.ceskatelevize.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Spustit živé vysílání ČT24 (otevře se v novém okně)">
+                <span aria-hidden="true">🔴</span>
+                <span class="store-badge-text">Živé vysílání ČT24</span>
+              </a>
+              <a href="https://teletext.ceskatelevize.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Otevřít Teletext ČT online pro rychlé textové načtení (otevře se v novém okně)">
+                <span aria-hidden="true">📟</span>
+                <span class="store-badge-text">Teletext ČT (str. 100/110)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Varovné signály sirén -->
+        <div style="margin-top: 1.5rem;">
           <div class="card-item">
             <h4>🚨 Varovné signály sirén (JSVV)</h4>
             <p>V ČR funguje přes 9 600 sirén. Rozlišujte tyto 3 tóny:</p>
