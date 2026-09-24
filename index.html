@@ -8,6 +8,29 @@
   <meta name="color-scheme" content="light dark">
   <title>72 hodin | Občanský manuál pro nepěkné časy</title>
 
+  <!-- Umami Developer Opt-Out (?umami=off / ?umami=on) -->
+  <script id="umami-opt-out">
+    (function() {
+      try {
+        var p = new URLSearchParams(window.location.search);
+        var u = (p.get("umami") || "").toLowerCase();
+        if (u === "off") {
+          localStorage.setItem("umami.disabled", "1");
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+          }
+          alert("✓ Sledování Umami bylo pro tento prohlížeč VYPNUTO.\nVaše návštěvy ani kliknutí se nebudou započítávat do statistik.");
+        } else if (u === "on") {
+          localStorage.removeItem("umami.disabled");
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+          }
+          alert("✓ Sledování Umami bylo pro tento prohlížeč ZAPNUTO.");
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Umami Analytics (Cookieless, GDPR compliant, lightweight tracking) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="d54cf4cc-5b1e-4b1d-bf4d-8b51efb4255e"></script>
 
@@ -3322,6 +3345,7 @@
       // ------------------------------------------------------------------------
       document.querySelectorAll('a[href^="tel:"]').forEach(link => {
         link.addEventListener("click", () => {
+          if (localStorage.getItem("umami.disabled") === "1") return;
           if (typeof window.umami !== "undefined" && window.umami.track) {
             window.umami.track("Tisnove volani", { cislo: link.getAttribute("href").replace("tel:", "") });
           }
@@ -3330,6 +3354,7 @@
 
       document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
         link.addEventListener("click", () => {
+          if (localStorage.getItem("umami.disabled") === "1") return;
           if (typeof window.umami !== "undefined" && window.umami.track) {
             const rawName = link.getAttribute("href").split("/").pop() || "manual.pdf";
             window.umami.track("Stazeni PDF", { soubor: decodeURIComponent(rawName) });
