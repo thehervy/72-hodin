@@ -1247,6 +1247,17 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .breathing-circle-outer:hover {
+      transform: scale(1.02);
+      border-color: var(--color-primary-hover);
+      box-shadow: var(--shadow-md);
+    }
+    .breathing-circle-outer:active {
+      transform: scale(0.98);
     }
 
     .breathing-circle-inner {
@@ -1275,10 +1286,22 @@
       background: var(--color-warning);
     }
 
+    .breathing-circle-inner.hold-inhale {
+      width: 11.5rem;
+      height: 11.5rem;
+      background: var(--color-warning);
+    }
+
     .breathing-circle-inner.exhale {
       width: 6.5rem;
       height: 6.5rem;
       background: var(--color-info);
+    }
+
+    .breathing-circle-inner.hold-exhale {
+      width: 6.5rem;
+      height: 6.5rem;
+      background: var(--color-warning);
     }
 
     .breathing-status {
@@ -2844,7 +2867,7 @@
             Tuto techniku využívají záchranáři i armáda k okamžitému snížení hladiny stresových hormonů (kortizolu a adrenalinu). Dýchejte podle vizuálního kruhu:
           </p>
 
-          <div class="breathing-circle-outer">
+          <div class="breathing-circle-outer" id="breathing-circle-outer" role="button" tabindex="0" title="Kliknutím spustíte nebo zastavíte dechové cvičení" aria-label="Kliknutím spustíte nebo zastavíte dechové cvičení">
             <div class="breathing-circle-inner" id="breathing-circle">
               <span id="breathing-phase-text">Nádech</span>
               <span class="breathing-counter" id="breathing-timer">4</span>
@@ -2854,11 +2877,8 @@
           <div class="breathing-status" id="breathing-instruction">Připravte se...</div>
 
           <div class="breathing-controls">
-            <button type="button" class="btn btn-primary" id="btn-start-breathing">
+            <button type="button" class="btn btn-primary" id="btn-toggle-breathing">
               ▶ Spustit dechové cvičení
-            </button>
-            <button type="button" class="btn btn-secondary" id="btn-stop-breathing" disabled>
-              ⏹ Zastavit
             </button>
           </div>
         </div>
@@ -3823,17 +3843,17 @@
       let phaseTimeLeft = 4;
       const phases = [
         { name: "Nádech nosem", class: "inhale", instruction: "Hluboký, klidný nádech nosem do břicha..." },
-        { name: "Zadržet dech", class: "hold", instruction: "Zadržte dech v klidu, uvolněte ramena..." },
+        { name: "Zadržet dech", class: "hold hold-inhale", instruction: "Zadržte dech v klidu, uvolněte ramena..." },
         { name: "Výdech ústy", class: "exhale", instruction: "Pomalý, plynulý výdech ústy ven..." },
-        { name: "Zadržet dech", class: "hold", instruction: "Pauza s vydechnutým vzduchem, klidná mysl..." }
+        { name: "Zadržet dech", class: "hold hold-exhale", instruction: "Pauza s vydechnutým vzduchem, klidná mysl..." }
       ];
 
+      const circleOuter = document.getElementById("breathing-circle-outer");
       const circle = document.getElementById("breathing-circle");
       const phaseText = document.getElementById("breathing-phase-text");
       const timerText = document.getElementById("breathing-timer");
       const instructionText = document.getElementById("breathing-instruction");
-      const startBtn = document.getElementById("btn-start-breathing");
-      const stopBtn = document.getElementById("btn-stop-breathing");
+      const toggleBtn = document.getElementById("btn-toggle-breathing") || document.getElementById("btn-start-breathing");
 
       function updateBreathingUI() {
         if (!phases[phaseIndex]) return;
@@ -3853,29 +3873,54 @@
         updateBreathingUI();
       }
 
-      if (startBtn && stopBtn) {
-        startBtn.addEventListener("click", () => {
-          phaseIndex = 0;
-          phaseTimeLeft = 4;
-          updateBreathingUI();
-          startBtn.disabled = true;
-          stopBtn.disabled = false;
+      function startBreathing() {
+        if (breathingInterval) return;
+        phaseIndex = 0;
+        phaseTimeLeft = 4;
+        updateBreathingUI();
+        if (toggleBtn) {
+          toggleBtn.textContent = "⏹ Zastavit";
+          toggleBtn.classList.remove("btn-primary");
+          toggleBtn.classList.add("btn-secondary");
+        }
+        breathingInterval = setInterval(tickBreathing, 1000);
+      }
 
-          breathingInterval = setInterval(tickBreathing, 1000);
-        });
+      function stopBreathing() {
+        if (breathingInterval) {
+          clearInterval(breathingInterval);
+          breathingInterval = null;
+        }
+        if (toggleBtn) {
+          toggleBtn.textContent = "▶ Spustit dechové cvičení";
+          toggleBtn.classList.remove("btn-secondary");
+          toggleBtn.classList.add("btn-primary");
+        }
+        if (phaseText) phaseText.textContent = "Připraven";
+        if (timerText) timerText.textContent = "4";
+        if (instructionText) instructionText.textContent = "Cvičení zastaveno. Můžete kdykoli pokračovat.";
+        if (circle) circle.className = "breathing-circle-inner";
+      }
 
-        stopBtn.addEventListener("click", () => {
-          if (breathingInterval) {
-            clearInterval(breathingInterval);
-            breathingInterval = null;
+      function toggleBreathing() {
+        if (breathingInterval) {
+          stopBreathing();
+        } else {
+          startBreathing();
+        }
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", toggleBreathing);
+      }
+
+      if (circleOuter) {
+        circleOuter.addEventListener("click", toggleBreathing);
+        circleOuter.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggleBreathing();
           }
-          startBtn.disabled = false;
-          stopBtn.disabled = true;
-
-          if (phaseText) phaseText.textContent = "Připraven";
-          if (timerText) timerText.textContent = "4";
-          if (instructionText) instructionText.textContent = "Cvičení zastaveno. Můžete kdykoli pokračovat.";
-          if (circle) circle.className = "breathing-circle-inner";
         });
       }
 
