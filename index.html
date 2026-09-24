@@ -555,30 +555,53 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.375rem 0.65rem;
+      padding: 0.35rem 0.75rem;
       border-radius: var(--radius-md);
-      color: var(--text-muted);
+      color: var(--text-main);
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       white-space: nowrap;
-      min-height: 2.15rem;
-      border: 1px solid transparent;
-      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+      min-height: 2.25rem;
+      transition: all var(--transition-fast);
+      cursor: pointer;
     }
 
     .nav-link:hover, .nav-link:focus {
       color: var(--color-primary);
-      background: var(--bg-surface-alt);
+      border-color: var(--color-primary);
+      background: var(--bg-surface-elevated);
+      transform: translateY(-1px);
     }
 
-    /* Graficky znázorněný aktivní stav (active state button při scrollingu) */
+    /* Graficky znázorněný aktivní stav (výrazné plné aktivní tlačítko) */
     .nav-link.active {
-      color: var(--color-primary-text);
-      background: var(--color-primary-light);
-      font-weight: 800;
-      border-color: var(--color-primary);
-      box-shadow: 0 1px 3px rgba(15, 118, 110, 0.18), inset 0 0 0 1px var(--color-primary);
+      background: var(--color-primary) !important;
+      color: #ffffff !important;
+      border-color: var(--color-primary) !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 6px rgba(15, 118, 110, 0.35) !important;
+      transform: translateY(-1px);
+    }
+
+    /* Tmavý režim pro aktivní stav */
+    [data-theme="dark"] .nav-link.active,
+    :root[data-theme="dark"] .nav-link.active {
+      background: var(--color-primary) !important;
+      color: #042f2e !important;
+      border-color: var(--color-primary) !important;
+      box-shadow: 0 2px 6px rgba(20, 184, 166, 0.45) !important;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root[data-theme="auto"] .nav-link.active {
+        background: var(--color-primary) !important;
+        color: #042f2e !important;
+        border-color: var(--color-primary) !important;
+        box-shadow: 0 2px 6px rgba(20, 184, 166, 0.45) !important;
+      }
     }
 
     /* ==========================================================================
@@ -3288,20 +3311,90 @@
       // ------------------------------------------------------------------------
       // Kliknutí na logo 72 HODIN přesune uživatele plynule nahoru na začátek stránky
       const brandLogoLink = document.querySelector(".brand");
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const navMenu = document.getElementById("main-nav-menu");
+      const navRowBottom = document.getElementById("nav-row-bottom");
+      const navLinks = Array.from(document.querySelectorAll("#main-nav-menu .nav-link"));
+
+      const navSections = [];
+      navLinks.forEach(link => {
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#") && href.length > 1) {
+          const sec = document.getElementById(href.substring(1));
+          if (sec) {
+            navSections.push({ id: href.substring(1), section: sec, link: link });
+          }
+        }
+      });
+
+      function setActiveNavButton(activeId) {
+        navSections.forEach(item => {
+          if (item.id === activeId) {
+            if (!item.link.classList.contains("active")) {
+              item.link.classList.add("active");
+              item.link.setAttribute("aria-current", "location");
+
+              // Horizontální vystředění aktivní položky v kontejneru menu na tabletech
+              const navContainer = document.querySelector(".nav-container-bottom");
+              if (navContainer && navContainer.scrollWidth > navContainer.clientWidth) {
+                const targetLeft = item.link.offsetLeft - (navContainer.clientWidth / 2) + (item.link.offsetWidth / 2);
+                navContainer.scrollTo({ left: targetLeft, behavior: "smooth" });
+              }
+            }
+          } else {
+            item.link.classList.remove("active");
+            item.link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function updateActiveNavSection() {
+        if (navSections.length === 0) return;
+
+        const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+        const topNav = document.getElementById("top-nav");
+        const navHeight = topNav ? topNav.offsetHeight : 100;
+        const docHeight = document.documentElement.scrollHeight;
+        const winHeight = window.innerHeight;
+
+        // Pokud je uživatel na úplném konci stránky, aktivní je poslední sekce (ke-stazeni)
+        if (scrollY + winHeight >= docHeight - 80) {
+          setActiveNavButton(navSections[navSections.length - 1].id);
+          return;
+        }
+
+        // Dynamická detekce: bod pod fixní navigací, kde se aktuálně nachází čtený obsah
+        const triggerY = navHeight + 60;
+        let currentSectionId = null;
+
+        for (let i = 0; i < navSections.length; i++) {
+          const rect = navSections[i].section.getBoundingClientRect();
+          if (rect.top <= triggerY) {
+            currentSectionId = navSections[i].id;
+          } else {
+            break;
+          }
+        }
+
+        // Pokud je uživatel úplně nahoře (před první sekcí v Hero), aktivní je 1. sekce (Domácnost)
+        if (!currentSectionId && navSections.length > 0) {
+          currentSectionId = navSections[0].id;
+        }
+
+        if (currentSectionId) {
+          setActiveNavButton(currentSectionId);
+        }
+      }
+
       if (brandLogoLink) {
         brandLogoLink.addEventListener("click", (e) => {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: "smooth" });
-          document.querySelectorAll("#main-nav-menu .nav-link").forEach(l => {
-            l.classList.remove("active");
-            l.removeAttribute("aria-current");
-          });
+          if (navSections.length > 0) {
+            setActiveNavButton(navSections[0].id);
+          }
         });
       }
-
-      const mobileBtn = document.getElementById("mobile-menu-btn");
-      const navMenu = document.getElementById("main-nav-menu");
-      const navRowBottom = document.getElementById("nav-row-bottom");
 
       if (mobileBtn) {
         mobileBtn.addEventListener("click", () => {
@@ -3348,72 +3441,7 @@
         });
       }
 
-      // SCROLLSPY LOGIKA: Grafické znázornění, kde se člověk nachází při scrollingu
-      const navLinks = document.querySelectorAll("#main-nav-menu .nav-link");
-      const navSections = [];
-
-      navLinks.forEach(link => {
-        const href = link.getAttribute("href");
-        if (href && href.startsWith("#") && href.length > 1) {
-          const sec = document.getElementById(href.substring(1));
-          if (sec) {
-            navSections.push({ id: href.substring(1), section: sec, link: link });
-          }
-        }
-      });
-
       let isScrollTicking = false;
-      let isManualClick = false;
-      let manualClickTimeout = null;
-
-      function updateActiveNavSection() {
-        if (isManualClick) return;
-        const scrollY = window.pageYOffset || window.scrollY || 0;
-        const topNav = document.getElementById("top-nav");
-        const navHeight = topNav ? topNav.offsetHeight : 95;
-        const offset = navHeight + 80;
-
-        const isAtBottom = (window.innerHeight + scrollY) >= (document.documentElement.scrollHeight - 60);
-
-        let activeSection = null;
-
-        if (isAtBottom && navSections.length > 0) {
-          activeSection = navSections[navSections.length - 1];
-        } else {
-          for (let i = 0; i < navSections.length; i++) {
-            const item = navSections[i];
-            const top = item.section.offsetTop;
-            if (scrollY + offset >= top) {
-              activeSection = item;
-            } else {
-              break;
-            }
-          }
-        }
-
-        navSections.forEach(item => {
-          if (activeSection && item.id === activeSection.id) {
-            if (!item.link.classList.contains("active")) {
-              item.link.classList.add("active");
-              item.link.setAttribute("aria-current", "location");
-
-              // Pokud je menu na tabletu horizontálně posunuto, jemně udržet aktivní odkaz viditelný
-              const navContainer = document.querySelector(".nav-container-bottom");
-              if (navContainer && navContainer.scrollWidth > navContainer.clientWidth) {
-                const linkRect = item.link.getBoundingClientRect();
-                const contRect = navContainer.getBoundingClientRect();
-                if (linkRect.left < contRect.left || linkRect.right > contRect.right) {
-                  item.link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
-                }
-              }
-            }
-          } else {
-            item.link.classList.remove("active");
-            item.link.removeAttribute("aria-current");
-          }
-        });
-      }
-
       function handleScrollThrottled() {
         if (!isScrollTicking) {
           window.requestAnimationFrame(() => {
@@ -3433,19 +3461,7 @@
       // Při kliknutí na odkaz v menu okamžitě označit příslušné tlačítko
       navSections.forEach(item => {
         item.link.addEventListener("click", () => {
-          isManualClick = true;
-          navSections.forEach(s => {
-            s.link.classList.remove("active");
-            s.link.removeAttribute("aria-current");
-          });
-          item.link.classList.add("active");
-          item.link.setAttribute("aria-current", "location");
-
-          clearTimeout(manualClickTimeout);
-          manualClickTimeout = setTimeout(() => {
-            isManualClick = false;
-            updateActiveNavSection();
-          }, 800);
+          setActiveNavButton(item.id);
         });
       });
 
