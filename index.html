@@ -555,35 +555,33 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.35rem 0.75rem;
+      padding: 0.4rem 0.75rem;
       border-radius: var(--radius-md);
       color: var(--text-main);
-      background: var(--bg-surface-alt);
-      border: 1px solid var(--border-subtle);
+      background: transparent;
+      border: none;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       white-space: nowrap;
       min-height: 2.25rem;
-      transition: all var(--transition-fast);
+      transition: background var(--transition-fast), color var(--transition-fast);
       cursor: pointer;
     }
 
+    /* Při hoveru pouze zobrazit tmavší background (bez rámečku, bez posunu) */
     .nav-link:hover, .nav-link:focus {
-      color: var(--color-primary);
-      border-color: var(--color-primary);
-      background: var(--bg-surface-elevated);
-      transform: translateY(-1px);
+      background: var(--bg-surface-alt);
+      color: var(--text-main);
     }
 
-    /* Graficky znázorněný aktivní stav (výrazné plné aktivní tlačítko) */
+    /* Graficky znázorněný aktivní stav (plný zelený podklad tlačítka bez rámečku) */
     .nav-link.active {
       background: var(--color-primary) !important;
       color: #ffffff !important;
-      border-color: var(--color-primary) !important;
-      font-weight: 800 !important;
-      box-shadow: 0 2px 6px rgba(15, 118, 110, 0.35) !important;
-      transform: translateY(-1px);
+      font-weight: 700 !important;
+      border: none !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
     }
 
     /* Tmavý režim pro aktivní stav */
@@ -591,16 +589,14 @@
     :root[data-theme="dark"] .nav-link.active {
       background: var(--color-primary) !important;
       color: #042f2e !important;
-      border-color: var(--color-primary) !important;
-      box-shadow: 0 2px 6px rgba(20, 184, 166, 0.45) !important;
+      border: none !important;
     }
 
     @media (prefers-color-scheme: dark) {
       :root[data-theme="auto"] .nav-link.active {
         background: var(--color-primary) !important;
         color: #042f2e !important;
-        border-color: var(--color-primary) !important;
-        box-shadow: 0 2px 6px rgba(20, 184, 166, 0.45) !important;
+        border: none !important;
       }
     }
 
@@ -3316,13 +3312,26 @@
       const navRowBottom = document.getElementById("nav-row-bottom");
       const navLinks = Array.from(document.querySelectorAll("#main-nav-menu .nav-link"));
 
+      // Bezpečné získání ID sekce pro jakékoliv prostředí (přímý soubor, GitHub, HTMLPreview, subdoména)
+      function getNavTargetId(link) {
+        if (link.hash && link.hash.length > 1) {
+          return link.hash.replace(/^#/, "");
+        }
+        const rawHref = link.getAttribute("href") || "";
+        const hashIdx = rawHref.indexOf("#");
+        if (hashIdx !== -1 && hashIdx < rawHref.length - 1) {
+          return rawHref.substring(hashIdx + 1);
+        }
+        return "";
+      }
+
       const navSections = [];
       navLinks.forEach(link => {
-        const href = link.getAttribute("href");
-        if (href && href.startsWith("#") && href.length > 1) {
-          const sec = document.getElementById(href.substring(1));
+        const targetId = getNavTargetId(link);
+        if (targetId) {
+          const sec = document.getElementById(targetId);
           if (sec) {
-            navSections.push({ id: href.substring(1), section: sec, link: link });
+            navSections.push({ id: targetId, section: sec, link: link });
           }
         }
       });
@@ -3348,13 +3357,21 @@
         });
       }
 
+      let isManualClick = false;
+      let manualClickTimeout = null;
+
       function updateActiveNavSection() {
-        if (navSections.length === 0) return;
+        if (isManualClick || navSections.length === 0) return;
 
         const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
         const topNav = document.getElementById("top-nav");
         const navHeight = topNav ? topNav.offsetHeight : 100;
-        const docHeight = document.documentElement.scrollHeight;
+        const docHeight = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.offsetHeight
+        );
         const winHeight = window.innerHeight;
 
         // Pokud je uživatel na úplném konci stránky, aktivní je poslední sekce (ke-stazeni)
@@ -3364,7 +3381,7 @@
         }
 
         // Dynamická detekce: bod pod fixní navigací, kde se aktuálně nachází čtený obsah
-        const triggerY = navHeight + 60;
+        const triggerY = navHeight + 80;
         let currentSectionId = null;
 
         for (let i = 0; i < navSections.length; i++) {
@@ -3388,11 +3405,20 @@
 
       if (brandLogoLink) {
         brandLogoLink.addEventListener("click", (e) => {
+          isManualClick = true;
+          clearTimeout(manualClickTimeout);
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: "smooth" });
           if (navSections.length > 0) {
             setActiveNavButton(navSections[0].id);
           }
+          if (history.pushState) {
+            history.pushState(null, "", window.location.pathname);
+          }
+          manualClickTimeout = setTimeout(() => {
+            isManualClick = false;
+            updateActiveNavSection();
+          }, 800);
         });
       }
 
@@ -3453,15 +3479,35 @@
       }
 
       window.addEventListener("scroll", handleScrollThrottled, { passive: true });
+      document.addEventListener("scroll", handleScrollThrottled, { passive: true });
       window.addEventListener("resize", () => {
         updateFixedNavHeight();
         handleScrollThrottled();
       }, { passive: true });
 
-      // Při kliknutí na odkaz v menu okamžitě označit příslušné tlačítko
+      // Při kliknutí na odkaz v menu okamžitě označit příslušné tlačítko a plynule posunout
       navSections.forEach(item => {
-        item.link.addEventListener("click", () => {
+        item.link.addEventListener("click", (e) => {
+          isManualClick = true;
+          clearTimeout(manualClickTimeout);
           setActiveNavButton(item.id);
+
+          const topNav = document.getElementById("top-nav");
+          const navOffset = (topNav ? topNav.offsetHeight : 95) + 15;
+          const rect = item.section.getBoundingClientRect();
+          const targetY = rect.top + window.pageYOffset - navOffset;
+
+          e.preventDefault();
+          window.scrollTo({ top: targetY, behavior: "smooth" });
+
+          if (history.pushState) {
+            history.pushState(null, "", "#" + item.id);
+          }
+
+          manualClickTimeout = setTimeout(() => {
+            isManualClick = false;
+            updateActiveNavSection();
+          }, 800);
         });
       });
 
