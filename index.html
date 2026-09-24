@@ -571,15 +571,31 @@
 
     /* Při hoveru pouze zobrazit tmavší background (bez rámečku, bez posunu) */
     .nav-link:hover, .nav-link:focus {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    [data-theme="dark"] .nav-link:hover,
+    [data-theme="dark"] .nav-link:focus,
+    :root[data-theme="dark"] .nav-link:hover,
+    :root[data-theme="dark"] .nav-link:focus {
       background: var(--bg-surface-alt);
       color: var(--text-main);
     }
 
-    /* Graficky znázorněný aktivní stav (plný zelený podklad tlačítka bez rámečku) */
+    @media (prefers-color-scheme: dark) {
+      :root[data-theme="auto"] .nav-link:hover,
+      :root[data-theme="auto"] .nav-link:focus {
+        background: var(--bg-surface-alt);
+        color: var(--text-main);
+      }
+    }
+
+    /* Graficky znázorněný aktivní stav (plný zelený podklad tlačítka bez rámečku, identická šířka) */
     .nav-link.active {
       background: var(--color-primary) !important;
       color: #ffffff !important;
-      font-weight: 700 !important;
+      font-weight: 600 !important;
       border: none !important;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
     }
@@ -1387,9 +1403,51 @@
 
     .footer-bottom {
       border-top: 1px solid var(--border-subtle);
-      padding-top: 1.5rem;
+      padding-top: 1.75rem;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 0.875rem;
+      width: 100%;
+    }
+
+    .footer-credits-authors {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem 0.75rem;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      margin-bottom: 0.65rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer-credits-authors a {
+      font-weight: 700;
+    }
+
+    .footer-credits-repo {
+      font-size: 0.9375rem;
+      margin: 0 0 0.75rem 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer-credits-repo a {
+      font-weight: 600;
+    }
+
+    .footer-credits-note {
+      font-size: 0.8125rem;
+      opacity: 0.85;
+      margin: 0 auto;
+      text-align: center;
+      max-width: 48rem;
+      line-height: 1.5;
     }
 
     /* ==========================================================================
@@ -3166,15 +3224,15 @@
       </div>
 
       <div class="footer-bottom">
-        <p style="margin-bottom: 0.5rem; font-size: 1.0625rem; line-height: 1.6;">
-          <a href="https://www.petrhervy.com/" target="_blank" rel="noopener noreferrer" style="font-weight: 700;">Web vytvořil Petr Hervy</a>
-          &nbsp;•&nbsp;
-          <a href="https://www.facebook.com/rfaprague" target="_blank" rel="noopener noreferrer" style="font-weight: 700;">Obsah vytvořil Radio Free America</a>
+        <div class="footer-credits-authors">
+          <a href="https://www.petrhervy.com/" target="_blank" rel="noopener noreferrer">Web vytvořil Petr Hervy</a>
+          <span aria-hidden="true" style="opacity:0.6;">•</span>
+          <a href="https://www.facebook.com/rfaprague" target="_blank" rel="noopener noreferrer">Obsah vytvořil Radio Free America</a>
+        </div>
+        <p class="footer-credits-repo">
+          🐙 <a href="https://github.com/thehervy/72-hodin" target="_blank" rel="noopener noreferrer">Web je jako open-source přístupný na GitHubu</a>
         </p>
-        <p style="margin-bottom: 0.75rem; font-size: 0.9375rem;">
-          🐙 <a href="https://github.com/thehervy/72-hodin" target="_blank" rel="noopener noreferrer" style="font-weight: 600;">Web je jako open-source přístupný na GitHubu</a>
-        </p>
-        <p style="font-size: 0.8125rem; opacity: 0.85; margin-bottom: 0;">
+        <p class="footer-credits-note">
           Stránka je navržena jako statický, plně offline-funkční celek bez externích závislostí. Šetří energii vašeho zařízení i datové pásmo sítě.
         </p>
       </div>
@@ -3393,14 +3451,8 @@
           }
         }
 
-        // Pokud je uživatel úplně nahoře (před první sekcí v Hero), aktivní je 1. sekce (Domácnost)
-        if (!currentSectionId && navSections.length > 0) {
-          currentSectionId = navSections[0].id;
-        }
-
-        if (currentSectionId) {
-          setActiveNavButton(currentSectionId);
-        }
+        // Pokud ještě uživatel nedoscrolloval k první sekci (např. je nahoře v Hero sekci), žádná záložka není aktivní
+        setActiveNavButton(currentSectionId);
       }
 
       if (brandLogoLink) {
@@ -3409,9 +3461,7 @@
           clearTimeout(manualClickTimeout);
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: "smooth" });
-          if (navSections.length > 0) {
-            setActiveNavButton(navSections[0].id);
-          }
+          setActiveNavButton(null);
           if (history.pushState) {
             history.pushState(null, "", window.location.pathname);
           }
