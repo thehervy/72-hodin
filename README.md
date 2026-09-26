@@ -88,4 +88,4 @@ Pokud si přesto nepřejete, aby se vaše zobrazení anonymně započítávalo d
 
 * **Web vytvořil:** [Petr Hervy](https://www.petrhervy.com/)
 * **Obsah vytvořil:** [Radio Free America](https://www.facebook.com/rfaprague)
-* **Zdroje metodiky:** Ministerstvo vnitra ČR, Hasičský záchranný sbor ČR, Červený kříž, Civilní obrana a ochrana obyvatelstva Polska
+* **Zdroje metodiky:** Ministerstvo vnitra ČR, Hasičský záchranný sbor ČR, Červený kříž, Civilní obrana a Vládní bezpečnostní centrum Polska (RCB)
