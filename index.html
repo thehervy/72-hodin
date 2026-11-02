@@ -1516,6 +1516,661 @@
       line-height: 1.5;
     }
 
+       /* ======================================================================
+          CRISIS UX KOMPONENTY: ROZCESTNÍK, VYHLEDÁVÁNÍ, TL;DR, KALKULAČKA, SOS
+          ====================================================================== */
+    /* SOS Tlačítko v hlavičce a rychlý výsuvný panel */
+    .sos-header-btn {
+      background: var(--color-emergency);
+      border: 1px solid var(--color-emergency);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 0.3125rem 0.65rem;
+      font-size: 0.875rem;
+      font-weight: 800;
+      cursor: pointer;
+      min-height: 2.35rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(185, 28, 28, 0.3);
+    }
+
+    .sos-header-btn:hover, .sos-header-btn:focus {
+      background: var(--color-emergency-hover);
+      border-color: var(--color-emergency-hover);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .sos-header-btn[aria-expanded="true"] {
+      background: #7f1d1d;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+    }
+
+    .sos-quick-drawer {
+      background: #0f172a;
+      color: #f8fafc;
+      border-bottom: 3px solid var(--color-emergency);
+      padding: 0.75rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .sos-quick-drawer[hidden] {
+      display: none !important;
+    }
+
+    .sos-drawer-inner {
+      max-width: 80rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .sos-drawer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+      gap: 0.5rem;
+    }
+
+    .sos-drawer-card {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-left: 4px solid var(--color-emergency);
+      color: #ffffff;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 700;
+      transition: all var(--transition-fast);
+    }
+
+    .sos-drawer-card:hover, .sos-drawer-card:focus {
+      background: var(--color-emergency);
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+
+    .sos-drawer-card .sos-num {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .sos-drawer-card .sos-desc {
+      font-size: 0.78rem;
+      font-weight: 600;
+      opacity: 0.9;
+      line-height: 1.2;
+      display: block;
+    }
+
+    .sos-drawer-rule {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 0.45rem 0.75rem;
+      font-size: 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      color: #e2e8f0;
+    }
+
+    /* Bleskové vyhledávání (Instant Offline Search) */
+    .crisis-search-wrapper {
+      background: var(--bg-surface);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-xl);
+      padding: 0.875rem 1.125rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .crisis-search-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      position: relative;
+    }
+
+    .crisis-search-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .crisis-search-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.35rem 0.25rem;
+      font-family: inherit;
+    }
+
+    .crisis-search-input::placeholder {
+      color: var(--text-muted);
+      font-weight: 500;
+      opacity: 0.85;
+    }
+
+    .crisis-search-input:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .crisis-search-input::-webkit-search-cancel-button,
+    .crisis-search-input::-webkit-search-decoration {
+      -webkit-appearance: none;
+      appearance: none;
+      display: none;
+    }
+
+    .crisis-search-clear {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-strong);
+      color: var(--text-main);
+      border-radius: var(--radius-full);
+      padding: 0.2rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    .crisis-search-kbd {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .search-quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.375rem;
+      margin-top: 0.625rem;
+      padding-top: 0.625rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .search-chip-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-right: 0.2rem;
+    }
+
+    .search-chip {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      border-radius: var(--radius-full);
+      padding: 0.22rem 0.65rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .search-chip:hover, .search-chip:focus {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .crisis-search-results {
+      margin-top: 0.75rem;
+      border-top: 2px solid var(--border-subtle);
+      padding-top: 0.75rem;
+      display: none;
+      max-height: 22rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .crisis-search-results.active {
+      display: block;
+    }
+
+    .search-result-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.625rem 0.75rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: background-color var(--transition-fast), border-color var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .search-result-item:hover, .search-result-item:focus {
+      border-color: var(--color-primary);
+      background: var(--bg-surface-elevated);
+    }
+
+    .search-result-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--color-primary);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .search-result-snippet {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: block;
+    }
+
+    @keyframes pulseHighlight {
+      0% { box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.7); }
+      50% { box-shadow: 0 0 0 0.6rem rgba(15, 118, 110, 0.25); }
+      100% { box-shadow: 0 0 0 0 rgba(15, 118, 110, 0); }
+    }
+
+    .search-highlight-flash {
+      animation: pulseHighlight 1.8s ease-out 2;
+      outline: 3px solid var(--color-primary) !important;
+      outline-offset: 4px;
+    }
+
+    /* Okamžitý krizový rozcestník (Triage Hub) */
+    .crisis-triage-box {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .crisis-triage-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .crisis-triage-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .triage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+      gap: 0.5rem;
+    }
+
+    .triage-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg-surface-alt);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.925rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      min-height: 3.1rem;
+    }
+
+    .triage-tab-btn:hover, .triage-tab-btn:focus {
+      border-color: var(--color-primary);
+      background: var(--bg-surface-elevated);
+    }
+
+    .triage-tab-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    [data-theme="dark"] .triage-tab-btn.active {
+      color: #042f2e;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root[data-theme="auto"] .triage-tab-btn.active {
+        color: #042f2e;
+      }
+    }
+
+    .triage-tab-icon {
+      font-size: 1.35rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .triage-panel {
+      margin-top: 1rem;
+      padding: 1.125rem 1.25rem;
+      background: var(--bg-surface-alt);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+    }
+
+    .triage-panel[hidden] {
+      display: none !important;
+    }
+
+    .triage-panel-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .triage-panel-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .triage-steps-list {
+      margin: 0 0 0.875rem 0;
+      padding-left: 1.35rem;
+      line-height: 1.55;
+    }
+
+    .triage-steps-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    .triage-warning-bar {
+      background: var(--color-emergency-light);
+      border-left: 4px solid var(--color-emergency);
+      color: var(--text-main);
+      padding: 0.55rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .triage-panel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    /* TL;DR Box ("⚡ V KOSTCE: 3 hlavní pravidla") */
+    .tldr-box {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-strong);
+      border-left: 0.375rem solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 0.875rem 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tldr-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-primary);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .tldr-list {
+      margin: 0;
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .tldr-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    .tldr-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Štítky množství v checklistu (Quantity Badges) */
+    .qty-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-primary-light);
+      color: var(--color-primary-text);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.12rem 0.5rem;
+      border-radius: var(--radius-sm);
+      margin-left: 0.35rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    /* Interaktivní kalkulačka zásob na 72 hodin */
+    .supply-calculator {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.5rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .calc-control-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.9375rem;
+    }
+
+    .calc-stepper {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .calc-step-btn {
+      background: var(--bg-surface-alt);
+      border: none;
+      color: var(--text-main);
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calc-step-btn:hover, .calc-step-btn:focus {
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .calc-step-val {
+      min-width: 2rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .calc-results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+      gap: 0.625rem;
+    }
+
+    .calc-result-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.85rem;
+    }
+
+    .calc-result-val {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .calc-result-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Vizuální tóny sirén (JSVV) */
+    .siren-tone-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-left: 0.375rem solid;
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.125rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .siren-wave-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* Filtry tabulky kontaktů */
+    .contact-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .contact-filter-btn {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-strong);
+      color: var(--text-main);
+      border-radius: var(--radius-full);
+      padding: 0.3rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .contact-filter-btn.active,
+    .contact-filter-btn:hover,
+    .contact-filter-btn:focus {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .contact-filter-btn.active {
+      color: #042f2e;
+    }
+
+    /* Plovoucí tlačítko Návrat nahoru / Hledat */
+    .back-to-top-fab {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 990;
+      background: var(--color-primary);
+      color: #ffffff;
+      border: 2px solid var(--bg-surface);
+      border-radius: var(--radius-full);
+      padding: 0.55rem 0.95rem;
+      font-size: 0.875rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all var(--transition-fast);
+    }
+
+    .back-to-top-fab.visible {
+      display: inline-flex;
+    }
+
+    .back-to-top-fab:hover, .back-to-top-fab:focus {
+      background: var(--color-primary-hover);
+      transform: translateY(-2px);
+    }
+
     /* ==========================================================================
        TISKOVÉ STYLY (@media print)
        ========================================================================== */
@@ -1530,7 +2185,9 @@
 
       .fixed-nav-wrapper, .emergency-bar-top, .hero-actions, 
       .breathing-widget, .mobile-menu-toggle, .btn, .download-card, 
-      .checklist-progress-bar-container, .site-footer {
+      .checklist-progress-bar-container, .site-footer,
+      .crisis-search-wrapper, .crisis-triage-box, .back-to-top-fab,
+      .contact-filter-bar, .supply-calculator {
         display: none !important;
       }
 
@@ -1544,7 +2201,7 @@
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
-        margin-bottom: 2cm !important;
+        margin-bottom: 1.5cm !important;
         page-break-inside: avoid;
       }
 
@@ -1575,11 +2232,22 @@
         display: none !important;
       }
 
-      .print-plan-header {
+      .print-plan-header,
+      .print-plan-footer-ref {
         display: block !important;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
+      }
+
+      .print-plan-header {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.4rem;
         border-bottom: 2px solid #000000;
+      }
+
+      .print-plan-footer-ref {
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+        border-top: 2px solid #000000;
+        font-size: 8.5pt;
       }
 
       .form-input, .form-textarea {
@@ -1589,7 +2257,8 @@
       }
     }
 
-    .print-plan-header {
+    .print-plan-header,
+    .print-plan-footer-ref {
       display: none;
     }
 
@@ -1597,7 +2266,7 @@
        RESPONSIVNÍ BREAKPOINTY (Mobilní UX/UI optimalizace)
        ========================================================================== */
     /* Přizpůsobení pro tablety a mobily (do 68rem / 1088px):
-       Na mobilu a tabletu má sticky navigace pouze JEDNU řádku (Logo, AA, Režim, Menu) */
+       Na mobilu a tabletu má sticky navigace pouze JEDNU řádku (Logo, SOS, AA, Režim, Menu) */
     @media (max-width: 68rem) {
       .btn-desktop-text {
         display: none !important;
@@ -1665,7 +2334,7 @@
       }
     }
 
-    /* Mobilní telefony (< 48rem / 768px): přizpůsobení karet a textů */
+    /* Mobilní telefony (< 48rem / 768px): přizpůsobení karet, tabulek a textů */
     @media (max-width: 48rem) {
       .container {
         padding: 0 0.5rem;
@@ -1694,7 +2363,7 @@
 
       .nav-container-top {
         padding: 0.35rem 0.5rem;
-        gap: 0.35rem;
+        gap: 0.3rem;
       }
 
       .brand {
@@ -1731,11 +2400,17 @@
       }
 
       .brand-subtitle {
-        display: none; /* Na malých displejích skrýt "pro nepěkné časy", ponechat "72 HODIN" a "Občanský manuál" */
+        display: none;
       }
 
       .header-tools {
         gap: 0.25rem;
+      }
+
+      .sos-header-btn {
+        padding: 0.3125rem 0.5rem;
+        min-height: 2.2rem;
+        font-size: 0.8125rem;
       }
 
       .a11y-btn {
@@ -1750,19 +2425,19 @@
       }
 
       .hero-section {
-        padding: 1.5rem 0 1.25rem;
+        padding: 1.25rem 0 1rem;
         margin-bottom: 1.25rem;
       }
 
       .hero-lead {
-        font-size: 1.05rem;
-        margin-bottom: 1rem;
+        font-size: 1rem;
+        margin-bottom: 0.875rem;
       }
 
       .hero-quote {
-        padding: 0.625rem 0.75rem;
-        margin-bottom: 1.25rem;
-        font-size: 0.9375rem;
+        padding: 0.55rem 0.75rem;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
       }
 
       .hero-actions {
@@ -1776,6 +2451,17 @@
         font-size: 0.9375rem;
         padding: 0.625rem 1rem;
         min-height: 2.75rem;
+      }
+
+      .triage-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
+      }
+
+      .triage-tab-btn {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.825rem;
+        min-height: 2.85rem;
       }
 
       .grid-2, .grid-3, .grid-4 {
@@ -1879,14 +2565,71 @@
         font-size: 1.75rem;
       }
 
+      /* Mobilní zobrazení tabulky kontaktů: přehledné dotykové karty bez horizontálního scrollu */
       .table-responsive {
         margin-bottom: 1rem;
-        border-radius: var(--radius-md);
+        border: none;
+        background: transparent;
+        overflow-x: visible;
       }
 
-      table.data-table th, table.data-table td {
-        padding: 0.55rem 0.625rem;
-        font-size: 0.85rem;
+      table.data-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      table.data-table,
+      table.data-table tbody {
+        display: block;
+        width: 100%;
+      }
+
+      table.data-table tbody tr {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.35rem 0.75rem;
+        align-items: center;
+        background: var(--bg-surface-alt);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        padding: 0.75rem;
+        margin-bottom: 0.625rem;
+      }
+
+      table.data-table tbody td {
+        border: none;
+        padding: 0;
+        font-size: 0.875rem;
+      }
+
+      table.data-table tbody td:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+      }
+
+      table.data-table tbody td:nth-child(2) {
+        grid-column: 2;
+        font-size: 0.95rem;
+      }
+
+      table.data-table tbody td:nth-child(3) {
+        grid-column: 1 / -1;
+        color: var(--text-muted);
+        padding-top: 0.25rem;
+        border-top: 1px dashed var(--border-subtle);
+      }
+
+      table.data-table tbody td:nth-child(4),
+      table.data-table tbody td:nth-child(5) {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-weight: 600;
       }
 
       .footer-grid {
@@ -1900,7 +2643,7 @@
       }
     }
 
-    /* Zúžení pro nouzovou lištu (< 44rem / 704px): skryje text "Důležité kontakty:" a ponechá tlačítka */
+    /* Zúžení pro nouzovou lištu (< 44rem / 704px): skryje text "Důležité kontakty:" a ponechá 4 velká tlačítka se jmény složek */
     @media (max-width: 44rem) {
       .emergency-top-container {
         justify-content: center;
@@ -1908,7 +2651,7 @@
       }
 
       .emergency-top-label {
-        display: none; /* Skryje text Důležité kontakty i ikonu, zůstanou pouze tlačítka */
+        display: none;
       }
 
       .emergency-top-buttons {
@@ -1922,23 +2665,39 @@
       .emergency-top-buttons .emergency-call-btn {
         width: 100%;
         padding: 0.25rem 0.15rem;
-        font-size: 0.8125rem;
-        min-height: 2.15rem;
+        font-size: 0.85rem;
+        min-height: 2.25rem;
       }
     }
 
-    @media (max-width: 30rem) {
+    /* Na nejmenších telefonech (< 32rem) zachovat názvy složek (SOS, Hasiči, Záchranka, Policie) pod číslem! */
+    @media (max-width: 32rem) {
+      .emergency-top-buttons .emergency-call-btn {
+        flex-direction: column;
+        gap: 0.05rem;
+        padding: 0.2rem 0.1rem;
+        line-height: 1.1;
+        min-height: 2.45rem;
+      }
+
       .emergency-call-btn .em-label {
-        display: none; /* Skryje texty SOS, Hasiči atd. pro maximální čitelnost čísel */
+        display: block !important;
+        font-size: 0.68rem;
+        font-weight: 700;
+        opacity: 0.95;
+      }
+
+      .triage-grid {
+        grid-template-columns: 1fr;
       }
 
       .mobile-menu-toggle {
-        padding: 0.35rem 0.85rem;
-        min-width: 2.85rem;
+        padding: 0.35rem 0.7rem;
+        min-width: 2.6rem;
       }
 
       .mobile-menu-toggle .menu-label {
-        display: none; /* Ponechá pouze ikonu ☰ */
+        display: none;
       }
 
       .store-badge-btn {
@@ -1999,8 +2758,11 @@
         <!-- Flexibilní mezera -->
         <div class="nav-spacer" aria-hidden="true"></div>
 
-        <!-- Tlačítko pro velikost písma a přepínač světlého a tmavého režimu -->
+        <!-- Tlačítko SOS, velikost písma a přepínač světlého a tmavého režimu -->
         <div class="header-tools">
+          <button type="button" class="sos-header-btn" id="btn-sos-drawer" aria-expanded="false" aria-controls="sos-quick-drawer" title="Rychlé tísňové volání (112, 155, 150, 158) a pravidla volání">
+            <span aria-hidden="true">🚨</span> <span>112</span><span class="btn-desktop-text"> / SOS</span>
+          </button>
           <button type="button" class="a11y-btn" id="btn-font-size" aria-label="Změnit velikost písma webu (100% / 125% / 150%)" title="Změnit velikost písma">
             <span class="btn-desktop-text">Velikost: <span id="font-size-val">100%</span></span>
             <span class="btn-compact-text" aria-hidden="true"><span class="aa-small">A</span><span class="aa-large">A</span></span>
@@ -2018,18 +2780,73 @@
       </div>
     </div>
 
+    <!-- RYCHLÝ VÝSUVNÝ SOS PANEL (dostupný odkudkoliv ze stránky kliknutím na 🚨 112 / SOS) -->
+    <div class="sos-quick-drawer" id="sos-quick-drawer" role="region" aria-label="Rychlý přehled tísňového volání" hidden>
+      <div class="sos-drawer-inner">
+        <div class="sos-drawer-grid">
+          <a href="tel:112" class="sos-drawer-card">
+            <span aria-hidden="true" style="font-size:1.4rem;">📞</span>
+            <div>
+              <span class="sos-num">112</span>
+              <span class="sos-desc">Obecná tíseň (IZS, cizinci, bez SIM)</span>
+            </div>
+          </a>
+          <a href="tel:155" class="sos-drawer-card">
+            <span aria-hidden="true" style="font-size:1.4rem;">🚑</span>
+            <div>
+              <span class="sos-num">155</span>
+              <span class="sos-desc">Záchranka (úrazy, kolaps, život)</span>
+            </div>
+          </a>
+          <a href="tel:150" class="sos-drawer-card">
+            <span aria-hidden="true" style="font-size:1.4rem;">🚒</span>
+            <div>
+              <span class="sos-num">150</span>
+              <span class="sos-desc">Hasiči (požár, povodeň, vyproštění)</span>
+            </div>
+          </a>
+          <a href="tel:158" class="sos-drawer-card">
+            <span aria-hidden="true" style="font-size:1.4rem;">🚔</span>
+            <div>
+              <span class="sos-num">158</span>
+              <span class="sos-desc">Policie ČR (bezpečí, nehody)</span>
+            </div>
+          </a>
+          <a href="tel:116123" class="sos-drawer-card" style="border-left-color:#38bdf8;">
+            <span aria-hidden="true" style="font-size:1.4rem;">🧠</span>
+            <div>
+              <span class="sos-num">116 123</span>
+              <span class="sos-desc">Psychická pomoc (24/7 zdarma)</span>
+            </div>
+          </a>
+          <a href="sms:603111158" class="sos-drawer-card" style="border-left-color:#f59e0b;">
+            <span aria-hidden="true" style="font-size:1.4rem;">💬</span>
+            <div>
+              <span class="sos-num">603 111 158</span>
+              <span class="sos-desc">Tísňová SMS Policie ČR</span>
+            </div>
+          </a>
+        </div>
+        <div class="sos-drawer-rule">
+          <span>🗣️ <strong>Co hlásit operátorovi:</strong> 1. <strong>KDE</strong> jste (adresa/bod) • 2. <strong>CO</strong> se stalo • 3. <strong>KOLIK</strong> je zraněných • 4. <strong>KDO</strong> volá • <strong>Nezavěšujte první!</strong></span>
+          <button type="button" class="btn btn-secondary" id="btn-close-sos-drawer" style="min-height:2rem; padding:0.2rem 0.65rem; font-size:0.8rem;">✕ Zavřít</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 2. ŘÁDEK: Položky menu s grafickým znázorněním aktivní sekce při scrollingu -->
     <nav class="nav-row-bottom" id="nav-row-bottom" aria-label="Hlavní navigace webu">
       <div class="nav-container-bottom">
         <ul class="nav-menu" id="main-nav-menu">
           <li><a href="#domacnost" class="nav-link">🏠 Domácnost</a></li>
           <li><a href="#evakuace" class="nav-link">🎒 Evakuace</a></li>
-          <li><a href="#osameli" class="nav-link">👤 Osamělí</a></li>
-          <li><a href="#kontakty" class="nav-link">📞 Kontakty & Info</a></li>
+          <li><a href="#sireny-a-poplach" class="nav-link">🚨 Sirény & Poplach</a></li>
+          <li><a href="#kontakty" class="nav-link">📞 Kontakty & Rádio</a></li>
           <li><a href="#psychika" class="nav-link">🧠 Psychická pomoc</a></li>
           <li><a href="#deti" class="nav-link">👶 Děti v krizi</a></li>
-          <li><a href="#rodinny-plan" class="nav-link">📝 Můj krizový plán</a></li>
-          <li><a href="#ke-stazeni" class="nav-link">📄 PDF ke stažení</a></li>
+          <li><a href="#osameli" class="nav-link">👤 Osamělí</a></li>
+          <li><a href="#rodinny-plan" class="nav-link">📝 Můj plán</a></li>
+          <li><a href="#ke-stazeni" class="nav-link">📄 PDF</a></li>
         </ul>
       </div>
     </nav>
@@ -2038,16 +2855,101 @@
   <!-- HLAVNÍ OBSAH -->
   <main id="hlavni-obsah" class="main-content">
 
-    <!-- HERO SEKCE -->
+    <!-- HERO SEKCE S OKAMŽITÝM VYHLEDÁVÁNÍM A KRIZOVÝM ROZCESTNÍKEM -->
     <section class="hero-section" aria-labelledby="hero-heading">
       <div class="container">
         <div class="hero-badge">
-          <span aria-hidden="true">🛡️</span> Podle doporučení MV ČR a HZS ČR | Verze: březen 2026
+          <span aria-hidden="true">🛡️</span> Podle doporučení MV ČR, HZS ČR a Červeného kříže | Funguje 100% offline
         </div>
         <h1 id="hero-heading">Jak zvládnout 72 hodin, když přestane fungovat běžný svět</h1>
         <p class="hero-lead">
-          Při blackoutu, povodních, vichřici, havárii nebo jiné krizi potřebuje záchranný systém čas, než se dostane ke všem. Základem civilní ochrany je schopnost postarat se o sebe, svou rodinu i sousedy po dobu <strong>prvních 3 dnů (72 hodin)</strong>.
+          Při blackoutu, povodních, vichřici nebo havárii potřebuje záchranný systém čas, než se dostane ke všem. Základem civilní ochrany je postarat se o sebe, rodinu i sousedy po dobu <strong>prvních 3 dnů (72 hodin)</strong>.
         </p>
+
+        <!-- 1. BLESKOVÉ OFFLINE VYHLEDÁVÁNÍ -->
+        <div class="crisis-search-wrapper" role="search" aria-label="Rychlé vyhledávání v manuálu">
+          <div class="crisis-search-bar">
+            <span class="crisis-search-icon" aria-hidden="true">🔍</span>
+            <input type="search" id="crisis-search-input" class="crisis-search-input" placeholder="Co hledáte? Např. blackout, siréna, voda, plyn, batoh, léky, pes, otrava..." aria-label="Hledat v krizovém manuálu" autocomplete="off">
+            <button type="button" id="crisis-search-clear" class="crisis-search-clear" aria-label="Vymazat hledání">✕ Vymazat</button>
+            <span class="crisis-search-kbd" aria-hidden="true" title="Stiskněte klávesu / pro rychlé hledání">/</span>
+          </div>
+          <div class="search-quick-chips" aria-label="Nejčastěji hledaná témata">
+            <span class="search-chip-label">Rychle najít:</span>
+            <button type="button" class="search-chip" data-query="blackout">⚡ Blackout</button>
+            <button type="button" class="search-chip" data-query="sirén">🚨 Tóny sirén</button>
+            <button type="button" class="search-chip" data-query="zabezpečení bytu">🔒 Uzávěry plynu a vody</button>
+            <button type="button" class="search-chip" data-query="radiožurnál">📻 Frekvence rádia</button>
+            <button type="button" class="search-chip" data-query="toaleta">🚽 Nouzové WC</button>
+            <button type="button" class="search-chip" data-query="dýchání">😰 Panika & Dech</button>
+            <button type="button" class="search-chip" data-query="trosek">💣 Nález trosek / dronu</button>
+            <button type="button" class="search-chip" data-query="zvířat">🐾 Zvířata</button>
+          </div>
+          <div id="crisis-search-results" class="crisis-search-results" aria-live="polite"></div>
+        </div>
+
+        <!-- 2. OKAMŽITÝ KRIZOVÝ ROZCESTNÍK (CO PRÁVĚ ŘEŠÍTE?) -->
+        <div class="crisis-triage-box" id="krizovy-rozcestnik" role="region" aria-labelledby="triage-heading">
+          <div class="crisis-triage-header">
+            <h2 id="triage-heading" class="crisis-triage-title">
+              <span aria-hidden="true">🚨</span> Řešíte akutní situaci právě teď? Vyberte scénář:
+            </h2>
+            <span class="badge badge-emergency">Okamžitý postup v 5 krocích</span>
+          </div>
+
+          <div class="triage-grid" role="tablist" aria-label="Scénáře akutní krize">
+            <button type="button" class="triage-tab-btn active" role="tab" aria-selected="true" aria-controls="triage-panel" data-scenario="blackout">
+              <span class="triage-tab-icon" aria-hidden="true">⚡</span>
+              <span>Výpadek proudu (Blackout)</span>
+            </button>
+            <button type="button" class="triage-tab-btn" role="tab" aria-selected="false" aria-controls="triage-panel" data-scenario="sireny">
+              <span class="triage-tab-icon" aria-hidden="true">🚨</span>
+              <span>Houkají sirény / Poplach</span>
+            </button>
+            <button type="button" class="triage-tab-btn" role="tab" aria-selected="false" aria-controls="triage-panel" data-scenario="evakuace">
+              <span class="triage-tab-icon" aria-hidden="true">🎒</span>
+              <span>Musím se evakuovat TEĎ</span>
+            </button>
+            <button type="button" class="triage-tab-btn" role="tab" aria-selected="false" aria-controls="triage-panel" data-scenario="voda">
+              <span class="triage-tab-icon" aria-hidden="true">💧</span>
+              <span>Neteče pitná voda</span>
+            </button>
+            <button type="button" class="triage-tab-btn" role="tab" aria-selected="false" aria-controls="triage-panel" data-scenario="panika">
+              <span class="triage-tab-icon" aria-hidden="true">😰</span>
+              <span>Panika, šok nebo strach</span>
+            </button>
+            <button type="button" class="triage-tab-btn" role="tab" aria-selected="false" aria-controls="triage-panel" data-scenario="info">
+              <span class="triage-tab-icon" aria-hidden="true">📞</span>
+              <span>Volám pomoc / Kde vzít info</span>
+            </button>
+          </div>
+
+          <!-- Dynamický akční panel pro vybraný scénář -->
+          <div class="triage-panel" id="triage-panel" role="tabpanel" aria-live="polite">
+            <div class="triage-panel-top">
+              <h3 class="triage-panel-title" id="triage-panel-title">⚡ Výpadek proudu (Blackout) – Co udělat v prvních 15 minutách:</h3>
+              <button type="button" class="btn btn-secondary" id="btn-close-triage" style="min-height:2rem; padding:0.2rem 0.65rem; font-size:0.8rem;">Skrýt návod ▴</button>
+            </div>
+            <ol class="triage-steps-list" id="triage-steps-list">
+              <li><strong>Odpojte spotřebiče ze zásuvek:</strong> Vypněte sporák, troubu, žehličku a přímotopy (při nahození sítě hrozí požár a přepětí). Nechte zapnuté jen 1 světlo jako kontrolku obnovení proudu.</li>
+              <li><strong>Neotvírejte lednici ani mrazák:</strong> Zavřená lednice udrží chlad 12–24 hodin, plný mrazák až 48 hodin. Nejdříve spotřebujte čerstvé jídlo.</li>
+              <li><strong>Zajistěte bezpečné světlo:</strong> Použijte čelovku nebo baterku. Svíčky nikdy nenechávejte hořet bez dozoru!</li>
+              <li><strong>Natočte vodu do zásoby:</strong> Pokud ještě teče voda z kohoutku, ihned napusťte hrnce, lahve a vanu (čerpadla vodáren mohou po několika hodinách vypadnout).</li>
+              <li><strong>Šetřete baterii mobilu a nalaďte rádio:</strong> Zapněte v telefonu úsporný režim, ztlumte jas na minimum a informace sledujte na bateriovém rádiu nebo v autě (<strong>ČRo Radiožurnál</strong>).</li>
+            </ol>
+            <div class="triage-warning-bar" id="triage-warning-bar">
+              ⚠️ <strong>POZOR NA OTRAVU CO:</strong> Nikdy nepoužívejte v bytě venkovní grily, elektrocentrály ani plynové vařiče bez otevřeného okna!
+            </div>
+            <div class="triage-panel-actions">
+              <a href="#domacnost" class="btn btn-primary" id="triage-action-link" style="min-height:2.5rem; padding:0.45rem 1rem; font-size:0.9rem;">
+                🏠 Přejít na kompletní checklist domácnosti
+              </a>
+              <a href="#kontakty" class="btn btn-secondary" id="triage-secondary-link" style="min-height:2.5rem; padding:0.45rem 1rem; font-size:0.9rem;">
+                📻 Frekvence Českého rozhlasu
+              </a>
+            </div>
+          </div>
+        </div>
 
         <div class="hero-quote">
           „Připravenost neznamená žít ve strachu. Znamená vědět, co udělat, když to přijde – a díky tomu žít trochu klidněji. Jára Cimrman by to jistě zvládl líp než kdokoli jiný, ale tentokrát je to napsané pro nás ostatní.“
@@ -2055,13 +2957,13 @@
 
         <div class="hero-actions">
           <a href="#domacnost" class="btn btn-primary">
-            🚀 Rychlý kontrolní seznam domácnosti
+            ✅ Kontrolní seznam zásob (72 h)
           </a>
           <a href="#rodinny-plan" class="btn btn-secondary">
-            📝 Vyplnit a vytisknout rodinný plán
+            📝 Vyplnit a vytisknout rodinný plán (A4)
           </a>
-          <a href="#kontakty" class="btn btn-secondary">
-            📞 Přehled ověřených kontaktů
+          <a href="#ke-stazeni" class="btn btn-secondary">
+            📄 Stáhnout PDF příručky pro tisk
           </a>
         </div>
       </div>
@@ -2078,13 +2980,69 @@
           <span class="badge badge-primary">Základ na 72 h</span>
         </div>
 
-        <p>
-          Tato doporučení vycházejí z národní kampaně MV ČR a HZS ČR i osvědčených manuálů ze Švédska, Finska a Polska. Připravte si základní věci dříve, než nastane blackout, výpadek pitné vody nebo extrémní počasí.
-        </p>
+        <!-- TL;DR Shrnutí sekce -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – 3 nejdůležitější pilíře na prvních 72 hodin:</div>
+          <ul class="tldr-list">
+            <li><strong>Voda a jídlo bez vaření:</strong> Min. <strong>6–9 litrů pitné vody na osobu</strong> (2–3 l/den) + trvanlivé potraviny na 3 dny a otvírák na konzervy.</li>
+            <li><strong>Světlo, informace a peníze:</strong> Čelovka/baterka + <strong>rádio na baterie či kliku</strong> (jediný zdroj zpráv při výpadku sítí) + hotovost v drobných bankovkách (100–500 Kč).</li>
+            <li><strong>Léky a rodinná domluva:</strong> Osobní léky alespoň na <strong>7–14 dní</strong> + domluvené <strong>2 body setkání</strong> a telefonní čísla vypsaná na papíře.</li>
+          </ul>
+        </div>
+
+        <!-- INTERAKTIVNÍ KALKULAČKA ZÁSOB PRO MOJI DOMÁCNOST -->
+        <div class="supply-calculator" aria-labelledby="calc-heading">
+          <h3 id="calc-heading" style="margin-top:0; margin-bottom:0.5rem; font-size:1.15rem;">🧮 Kalkulačka zásob na 72 hodin pro vaši domácnost</h3>
+          <p class="text-muted" style="font-size:0.9rem; margin-bottom:0.75rem;">Nastavte počet členů domácnosti a okamžitě zjistíte doporučené minimum zásob na 3 dny:</p>
+          <div class="calc-controls-row">
+            <div class="calc-control-group">
+              <span>👤 Dospělí a junioři:</span>
+              <div class="calc-stepper">
+                <button type="button" class="calc-step-btn" data-calc-target="adults" data-calc-delta="-1" aria-label="Snížit počet dospělých">−</button>
+                <span class="calc-step-val" id="calc-adults-val">2</span>
+                <button type="button" class="calc-step-btn" data-calc-target="adults" data-calc-delta="1" aria-label="Zvýšit počet dospělých">+</button>
+              </div>
+            </div>
+            <div class="calc-control-group">
+              <span>👶 Děti (do 10 let):</span>
+              <div class="calc-stepper">
+                <button type="button" class="calc-step-btn" data-calc-target="kids" data-calc-delta="-1" aria-label="Snížit počet dětí">−</button>
+                <span class="calc-step-val" id="calc-kids-val">0</span>
+                <button type="button" class="calc-step-btn" data-calc-target="kids" data-calc-delta="1" aria-label="Zvýšit počet dětí">+</button>
+              </div>
+            </div>
+            <div class="calc-control-group">
+              <span>🐾 Domácí mazlíčci:</span>
+              <div class="calc-stepper">
+                <button type="button" class="calc-step-btn" data-calc-target="pets" data-calc-delta="-1" aria-label="Snížit počet zvířat">−</button>
+                <span class="calc-step-val" id="calc-pets-val">0</span>
+                <button type="button" class="calc-step-btn" data-calc-target="pets" data-calc-delta="1" aria-label="Zvýšit počet zvířat">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-results-grid" aria-live="polite">
+            <div class="calc-result-card">
+              <span class="calc-result-val" id="calc-res-water">18 litrů</span>
+              <span class="calc-result-label" id="calc-res-water-sub">💧 Voda na 3 dny (12× 1,5l PET)</span>
+            </div>
+            <div class="calc-result-card">
+              <span class="calc-result-val" id="calc-res-food">18 porcí</span>
+              <span class="calc-result-label" id="calc-res-food-sub">🥫 Trvanlivé jídlo (na 3 dny bez vaření)</span>
+            </div>
+            <div class="calc-result-card">
+              <span class="calc-result-val" id="calc-res-power">20 000 mAh</span>
+              <span class="calc-result-label">🔋 Kapacita powerbanky (min.)</span>
+            </div>
+            <div class="calc-result-card">
+              <span class="calc-result-val" id="calc-res-cash">3 000 Kč</span>
+              <span class="calc-result-label">💵 Hotovost v drobných (100–500 Kč)</span>
+            </div>
+          </div>
+        </div>
 
         <!-- 12bodový okamžitý kontrolní seznam -->
-        <h3>Okamžitý kontrolní seznam na 1 stránku</h3>
-        <p class="text-muted">Zaškrtněte, co už máte doma splněno. Váš postup se automaticky ukládá v tomto prohlížeči.</p>
+        <h3>Okamžitý kontrolní seznam domácnosti (12 bodů)</h3>
+        <p class="text-muted">Zaškrtněte, co už máte doma splněno. Váš postup se automaticky ukládá v prohlížeči a rovnou vyhodnocuje vaši připravenost níže.</p>
 
         <div class="checklist-progress-bar-container" aria-live="polite">
           <div class="progress-info">
@@ -2098,83 +3056,83 @@
 
         <ul class="checklist-group" data-checklist-id="domacnost">
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-1" data-key="dom-1">
+            <input type="checkbox" id="chk-dom-1" data-key="dom-1" data-priority-title="Zásoba balené pitné vody (min. 6–9 l na osobu)">
             <label for="chk-dom-1" class="checklist-text">
-              <strong>Voda:</strong> Min. 2 litry na osobu a den na 3 dny (ideálně 3 l/os/den pro vaření a hygienu) v kanystrech či PET lahvích.
-              <span class="checklist-subtext">V horku a pro těžce pracující počítejte s vyšší spotřebou.</span>
+              <strong>1. Voda:</strong> <span class="qty-badge" id="badge-water-qty">2–3 l / os. / den</span> Min. 2 litry na osobu a den na 3 dny (ideálně 3 l/os/den pro vaření a hygienu) v kanystrech či PET lahvích.
+              <span class="checklist-subtext">V horku, pro děti a těžce pracující počítejte s vyšší spotřebou.</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-2" data-key="dom-2">
+            <input type="checkbox" id="chk-dom-2" data-key="dom-2" data-priority-title="Trvanlivé jídlo na 3 dny bez vaření + otvírák">
             <label for="chk-dom-2" class="checklist-text">
-              <strong>Jídlo:</strong> Trvanlivé potraviny na 3 dny k jídlu bez vaření + spolehlivý otvírák na konzervy.
-              <span class="checklist-subtext">Konzervy, luštěniny, ovesné vločky, ořechy, sušené ovoce, energetické tyčinky.</span>
+              <strong>2. Jídlo:</strong> <span class="qty-badge">Na 3 dny bez vaření</span> Trvanlivé potraviny k okamžité spotřebě + spolehlivý otvírák na konzervy.
+              <span class="checklist-subtext">Konzervy s očkem, luštěniny, ovesné vločky, ořechy, sušené maso a ovoce, energetické tyčinky.</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-3" data-key="dom-3">
+            <input type="checkbox" id="chk-dom-3" data-key="dom-3" data-priority-title="Osobní léky na 7–14 dní a vybavená lékárnička">
             <label for="chk-dom-3" class="checklist-text">
-              <strong>Léky a lékárnička:</strong> Pravidelné léky alespoň na 7 až 14 dní + lékárnička (obvazy, náplasti, dezinfekce, teploměr, záchranářská termofólie).
-              <span class="checklist-subtext">Respirátory pro případ znečištěného ovzduší, dýmovnic či prachu.</span>
+              <strong>3. Léky a lékárnička:</strong> <span class="qty-badge">Zásoba na 7–14 dní</span> Pravidelné léky + lékárnička (obvazy, náplasti, dezinfekce, léky na horečku/průjem, teploměr, termofólie).
+              <span class="checklist-subtext">Přidejte respirátory FFP2/FFP3 pro případ kouře, prachu či znečištěného ovzduší.</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-4" data-key="dom-4">
+            <input type="checkbox" id="chk-dom-4" data-key="dom-4" data-priority-title="Čelovka/baterka a FM rádio na baterie či kliku">
             <label for="chk-dom-4" class="checklist-text">
-              <strong>Světlo a rádio:</strong> Baterka/čelovka + přenosné rádio na baterie nebo ruční dobíjení (klika/dynamo).
-              <span class="checklist-subtext">Rádio je jediný páteřní zdroj oficiálních informací při výpadku internetu a GSM sítě!</span>
+              <strong>4. Světlo a rádio:</strong> <span class="qty-badge">Čelovka + FM rádio</span> Baterka/čelovka + přenosné rádio na baterie nebo ruční dobíjení (klika/dynamo).
+              <span class="checklist-subtext">Rádio (ČRo Radiožurnál) je jediný páteřní zdroj oficiálních informací při výpadku internetu a mobilní sítě!</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-5" data-key="dom-5">
+            <input type="checkbox" id="chk-dom-5" data-key="dom-5" data-priority-title="Nabitá powerbanka (10 000–20 000 mAh) a kabely">
             <label for="chk-dom-5" class="checklist-text">
-              <strong>Záložní energie:</strong> Plně nabitá powerbanka (min. 10 000–20 000 mAh), kabely.
-              <span class="checklist-subtext">U auta udržujte trvale alespoň poloplnou nádrž (u elektromobilu nabito).</span>
+              <strong>5. Záložní energie:</strong> <span class="qty-badge">10 000–20 000 mAh</span> Plně nabitá powerbanka, nabíjecí kabely a náhradní baterie (AA/AAA).
+              <span class="checklist-subtext">U auta udržujte trvale alespoň poloplnou nádrž (u elektromobilu nabito min. na 50 %).</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-6" data-key="dom-6">
+            <input type="checkbox" id="chk-dom-6" data-key="dom-6" data-priority-title="Hotovost v drobných bankovkách (100, 200, 500 Kč)">
             <label for="chk-dom-6" class="checklist-text">
-              <strong>Hotovost:</strong> Menší bankovky (100, 200, 500 Kč) a mince.
+              <strong>6. Hotovost:</strong> <span class="qty-badge">Min. 2 000–5 000 Kč</span> Menší bankovky (100, 200, 500 Kč) a mince uložené na bezpečném místě doma.
               <span class="checklist-subtext">Při výpadku elektřiny nefungují bankomaty ani platební terminály v obchodech!</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-7" data-key="dom-7">
+            <input type="checkbox" id="chk-dom-7" data-key="dom-7" data-priority-title="Hygienické potřeby a pevné pytle pro nouzové WC">
             <label for="chk-dom-7" class="checklist-text">
-              <strong>Hygiena a nouzová toaleta:</strong> Toaletní papír, vlhčené ubrousky, dezinfekce rukou, pevné pytle na odpad.
-              <span class="checklist-subtext">Pokud neteče voda na splachování: pytel vložte do mísy + absorbent (papír/kočkolit), zavažte a likvidujte dle pokynů obce.</span>
+              <strong>7. Hygiena a nouzová toaleta:</strong> <span class="qty-badge">Pevné pytle + dezinfekce</span> Toaletní papír, vlhčené ubrousky, dezinfekce rukou, pevné pytle na odpad (min. 60 l).
+              <span class="checklist-subtext">Když nejde voda na splachování: pevný pytel vložte do WC mísy + absorbent (kočkolit/papír), po použití pevně zavažte.</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-8" data-key="dom-8">
+            <input type="checkbox" id="chk-dom-8" data-key="dom-8" data-priority-title="Turistický vařič, spacáky a teplé vrstvené oblečení">
             <label for="chk-dom-8" class="checklist-text">
-              <strong>Vaření a teplo:</strong> Turistický vařič na plyn/lih + zásoba kartuší + sirky/zapalovač; deky/spacák; teplé vrstvené oblečení.
-              <span class="checklist-subtext">POZOR: Na vařiči vařte vždy s otevřeným větráním! Riziko otravy oxidem uhelnatým (CO).</span>
+              <strong>8. Vaření a teplo:</strong> <span class="qty-badge">Vařič + spacák/deky</span> Turistický vařič na plyn/líh + kartuše + sirky/zapalovač; deky, spacák a teplé oblečení.
+              <span class="checklist-subtext">⚠️ POZOR: Na vařiči vařte vždy při otevřeném větrání! Hrozí smrtelná otrava oxidem uhelnatým (CO).</span>
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-9" data-key="dom-9">
+            <input type="checkbox" id="chk-dom-9" data-key="dom-9" data-priority-title="Kopie osobních dokladů, smluv a pojistek">
             <label for="chk-dom-9" class="checklist-text">
-              <strong>Doklady a zálohy:</strong> Kopie smluv, rodných listů, pojistek na papíře + offline v telefonu / na šifrované flashce.
+              <strong>9. Doklady a zálohy:</strong> <span class="qty-badge">Papír + offline kopie</span> Kopie OP, pasů, rodných listů a pojistných smluv v nepromokavém obalu + na šifrované flashce.
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-10" data-key="dom-10">
+            <input type="checkbox" id="chk-dom-10" data-key="dom-10" data-priority-title="Rodinný plán: 2 místa setkání a telefonní čísla na papíře">
             <label for="chk-dom-10" class="checklist-text">
-              <strong>Rodinný krizový plán:</strong> Domluvené 2 body setkání (u domu a mimo čtvrť) + telefonní čísla na papíře v kapse každého člena rodiny.
+              <strong>10. Rodinný krizový plán:</strong> <span class="qty-badge">2 body + čísla na papíře</span> Domluvené 2 body setkání (u domu a mimo čtvrť) + důležitá čísla na papíře v peněžence každého člena.
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-11" data-key="dom-11">
+            <input type="checkbox" id="chk-dom-11" data-key="dom-11" data-priority-title="Sbalený evakuační batoh (Go-Bag) u dveří">
             <label for="chk-dom-11" class="checklist-text">
-              <strong>Evakuační batoh (Go-Bag):</strong> Připravený a snadno dostupný batoh pro každého člena přímo u vchodových dveří.
+              <strong>11. Evakuační batoh (Go-Bag):</strong> <span class="qty-badge">U vchodových dveří</span> Připravený a snadno dostupný batoh pro každého člena domácnosti.
             </label>
           </li>
           <li class="checklist-item">
-            <input type="checkbox" id="chk-dom-12" data-key="dom-12">
+            <input type="checkbox" id="chk-dom-12" data-key="dom-12" data-priority-title="Krmivo, voda a přepravka pro domácí zvířata (nebo zaškrtněte, pokud zvíře nemáte)">
             <label for="chk-dom-12" class="checklist-text">
-              <strong>Zvířata:</strong> Krmivo na 3–5 dní, miska, léky, vodítko, náhubek, přepravka a očkovací průkaz.
+              <strong>12. Zvířata:</strong> <span class="qty-badge">Zásoba na 3–5 dní</span> Krmivo a voda na 3–5 dní, miska, léky, vodítko, náhubek, přepravka a očkovací průkaz. <em>(Pokud zvíře nemáte, zaškrtněte jako splněné).</em>
             </label>
           </li>
         </ul>
@@ -2185,24 +3143,26 @@
           </button>
         </div>
 
-        <!-- INTERAKTIVNÍ TEST PŘIPRAVENOSTI (12 OTÁZEK) -->
+        <!-- CHYTRÉ VYHODNOCENÍ PŘIPRAVENOSTI (AUTOMATICKY PROPOJENÉ S CHECKLISTEM) -->
         <div class="readiness-test" id="test-pripravenosti">
-          <h3>🎯 Otestujte se: Rychlý test připravenosti rodiny</h3>
-          <p>Odpovězte upřímně na 12 otázek. Každé „Ne“ je konkrétní úkol na nejbližší víkend.</p>
-
-          <form id="form-test-pripravenosti">
-            <div class="grid-2" id="test-questions-grid">
-              <!-- Generováno dynamicky skriptem -->
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.75rem;">
+            <div>
+              <h3 style="margin:0 0 0.25rem 0;">🎯 Vyhodnocení vaší připravenosti a akční plán</h3>
+              <p class="text-muted" style="margin:0; font-size:0.9rem;">Hodnocení se počítá automaticky podle vašeho zaškrtávání v checklistu výše – nemusíte nic vyplňovat dvakrát.</p>
             </div>
-            <button type="button" class="btn btn-primary" id="btn-evaluate-test" style="width:100%; margin-top:1rem;">
-              Vyhodnotit moji připravenost
+            <button type="button" class="btn btn-primary" id="btn-evaluate-test" style="min-height:2.5rem; padding:0.45rem 1rem; font-size:0.9rem;">
+              🎯 Aktualizovat doporučení
             </button>
-          </form>
+          </div>
 
-          <div class="test-score-display" id="test-result-box" aria-live="polite">
+          <div class="test-score-display" id="test-result-box" style="display:block;" aria-live="polite">
             <div class="score-circle" id="test-score-num">0 / 12</div>
-            <h4 id="test-score-title" style="margin-top:0.5rem;">Vyhodnocení</h4>
-            <p id="test-score-desc" style="max-width:35rem; margin:0 auto;"></p>
+            <h4 id="test-score-title" style="margin-top:0.5rem;">Zatím nezaškrtnuto – začněte odškrtávat položky výše</h4>
+            <p id="test-score-desc" style="max-width:42rem; margin:0 auto 0.75rem;"></p>
+            <div id="test-priorities-box" style="text-align:left; max-width:38rem; margin:0.75rem auto 0; background:var(--bg-surface-alt); padding:0.875rem 1rem; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+              <strong style="display:block; margin-bottom:0.35rem; font-size:0.9rem;">📌 Vaše 3 nejbližší kroky na tento víkend:</strong>
+              <ol id="test-priorities-list" style="margin:0; padding-left:1.25rem; font-size:0.9rem; line-height:1.5;"></ol>
+            </div>
           </div>
         </div>
 
@@ -2233,6 +3193,16 @@
           <span class="badge badge-emergency">Když musíte odejít</span>
         </div>
 
+        <!-- TL;DR Pravidlo 5P -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – Pravidlo „5P“, když máte na odchod jen 2 minuty:</div>
+          <ul class="tldr-list">
+            <li><strong>1. Papíry & 2. Peníze:</strong> Občanka, pas, kartička pojišťovny + hotovost v drobných a platební karta.</li>
+            <li><strong>3. Prášky & 4. Pití:</strong> Nezbytné osobní léky na 3–7 dní, dioptrické brýle + lahev vody a energetické tyčinky do ruky.</li>
+            <li><strong>5. Powerbanka a mobil:</strong> Telefon, nabíječka, nabitá powerbanka + <strong>zavřít plyn/vodu, vypnout jistič a dát lístek na dveře!</strong></li>
+          </ul>
+        </div>
+
         <div class="alert-box emergency">
           <span class="alert-icon" aria-hidden="true">⚠️</span>
           <div class="alert-content">
@@ -2245,20 +3215,20 @@
           <!-- Levý sloupec: Co sbalit do Go-Bagu -->
           <div class="card-item">
             <h3>🎒 Co patří do evakuačního batohu</h3>
-            <p>Zavazadlo mějte lehké (max 1–2 tašky/batohy na osobu), označené jmenovkou a telefonem.</p>
+            <p>Zavazadlo mějte lehké (max 1–2 tašky/batohy na osobu, do 10–12 kg), označené jmenovkou a telefonem.</p>
             <ul>
               <li><strong>Doklady a finance:</strong> Občanka, pas, kartička pojišťovny, řidičák; hotovost v drobných bankovkách + platební karty.</li>
               <li><strong>Zdraví:</strong> Léky na 3–7 dní, seznam diagnóz a alergií, základní obvazy, brýle/čočky, respirátory.</li>
               <li><strong>Spojení & energie:</strong> Mobil, nabíječka, nabitá powerbanka, papírový seznam 5 nejdůležitějších čísel.</li>
-              <li><strong>Přežití 24–72 h:</strong> Balená voda (min. 1 litr do ruky), trvanlivé jídlo (tyčinky, konzervy s kroužkem), toaletní potřeby, vlhčené ubrousky.</li>
+              <li><strong>Přežití 24–72 h:</strong> Balená voda (min. 1,5 l do ruky), trvanlivé jídlo (tyčinky, konzervy s kroužkem), toaletní potřeby, vlhčené ubrousky.</li>
               <li><strong>Ochrana těla:</strong> Pevná prošlápnutá obuv, nepromokavá bunda/pláštěnka, teplé oblečení, záchranářská fólie.</li>
-              <li><strong>Nástroje:</strong> Svítilna/čelovka + náhradní baterie, zavírací nůž nebo multitool, zapalovač.</li>
+              <li><strong>Nástroje:</strong> Svítilna/čelovka + náhradní baterie, zavírací nůž nebo multitool, zapalovač, píšťalka.</li>
             </ul>
           </div>
 
           <!-- Pravý sloupec: Technické zabezpečení bytu před odchodem -->
           <div class="card-item">
-            <h3>🔒 Zabezpečení bytu před zamčením</h3>
+            <h3>🔒 Zabezpečení bytu před zamčením (7 kroků)</h3>
             <p>Tento sled kroků zabrání sekundárním katastrofám (požáru, vytopení, výbuchu plynu):</p>
             <ol>
               <li><strong>Zkontrolujte obydlí:</strong> Zda nikdo nezůstal uvnitř (děti, senioři, zvířata).</li>
@@ -2272,14 +3242,30 @@
           </div>
         </div>
 
-        <!-- Interaktivní evakuační checklist (01b) -->
-        <details class="styled-details">
+        <!-- Rychlá šablona evakuační SMS -->
+        <div class="alert-box info" style="align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <div style="flex: 1 1 24rem;">
+            <strong>💬 Šablona evakuační SMS pro blízké (šetří mobilní síť i baterii):</strong>
+            <p id="evak-sms-text" style="margin:0.25rem 0 0 0; font-family:var(--font-mono); font-size:0.875rem; background:var(--bg-surface); padding:0.45rem 0.65rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">Odchazime z domova do bezpeci (evakuace). Jsme v poradku, ozveme se z mista setkani. Nevolejte nam, setrime baterii, piste SMS.</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            <button type="button" class="btn btn-primary" id="btn-copy-evak-sms" style="min-height:2.4rem; padding:0.4rem 0.85rem; font-size:0.875rem;">
+              📋 Zkopírovat SMS
+            </button>
+            <a href="sms:?&body=Odchazime%20z%20domova%20do%20bezpeci%20(evakuace).%20Jsme%20v%20poradku,%20ozveme%20se%20z%20mista%20setkani.%20Nevolejte%20nam,%20setrime%20baterii,%20piste%20SMS." class="btn btn-secondary" style="min-height:2.4rem; padding:0.4rem 0.85rem; font-size:0.875rem;">
+              📱 Otevřít v SMS
+            </a>
+          </div>
+        </div>
+
+        <!-- Interaktivní evakuační checklist (01b) - OTEVŘENÝ VE VÝCHOZÍM STAVU PRO OKAMŽITÉ POUŽITÍ -->
+        <details class="styled-details" id="evakuace-checklist-details" open>
           <summary class="styled-summary">
-            <span>📋 Otevřít kompletní interaktivní Evakuační checklist (pro okamžité odškrtávání pod stresem)</span>
+            <span>📋 Akční Evakuační checklist (pro okamžité odškrtávání před odchodem)</span>
             <span class="summary-icon" aria-hidden="true">▼</span>
           </summary>
           <div class="details-body">
-            <p class="text-muted">Použijte přímo při opouštění bytu. Nezapomeňte odeslat SMS blízké osobě mimo region.</p>
+            <p class="text-muted">Odškrtávejte přímo při opouštění bytu. Postup zůstane uložen v telefonu.</p>
             
             <div class="checklist-progress-bar-container" aria-live="polite">
               <div class="progress-info">
@@ -2295,55 +3281,55 @@
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-1" data-key="evak-1">
                 <label for="chk-evak-1" class="checklist-text">
-                  Mám ověřený pokyn k evakuaci (od IZS/obce/policie, nikoli neověřené fámy ze sítí).
+                  <strong>1. Ověřený pokyn:</strong> Mám potvrzený příkaz k evakuaci (od IZS, starosty, policie či sirén – nikoli neověřené fámy).
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-2" data-key="evak-2">
                 <label for="chk-evak-2" class="checklist-text">
-                  Oblečení do každého počasí + pevné boty + pláštěnka na sobě.
+                  <strong>2. Oblečení a obuv:</strong> Mám na sobě pevné prošlápnuté boty, dlouhé kalhoty a nepromokavou bundu/pláštěnku.
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-3" data-key="evak-3">
                 <label for="chk-evak-3" class="checklist-text">
-                  Každé dítě i senior má v kapse kartičku se jménem, adresou, diagnózami a kontaktem na rodiče/pečovatele.
+                  <strong>3. Štítky pro děti a seniory:</strong> Každé dítě i senior má v kapse kartičku se jménem, adresou, diagnózami a telefonem na blízké.
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-4" data-key="evak-4">
                 <label for="chk-evak-4" class="checklist-text">
-                  Léky na 3–7 dní a kartička pojištěnce jsou sbaleny v batohu.
+                  <strong>4. Doklady, peníze a léky:</strong> Osobní doklady, hotovost, léky na 3–7 dní a brýle jsou sbaleny v batohu.
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-5" data-key="evak-5">
                 <label for="chk-evak-5" class="checklist-text">
-                  Nabitý mobil, powerbanka a papírový seznam čísel jsou v batohu.
+                  <strong>5. Spojení a energie:</strong> Nabitý mobil, nabíječka, powerbanka a papírový seznam čísel jsou u mě.
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-6" data-key="evak-6">
                 <label for="chk-evak-6" class="checklist-text">
-                  Plyn a voda vypnuty, okna dovřena, elektrospotřebiče vytaženy ze zásuvky.
+                  <strong>6. Uzávěry a jističe:</strong> Plyn a voda uzavřeny, hlavní jistič vypnut, okna dovřena, spotřebiče vytaženy ze zásuvky.
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-7" data-key="evak-7">
                 <label for="chk-evak-7" class="checklist-text">
-                  Lístek s informací o odchodu umístěn na dveřích.
+                  <strong>7. Vzkaz pro hasiče:</strong> Lístek s časem odchodu, cílem a počtem osob je přilepen na vchodových dveřích a byt zamčen.
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-8" data-key="evak-8">
                 <label for="chk-evak-8" class="checklist-text">
-                  Odeslána SMS kontaktu mimo oblast ve formátu: <em>„Odcházíme z [odkud] do [kam]. Jsme [počet] osob.“</em>
+                  <strong>8. Zpráva o odchodu:</strong> Odeslána SMS kontaktu mimo zasaženou oblast: <em>„Odcházíme z [odkud] do [kam]. Jsme [počet] osob.“</em>
                 </label>
               </li>
               <li class="checklist-item">
                 <input type="checkbox" id="chk-evak-9" data-key="evak-9">
                 <label for="chk-evak-9" class="checklist-text">
-                  Po příchodu na evakuační místo odeslána SMS <em>„v bezpečí v bodu X“</em> a zapnut režim úspory baterie.
+                  <strong>9. Potvrzení bezpečí:</strong> Po příchodu na evakuační místo odeslána SMS <em>„Jsme v bezpečí v bodu X“</em> a zapnut režim úspory baterie.
                 </label>
               </li>
             </ul>
@@ -2370,296 +3356,282 @@
 
 
       <!-- ====================================================================
-           3. SEKCE: PRO LIDI ŽIJÍCÍ OSAMĚLE
+           3. SEKCE: VAROVNÉ SIGNÁLY SIRÉN, POPLACH A VZDUŠNÉ OHROŽENÍ
            ==================================================================== -->
-      <section id="osameli" class="section-card" aria-labelledby="osameli-heading">
+      <section id="sireny-a-poplach" class="section-card" aria-labelledby="sireny-heading">
         <div class="section-header">
-          <h2 id="osameli-heading">👤 3. Krizová připravenost pro lidi žijící osaměle</h2>
-          <span class="badge badge-primary">Téměř 2 miliony občanů ČR</span>
+          <h2 id="sireny-heading">🚨 3. Varovné signály sirén, poplach a vzdušné ohrožení</h2>
+          <span class="badge badge-emergency">Když houkají sirény</span>
         </div>
 
-        <div class="alert-box tip">
-          <span class="alert-icon" aria-hidden="true">💡</span>
-          <div class="alert-content">
-            <strong>Žít osaměle neznamená být bezmocný!</strong>
-            <p>Většina příruček předpokládá velkou rodinu a dvě auta. Člověk žijící sám potřebuje jinou strategii: <em>systém místo rodiny</em>. Nemusíte hledat desítky přátel – stačí 1 domluvený soused, registrace u obce a tísňové technologie.</p>
-          </div>
+        <!-- TL;DR Shrnutí sekce -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – Jak poznat skutečný poplach a co udělat do 60 vteřin:</div>
+          <ul class="tldr-list">
+            <li><strong>Kolísavý tón (140 s) = SKUTEČNÉ NEBEZPEČÍ:</strong> Okamžitě se ukryjte v pevné budově nebo sklepě, zavřete okna a zapněte <strong>ČRo Radiožurnál</strong> nebo <strong>ČT24</strong>.</li>
+            <li><strong>V budově:</strong> Nikdy nepoužívejte výtah! Jděte po schodech do prostoru bez oken (sklep, suterén, koupelna, chodba u nosných zdí).</li>
+            <li><strong>Venku při výbuchu / nálezu trosek:</strong> Padněte na břicho do prohlubně, chraňte zátylek. K troskám dronu či munice se nepřibližujte na méně než <strong>100 metrů</strong> a volejte <strong>112</strong>.</li>
+          </ul>
         </div>
 
+        <h3>Rozlište 3 tóny sirén v ČR (JSVV – přes 9 600 sirén)</h3>
         <div class="grid-3">
-          <div class="card-item">
-            <h4>🤝 1. Záchranná síť (Sousedský signál)</h4>
-            <p>
-              Stačí jediný soused, se kterým si vyměníte telefonní číslo na papíře. Domluvte si jednoduché pravidlo:
-            </p>
-            <p style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-md); font-weight:600; font-size:0.95rem;">
-              „Když 2 dny nerozsvítím večer v kuchyni nebo nevyzvednu noviny ze schránky, prozvoňte mě nebo zavolejte záchranku.“
-            </p>
-            <p class="text-muted" style="font-size:0.875rem;">Dejte kontakt na sebe i správci domu či výboru SVJ.</p>
-          </div>
-
-          <div class="card-item">
-            <h4>🏛️ 2. Právní registrace u obce</h4>
-            <p>
-              Dle zákona č. <strong>240/2000 Sb.</strong> (krizový zákon) a zákona č. <strong>239/2000 Sb.</strong> (zákon o IZS) mají obce zákonnou povinnost plánovat pomoc a evakuaci osobám se sníženou mobilitou či osamělým seniorům.
-            </p>
-            <p>
-              <strong>Co udělat:</strong> Zavolejte na sociální odbor své obce a požádejte o zapsání do krizového plánu, aby pro vás hasiči přijeli.
+          <!-- Tón 1: Všeobecná výstraha -->
+          <div class="siren-tone-card" style="border-left-color: var(--color-emergency);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+              <strong style="color:var(--color-emergency); font-size:1.05rem;">🔴 1. VŠEOBECNÁ VÝSTRAHA</strong>
+              <span class="badge badge-emergency">140 sekund</span>
+            </div>
+            <div class="siren-wave-box" aria-label="Grafické znázornění kolísavého tónu">
+              <span>Kolísavý tón:</span>
+              <span style="color:var(--color-emergency); letter-spacing:0.05em; font-size:1.1rem;" aria-hidden="true">〰️〰️〰️〰️〰️</span>
+            </div>
+            <p style="margin:0; font-size:0.925rem;">
+              <strong>Hrozí bezprostřední nebezpečí!</strong> Okamžitě se ukryjte do budovy, zavřete okna a dveře, vypněte ventilaci/klimatizaci a nalaďte ČRo Radiožurnál nebo ČT24.
             </p>
           </div>
 
-          <div class="card-item">
-            <h4>🚨 3. SOS technologie & Zdraví</h4>
-            <ul>
-              <li><strong>SOS tlačítko / náramek:</strong> Život 90 (tel. 800 157 157) nebo Elpida nabízejí tlačítka s detektorem pádu fungující i bez mobilu.</li>
-              <li><strong>Léky na 14 dní:</strong> Mějte doma zásobu na celé 2 týdny a seznam léků magnetem na lednici (první místo, kam se dívají lékaři záchranky).</li>
-              <li><strong>Aplikace Záchranka:</strong> Předvyplňte své diagnózy pro dispečink.</li>
-            </ul>
+          <!-- Tón 2: Požární poplach -->
+          <div class="siren-tone-card" style="border-left-color: var(--color-warning);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+              <strong style="color:var(--color-warning); font-size:1.05rem;">🟠 2. POŽÁRNÍ POPLACH</strong>
+              <span class="badge">60 sekund</span>
+            </div>
+            <div class="siren-wave-box" aria-label="Grafické znázornění přerušovaného tónu">
+              <span>Přerušovaný („HÓ-ŘÍ“):</span>
+              <span style="color:var(--color-warning); letter-spacing:0.1em;" aria-hidden="true">▬▬ ▬▬ ▬▬</span>
+            </div>
+            <p style="margin:0; font-size:0.925rem;">
+              <strong>Svolání jednotek hasičů</strong> k výjezdu. Pro běžné obyvatelstvo tento signál neznamená plošné ohrožení ani nutnost ukrytí.
+            </p>
+          </div>
+
+          <!-- Tón 3: Zkouška sirén -->
+          <div class="siren-tone-card" style="border-left-color: var(--color-success);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+              <strong style="color:var(--color-success); font-size:1.05rem;">🟢 3. ZKOUŠKA SIRÉN</strong>
+              <span class="badge">140 sekund</span>
+            </div>
+            <div class="siren-wave-box" aria-label="Grafické znázornění stálého tónu">
+              <span>Stálý tón (bez kolísání):</span>
+              <span style="color:var(--color-success);" aria-hidden="true">━━━━━━━━━━</span>
+            </div>
+            <p style="margin:0; font-size:0.925rem;">
+              <strong>Pravidelný technický test:</strong> Probíhá každou <strong>1. středu v měsíci přesně ve 12:00</strong>. Nevyžaduje žádnou reakci občanů.
+            </p>
           </div>
         </div>
 
-        <!-- Specifika a prevence pádů potmě -->
-        <h3>Prevence úrazů a psychická stabilita v samotě</h3>
-        <div class="grid-2">
+        <h3 style="margin-top: 1.5rem;">Přesný postup při poplachu a nálezu nebezpečných trosek</h3>
+        <div class="grid-3">
+          <!-- Karta 1: Při poplachu v budově -->
           <div class="card-item">
-            <h4>🔦 Bezpečí domova při blackoutu</h4>
-            <ul>
-              <li><strong>Svítilna u lůžka:</strong> Mějte čelovku na dosah ruky od polštáře. Žádné noční tápání ve tmě!</li>
-              <li><strong>Průchozí trasa:</strong> Odstraňte kluzké koberečky a kabely mezi postelí, toaletou a vchodem.</li>
-              <li><strong>Konzervy:</strong> Kupujte pouze konzervy s otevíracím očkem/kroužkem (pro případ snížené síly v rukou či artritidy).</li>
-              <li><strong>Signál z okna:</strong> Při imobilitě a nefunkčních sítích vyvěste z okna bílé prostěradlo – mezinárodní signál pro IZS, že v bytě potřebujete pomoc.</li>
-            </ul>
+            <h4>🏢 1. Jste-li v budově (doma / v práci)</h4>
+            <ol style="margin-bottom:0.75rem; padding-left:1.25rem; font-size:0.925rem; line-height:1.55;">
+              <li style="margin-bottom:0.35rem;"><strong>Jděte do úkrytu:</strong> Sestupte do suterénu, sklepa či krytu.</li>
+              <li style="margin-bottom:0.35rem;"><strong>Vezměte jen nezbytné:</strong> Evakuační batoh, doklady, mobil a osobní léky.</li>
+              <li style="margin-bottom:0.35rem;"><strong style="color:var(--color-emergency);">Použijte schody:</strong> Výtah nikdy nepoužívejte – při výpadku proudu v něm uvíznete!</li>
+              <li style="margin-bottom:0.35rem;"><strong>Bezpečné místo v bytě:</strong> Pokud není sklep, jděte do místnosti bez oken u nosných zdí (koupelna, chodba, jádro).</li>
+              <li style="margin-bottom:0.35rem;"><strong>Nevycházejte předčasně:</strong> Vyčkejte na oficiální odvolání poplachu.</li>
+              <li><strong>Pište SMS místo volání:</strong> Nezahlcujte mobilní síť pro záchranáře.</li>
+            </ol>
+            <div style="margin-top:auto; padding-top:0.5rem;">
+              <small class="text-muted">🤝 <strong>Sousedská pomoc:</strong> Zkontrolujte seniory a rodiny s dětmi na patře.</small>
+            </div>
           </div>
 
+          <!-- Karta 2: Co dělat při poplachu venku -->
           <div class="card-item">
-            <h4>🧘 Psychická odolnost v izolaci</h4>
-            <ul>
-              <li><strong>Pevný denní rytmus:</strong> Vstávání, hygiena, strava a spánek v přesný čas ukotvují mozek.</li>
-              <li><strong>Mluvení nahlas k sobě:</strong> Nahlas komentujte své úkony: <em>„Teď si uvařím čaj, pak zkontroluji rádio.“</em> Snižuje to úzkost a stabilizuje kognitivní funkce.</li>
-              <li><strong>Linky důvěry nejsou ostuda:</strong> Volat na linku <strong>116 123</strong> (24/7, zdarma) nebo Senior telefon <strong>800 157 157</strong> je naprosto v pořádku i tehdy, když si prostě jen potřebujete s někým promluvit.</li>
-            </ul>
+            <h4>🏃 2. Zastihne-li vás poplach venku</h4>
+            <ol style="margin-bottom:0.75rem; padding-left:1.25rem; font-size:0.925rem; line-height:1.55;">
+              <li style="margin-bottom:0.35rem;"><strong style="color:var(--color-emergency);">Při explozi ihned k zemi:</strong> Padněte na břicho obličejem dolů, nohama směrem k výbuchu.</li>
+              <li style="margin-bottom:0.35rem;"><strong>Využijte terén:</strong> Zalehněte do prohlubně, příkopu, jámy nebo za pevnou betonovou zídku.</li>
+              <li style="margin-bottom:0.35rem;"><strong>Chraňte hlavu a uši:</strong> Rukama kryjte zátylek, lokty přitiskněte k tělu a <strong>ústa nechte pootevřená</strong> (vyrovnání tlaku).</li>
+              <li><strong>Přesuňte se do podzemí:</strong> Jakmile to půjde, vyhledejte metro, podchod, podzemní garáže nebo zděný sklep. Vyhněte se skleněným výlohám!</li>
+            </ol>
+            <div style="margin-top:auto; padding-top:0.5rem;">
+              <small class="text-muted">⚠️ Tlaková vlna tříští sklo na stovky metrů. Nestůjte u oken ani zastávek.</small>
+            </div>
+          </div>
+
+          <!-- Karta 3: Nález dronu, rakety nebo vojenských trosek -->
+          <div class="card-item">
+            <h4>💣 3. Nález dronu či vojenských trosek</h4>
+            <ol style="margin-bottom:0.75rem; padding-left:1.25rem; font-size:0.925rem; line-height:1.55;">
+              <li style="margin-bottom:0.35rem;"><strong style="color:var(--color-emergency);">Odstup min. 100 metrů:</strong> K troskám se nikdy nepřibližujte!</li>
+              <li style="margin-bottom:0.35rem;"><strong>Nesahejte a nefoťte zblízka:</strong> Hrozí opožděný výbuch nevybuchlé munice, nástražný systém nebo toxické palivo.</li>
+              <li style="margin-bottom:0.35rem;"><strong>Varujte okolí:</strong> Zabraňte přístupu kolemjdoucích a zejména dětí.</li>
+              <li style="margin-bottom:0.35rem;"><strong>Volejte linku 112:</strong> Nahlaste přesnou GPS polohu a popis nálezu.</li>
+              <li><strong>Vyčkejte v bezpečí:</strong> Držte odstup až do příjezdu Policie ČR a pyrotechniků.</li>
+            </ol>
+            <div style="margin-top:auto; padding-top:0.5rem;">
+              <small class="text-muted">⚠️ I zdánlivě vyhořelé trosky mohou kdykoli explodovat.</small>
+            </div>
           </div>
         </div>
 
-        <!-- Checklist pro osamělé (54 bodů vybraných do logických celků) -->
-        <details class="styled-details">
-          <summary class="styled-summary">
-            <span>📋 Interaktivní kontrolní seznam pro ty, kteří se starají sami o sebe (Checklist 02b)</span>
-            <span class="summary-icon" aria-hidden="true">▼</span>
-          </summary>
-          <div class="details-body">
-            <div class="checklist-progress-bar-container" aria-live="polite">
-              <div class="progress-info">
-                <span>Stav checklistu pro osamělé:</span>
-                <span id="progress-osameli-label">0 z 10 splněno (0 %)</span>
-              </div>
-              <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-fill" id="progress-osameli-bar" style="width: 0%;"></div>
-              </div>
+        <!-- Banner krizových zásad -->
+        <div class="alert-box tip" style="margin-top: 0.25rem; margin-bottom: 0;">
+          <span class="alert-icon" aria-hidden="true">🛡️</span>
+          <div class="alert-content">
+            <strong>Metodika civilní ochrany (IZS ČR & RCB Polsko):</strong>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem 1.25rem; font-size:0.875rem; margin-top:0.25rem;">
+              <span>📞 Tísňové volání: <strong>Linka 112</strong></span>
+              <span>💬 Rodinná komunikace: <strong>Přednostně SMS (šetří síť)</strong></span>
+              <span>🚫 Odstup od trosek: <strong>Minimálně 100 metrů</strong></span>
+              <span>📻 Krizový rozhlas: <strong>ČRo Radiožurnál (RDS 232F)</strong></span>
             </div>
-
-            <ul class="checklist-group" data-checklist-id="osameli">
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-1" data-key="osa-1">
-                <label for="chk-osa-1" class="checklist-text">
-                  Znám jméno alespoň jednoho souseda a máme na sebe vzájemný kontakt na papíře.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-2" data-key="osa-2">
-                <label for="chk-osa-2" class="checklist-text">
-                  Máme se sousedem domluvený jednoduchý signál kontroly bezpečí (světlo, schránka).
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-3" data-key="osa-3">
-                <label for="chk-osa-3" class="checklist-text">
-                  Obec ví, že bych při evakuaci mohl/a potřebovat pomoc (nahlášeno na sociální odbor).
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-4" data-key="osa-4">
-                <label for="chk-osa-4" class="checklist-text">
-                  Mám doma pitnou vodu (alespoň 10 litrů v PET lahvích) a jídlo na 3 dny s očkem na otevírání.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-5" data-key="osa-5">
-                <label for="chk-osa-5" class="checklist-text">
-                  Mám zásobu pravidelných léků na 14 dní a jejich seznam magnetem na lednici.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-6" data-key="osa-6">
-                <label for="chk-osa-6" class="checklist-text">
-                  Mám svítilnu přímo na dosah ruky od postele a volnou trasu k toaletě.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-7" data-key="osa-7">
-                <label for="chk-osa-7" class="checklist-text">
-                  Mám hotovost 3 000 až 5 000 Kč v drobných bankovkách doma.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-8" data-key="osa-8">
-                <label for="chk-osa-8" class="checklist-text">
-                  Mám batoh tak lehký, abych jej unesl/a sám/sama i po schodech.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-9" data-key="osa-9">
-                <label for="chk-osa-9" class="checklist-text">
-                  Mám v telefonu aplikaci Záchranka s vyplněnými zdravotními údaji.
-                </label>
-              </li>
-              <li class="checklist-item">
-                <input type="checkbox" id="chk-osa-10" data-key="osa-10">
-                <label for="chk-osa-10" class="checklist-text">
-                  Znám bezplatné číslo krizové linky 116 123 (a pro seniory 800 157 157).
-                </label>
-              </li>
-            </ul>
-
-            <div style="display:flex; justify-content: flex-end; margin-top: 0.75rem;">
-              <button type="button" class="btn btn-secondary" style="font-size:0.875rem; padding:0.4rem 0.8rem;" onclick="resetChecklist('osameli')">
-                ↺ Resetovat checklist pro osamělé
-              </button>
-            </div>
-          </div>
-        </details>
-
-        <!-- Box ke stažení PDF -->
-        <div class="download-card">
-          <div class="download-info">
-            <h4>📄 Krizový manuál a checklist pro osaměle žijící</h4>
-            <p>Kompletní 13stránkový průvodce krizovou připraveností pro ty, kteří nemají nikoho blízkého.</p>
-          </div>
-          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-            <a href="data-manual/02a_Krizova_pripravenost_pro_lidi_zijici_osamele_manual.pdf" download class="download-btn">
-              📥 Manuál pro osamělé <span class="download-file-size">(PDF, 80 KB)</span>
-            </a>
-            <a href="data-manual/02b_Checklist_pro_lidi_zijici_osamele.pdf" download class="download-btn">
-              📥 Checklist pro osamělé <span class="download-file-size">(PDF, 91 KB)</span>
-            </a>
           </div>
         </div>
       </section>
 
 
       <!-- ====================================================================
-           4. SEKCE: KRIZOVÉ KONTAKTY A POKYNY V ČR
+           4. SEKCE: KRIZOVÉ KONTAKTY, ROZHLAS A MOBILNÍ APLIKACE V ČR
            ==================================================================== -->
       <section id="kontakty" class="section-card" aria-labelledby="kontakty-heading">
         <div class="section-header">
-          <h2 id="kontakty-heading">📞 4. Krizové kontakty a informační zdroje v ČR</h2>
-          <span class="badge badge-emergency">Ověřené linky & Aplikace</span>
+          <h2 id="kontakty-heading">📞 4. Krizové kontakty, rozhlas a aplikace v ČR</h2>
+          <span class="badge badge-emergency">Ověřené linky 24/7 & Frekvence</span>
         </div>
 
-        <p>Všechna tísňová čísla jsou zdarma a fungují 24/7 z jakéhokoli telefonu, i bez SIM karty a kreditu.</p>
+        <!-- TL;DR Shrnutí sekce -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – Kdy volat které číslo a kde brát zprávy bez internetu:</div>
+          <ul class="tldr-list">
+            <li><strong>Národní linky (155 Záchranka, 150 Hasiči, 158 Policie):</strong> Nejrychlejší přímé spojení s krajským operačním střediskem dané složky v ČR.</li>
+            <li><strong>Evropská linka 112:</strong> Volejte při rozsáhlých nehodách (více složek IZS najednou), pokud neznáte přesnou polohu, jste bez SIM karty nebo mluvíte cizím jazykem.</li>
+            <li><strong>Když vypadne internet:</strong> Nalaďte <strong>ČRo Radiožurnál</strong> na bateriovém rádiu nebo v autě; při slabém mobilním signálu otevřete textový <strong>Teletext ČT (str. 100)</strong>.</li>
+          </ul>
+        </div>
 
-        <!-- Tabulka základních a specializovaných linek -->
-        <h3>Přehled krizových a asistenčních linek</h3>
+        <!-- Co říkat operátorovi při tísňovém volání (hned nahoře u kontaktů!) -->
+        <div class="alert-box info">
+          <span class="alert-icon" aria-hidden="true">🗣️</span>
+          <div class="alert-content">
+            <strong>Jak správně mluvit s operátorem tísňové linky (Pravidlo 5 kroků):</strong>
+            <ol style="margin-bottom:0; padding-left:1.25rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(13rem, 1fr)); gap:0.35rem 1.25rem;">
+              <li><strong>KDE</strong> se to stalo (město, ulice, č.p., orientační bod).</li>
+              <li><strong>CO</strong> se přesně stalo (požár, nehoda, kolaps, povodeň).</li>
+              <li><strong>KOLIK</strong> je zraněných a v jakém stavu (dýchá / krvácí).</li>
+              <li><strong>KDO</strong> volá (vaše jméno a číslo telefonu).</li>
+              <li><strong>NEZAVĚŠUJTE PRVNÍ</strong> – vždy čekejte na pokyny!</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Tabulka základních a specializovaných linek s rychlým filtrem -->
+        <h3>Přehled krizových a asistenčních linek (kliknutím vytočíte)</h3>
+        <p class="text-muted" style="font-size:0.9rem; margin-bottom:0.65rem;">Všechna tísňová čísla IZS jsou zdarma a fungují 24/7 z jakéhokoli telefonu (i bez SIM karty a kreditu).</p>
+
+        <div class="contact-filter-bar" role="toolbar" aria-label="Filtrovat telefonní linky podle situace">
+          <button type="button" class="contact-filter-btn active" data-contact-filter="all">Všechny linky (13)</button>
+          <button type="button" class="contact-filter-btn" data-contact-filter="izs">🚨 Tíseň IZS (5)</button>
+          <button type="button" class="contact-filter-btn" data-contact-filter="psychika">🧠 Psychika & Děti (4)</button>
+          <button type="button" class="contact-filter-btn" data-contact-filter="seniori">👴 Senioři (2)</button>
+          <button type="button" class="contact-filter-btn" data-contact-filter="spec">🧪 Otravy & Hory (2)</button>
+        </div>
+
         <div class="table-responsive">
-          <table class="data-table" aria-label="Přehled krizových linek v České republice">
+          <table class="data-table" id="contacts-table" aria-label="Přehled krizových linek v České republice">
             <thead>
               <tr>
-                <th scope="col">Číslo (klikněte pro volání)</th>
+                <th scope="col">Číslo (klepněte pro volání)</th>
                 <th scope="col">Služba / Organizace</th>
-                <th scope="col">Pro koho je určeno</th>
+                <th scope="col">Kdy volat / Pro koho je určeno</th>
                 <th scope="col">Provozní doba</th>
                 <th scope="col">Cena</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr data-category="izs">
                 <td><a href="tel:112" class="phone-link">📞 112</a></td>
                 <td><strong>Jednotné evropské tísňové číslo</strong></td>
-                <td>Obecná tíseň, vícejazyčné (CZ, EN, DE, RU, FR)</td>
+                <td>Obecná tíseň, více složek IZS, cizinci (CZ, EN, DE, RU, FR), bez SIM</td>
                 <td>24/7 nonstop</td>
                 <td>Zdarma</td>
               </tr>
-              <tr>
-                <td><a href="tel:150" class="phone-link">🚒 150</a></td>
-                <td><strong>Hasičský záchranný sbor (HZS)</strong></td>
-                <td>Požáry, záchrana, povodně, technická pomoc</td>
-                <td>24/7 nonstop</td>
-                <td>Zdarma</td>
-              </tr>
-              <tr>
+              <tr data-category="izs">
                 <td><a href="tel:155" class="phone-link">🚑 155</a></td>
                 <td><strong>Zdravotnická záchranná služba</strong></td>
-                <td>Přímé ohrožení života, úrazy, náhlá onemocnění</td>
+                <td>Přímé ohrožení života, bezvědomí, dušnost, vážné úrazy, infarkt</td>
                 <td>24/7 nonstop</td>
                 <td>Zdarma</td>
               </tr>
-              <tr>
+              <tr data-category="izs">
+                <td><a href="tel:150" class="phone-link">🚒 150</a></td>
+                <td><strong>Hasičský záchranný sbor (HZS)</strong></td>
+                <td>Požáry, povodně, únik plynu/chemikálií, vyproštění osob, spadené stromy</td>
+                <td>24/7 nonstop</td>
+                <td>Zdarma</td>
+              </tr>
+              <tr data-category="izs">
                 <td><a href="tel:158" class="phone-link">🚔 158</a></td>
                 <td><strong>Policie České republiky</strong></td>
-                <td>Trestné činy, ochrana bezpečí, nehody</td>
+                <td>Ohrožení bezpečí, násilí, trestné činy, dopravní nehody, pohřešované osoby</td>
                 <td>24/7 nonstop</td>
                 <td>Zdarma</td>
               </tr>
-              <tr>
-                <td><a href="tel:116123" class="phone-link">🧠 116 123</a></td>
-                <td><strong>Linka první psychické pomoci</strong></td>
-                <td>Dospělí v akutní psychické krizi, úzkosti, panice</td>
-                <td>24/7 nonstop</td>
-                <td>Zdarma</td>
-              </tr>
-              <tr>
-                <td><a href="tel:116111" class="phone-link">👶 116 111</a></td>
-                <td><strong>Linka bezpečí</strong></td>
-                <td>Děti, dospívající a studenti do 26 let</td>
-                <td>24/7 nonstop</td>
-                <td>Zdarma</td>
-              </tr>
-              <tr>
-                <td><a href="tel:606021021" class="phone-link">👨‍👩‍👧 606 021 021</a></td>
-                <td><strong>Rodičovská linka</strong></td>
-                <td>Rodiče, prarodiče a pedagogové v nouzi</td>
-                <td>Po–Čt 9–21, Pá 9–17</td>
-                <td>Běžný tarif</td>
-              </tr>
-              <tr>
-                <td><a href="tel:800157157" class="phone-link">👴 800 157 157</a></td>
-                <td><strong>Senior telefon (Život 90)</strong></td>
-                <td>Senioři a pečující osoby</td>
-                <td>24/7 nonstop</td>
-                <td>Zdarma</td>
-              </tr>
-              <tr>
-                <td><a href="tel:800200007" class="phone-link">👵 800 200 007</a></td>
-                <td><strong>Linka seniorů (Elpida)</strong></td>
-                <td>Psychologická a sociální pomoc seniorům</td>
-                <td>Denně 8:00 – 20:00</td>
-                <td>Zdarma</td>
-              </tr>
-              <tr>
-                <td><a href="tel:116006" class="phone-link">🛡️ 116 006</a></td>
-                <td><strong>Bílý kruh bezpečí</strong></td>
-                <td>Oběti kriminality a domácího násilí</td>
-                <td>24/7 nonstop</td>
-                <td>Zdarma</td>
-              </tr>
-              <tr>
-                <td><a href="tel:224919293" class="phone-link">🧪 224 919 293</a></td>
-                <td><strong>Toxikologické informační středisko</strong></td>
-                <td>Otravy houbami, léky, chemikáliemi</td>
-                <td>24/7 nonstop</td>
-                <td>Běžný tarif</td>
-              </tr>
-              <tr>
+              <tr data-category="izs">
                 <td><a href="sms:603111158" class="phone-link">💬 603 111 158</a></td>
                 <td><strong>SMS tísňová linka Policie ČR</strong></td>
-                <td>Neslyšící a osoby, které nemohou mluvit</td>
+                <td>Pro neslyšící a situace, kdy nemůžete nahlas mluvit</td>
                 <td>24/7 nonstop</td>
                 <td>Běžná SMS</td>
               </tr>
-              <tr>
+              <tr data-category="psychika">
+                <td><a href="tel:116123" class="phone-link">🧠 116 123</a></td>
+                <td><strong>Linka první psychické pomoci</strong></td>
+                <td>Dospělí v akutní psychické krizi, panice, úzkosti a osamělosti</td>
+                <td>24/7 nonstop</td>
+                <td>Zdarma</td>
+              </tr>
+              <tr data-category="psychika">
+                <td><a href="tel:116111" class="phone-link">👶 116 111</a></td>
+                <td><strong>Linka bezpečí</strong></td>
+                <td>Děti, dospívající a studenti do 26 let v tísni či strachu</td>
+                <td>24/7 nonstop</td>
+                <td>Zdarma</td>
+              </tr>
+              <tr data-category="psychika">
+                <td><a href="tel:606021021" class="phone-link">👨‍👩‍👧 606 021 021</a></td>
+                <td><strong>Rodičovská linka</strong></td>
+                <td>Krizové poradenství pro rodiče, prarodiče a pedagogy</td>
+                <td>Po–Čt 9–21, Pá 9–17</td>
+                <td>Běžný tarif</td>
+              </tr>
+              <tr data-category="psychika">
+                <td><a href="tel:116006" class="phone-link">🛡️ 116 006</a></td>
+                <td><strong>Bílý kruh bezpečí</strong></td>
+                <td>Pomoc obětem kriminality, napadení a domácího násilí</td>
+                <td>24/7 nonstop</td>
+                <td>Zdarma</td>
+              </tr>
+              <tr data-category="seniori">
+                <td><a href="tel:800157157" class="phone-link">👴 800 157 157</a></td>
+                <td><strong>Senior telefon (Život 90)</strong></td>
+                <td>Nonstop krizová a poradenská linka pro seniory a pečující</td>
+                <td>24/7 nonstop</td>
+                <td>Zdarma</td>
+              </tr>
+              <tr data-category="seniori">
+                <td><a href="tel:800200007" class="phone-link">👵 800 200 007</a></td>
+                <td><strong>Linka seniorů (Elpida)</strong></td>
+                <td>Psychologická podpora a praktické rady pro seniory v izolaci</td>
+                <td>Denně 8:00 – 20:00</td>
+                <td>Zdarma</td>
+              </tr>
+              <tr data-category="spec">
+                <td><a href="tel:224919293" class="phone-link">🧪 224 919 293</a></td>
+                <td><strong>Toxikologické informační středisko</strong></td>
+                <td>Konzultace při otravách houbami, léky, plynem a chemikáliemi</td>
+                <td>24/7 nonstop</td>
+                <td>Běžný tarif</td>
+              </tr>
+              <tr data-category="spec">
                 <td><a href="tel:1210" class="phone-link">⛰️ 1210</a></td>
                 <td><strong>Horská služba ČR</strong></td>
-                <td>Nehody a nouze v horském terénu</td>
+                <td>Záchrana při nehodách a uvíznutí v horském terénu</td>
                 <td>24/7 nonstop</td>
                 <td>Zpoplatněno</td>
               </tr>
@@ -2667,29 +3639,66 @@
           </table>
         </div>
 
-        <!-- Co říkat operátorovi při tísňovém volání -->
-        <div class="alert-box info">
-          <span class="alert-icon" aria-hidden="true">ℹ️</span>
-          <div class="alert-content">
-            <strong>Jak správně mluvit s operátorem tísňové linky:</strong>
-            <ol style="margin-bottom:0; padding-left:1.25rem;">
-              <li><strong>KDE</strong> se to stalo (město, ulice, číslo domu, orientační bod, silniční kilometrovník).</li>
-              <li><strong>CO</strong> se stalo (požár, nehoda, zranění, kolaps).</li>
-              <li><strong>KOLIK</strong> je postižených a jaký je jejich stav (dýchá / krvácí / v bezvědomí).</li>
-              <li><strong>KDO</strong> volá (vaše jméno a telefonní číslo).</li>
-              <li><strong>NEZAVĚŠUJTE</strong> jako první – vyčkejte na otázky a pokyny operátora!</li>
-            </ol>
+        <!-- Výpadek internetu & Rádio -->
+        <h3>Jak získat informace při výpadku elektřiny a internetu</h3>
+        <div class="grid-2">
+          <!-- Karta 1: Český rozhlas Radiožurnál -->
+          <div class="card-item" id="radio-frekvence">
+            <h4>📻 Český rozhlas Radiožurnál (všech 14 krajů)</h4>
+            <p>Oficiální celostátní krizový rozhlas se záložním generátorovým napájením. Při blackoutu nalaďte na bateriovém či klikovém rádiu nebo v autě (RDS kód <strong>232F</strong>):</p>
+            <ul style="font-family:var(--font-mono); font-size:0.875rem; margin-bottom:1rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(10rem, 1fr)); gap:0.3rem 0.5rem; list-style:none; padding-left:0;">
+              <li>• <strong>Praha:</strong> 94,6 MHz</li>
+              <li>• <strong>Stř. Čechy:</strong> 100,7 MHz</li>
+              <li>• <strong>Brno:</strong> 89,5 MHz</li>
+              <li>• <strong>Ostrava:</strong> 101,4 MHz</li>
+              <li>• <strong>Plzeň:</strong> 89,1 MHz</li>
+              <li>• <strong>Č. Budějovice:</strong> 91,1 MHz</li>
+              <li>• <strong>Hradec Král.:</strong> 90,5 MHz</li>
+              <li>• <strong>Pardubice:</strong> 89,7 MHz</li>
+              <li>• <strong>Liberec:</strong> 95,9 MHz</li>
+              <li>• <strong>Ústí n. L.:</strong> 90,9 MHz</li>
+              <li>• <strong>Karlovy Vary:</strong> 91,0 MHz</li>
+              <li>• <strong>Jihlava:</strong> 90,7 MHz</li>
+              <li>• <strong>Olomouc:</strong> 88,7 MHz</li>
+              <li>• <strong>Zlín:</strong> 99,5 MHz</li>
+            </ul>
+            <div class="app-links-row">
+              <a href="https://www.mujrozhlas.cz/zive/radiozurnal?autoplay=1" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Spustit živé vysílání Radiožurnálu (otevře se v novém okně)">
+                <span aria-hidden="true">🔴</span>
+                <span class="store-badge-text">Živé vysílání (audio)</span>
+              </a>
+              <a href="https://www.irozhlas.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Otevřít textové zpravodajství iROZHLAS.cz (otevře se v novém okně)">
+                <span aria-hidden="true">📰</span>
+                <span class="store-badge-text">iROZHLAS.cz (text)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Karta 2: Česká televize ČT24 -->
+          <div class="card-item">
+            <h4>📺 Česká televize ČT24 & Teletext</h4>
+            <p>Nepřetržitý krizový zpravodajský kanál České televize. Bezplatně dostupný v pozemním vysílání DVB-T2 (multiplex 21), v kabelových sítích, na satelitu i přes internet.</p>
+            <p><strong>💡 Tip pro přetíženou mobilní síť (2G/EDGE):</strong> Otevřete webový <strong>Teletext ČT</strong> – má jen pár kilobajtů a načte krizové zprávy okamžitě i tam, kde se běžné weby a videa vůbec nenačtou!</p>
+            <div class="app-links-row">
+              <a href="https://ct24.ceskatelevize.cz/video/zive-vysilani" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Spustit živé vysílání ČT24 (otevře se v novém okně)">
+                <span aria-hidden="true">🔴</span>
+                <span class="store-badge-text">Živé vysílání ČT24</span>
+              </a>
+              <a href="https://teletext.ceskatelevize.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Otevřít Teletext ČT online pro rychlé textové načtení (otevře se v novém okně)">
+                <span aria-hidden="true">📟</span>
+                <span class="store-badge-text">Teletext ČT (str. 100)</span>
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- Aplikace pro krizové situace -->
-        <h3>Doporučené mobilní aplikace (nainstalujte si ještě před krizí)</h3>
+        <h3>4 mobilní aplikace, které si nainstalujte ještě před krizí</h3>
         <div class="grid-2">
           <div class="card-item">
-            <h4>🚨 Aplikace ZÁCHRANKA</h4>
-            <p>Nejdůležitější aplikace v ČR. Stisknutím tlačítka SOS automaticky odešle záchranářům vaši přesnou GPS polohu, stav baterie a předvyplněné zdravotní údaje.</p>
-            <p><strong>Obsahuje také:</strong> Lokátor nejbližších AED defibrilátorů, nouzový tichý chat a příručku 72 hodin.</p>
-            <p><small>Dostupná zdarma pro Android i iOS (přes 3,5 milionu uživatelů v ČR).</small></p>
+            <h4>🚨 1. Aplikace ZÁCHRANKA</h4>
+            <p>Nejdůležitější aplikace v ČR. Stisknutím tlačítka SOS odešle záchranářům vaši přesnou GPS polohu, stav baterie a předvyplněné zdravotní údaje.</p>
+            <p><strong>Obsahuje také:</strong> Offline lokátor AED defibrilátorů, tichý chat a příručku první pomoci.</p>
             <div class="app-links-row">
               <a href="https://play.google.com/store/apps/details?id=com.medicalit.zachranka&hl=cs" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Záchranku na Google Play (otevře se v novém okně)">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none';" loading="lazy">
@@ -2703,9 +3712,9 @@
           </div>
 
           <div class="card-item">
-            <h4>🌧️ Počasí ČHMÚ + Výstrahy</h4>
-            <p>Oficiální radarové snímky a personalizované výstrahy před extrémními bouřkami, povodněmi, větrem a náledím s rozlišením 1 km.</p>
-            <p><strong>K-appka:</strong> Upozornění na přívalové srážky 30 minut předem.</p>
+            <h4>🌧️ 2. Počasí ČHMÚ + Výstrahy</h4>
+            <p>Oficiální radarové snímky a lokalizované výstrahy před extrémními bouřkami, povodněmi, vichřicí a náledím s rozlišením na 1 km.</p>
+            <p><strong>Výhoda:</strong> Upozornění na přívalové srážky a nebezpečné jevy přímo od státních meteorologů.</p>
             <div class="app-links-row">
               <a href="https://play.google.com/store/apps/details?id=cz.chmu.pocasi" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Počasí ČHMÚ na Google Play (otevře se v novém okně)">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none';" loading="lazy">
@@ -2719,8 +3728,8 @@
           </div>
 
           <div class="card-item">
-            <h4>📢 MUNIPOLIS</h4>
-            <p>Přímo propojuje přes 3 500 českých obcí s občany. Dostanete okamžité varování o havárii vody, výpadku proudu nebo příkazu k evakuaci formou notifikace a nouzové SMS.</p>
+            <h4>📢 3. MUNIPOLIS (Mobilní rozhlas obce)</h4>
+            <p>Propojuje přes 3 500 českých obcí a měst přímo s občany. Dostanete okamžité varování o havárii vody, kontaminaci, výpadku proudu nebo příkazu k evakuaci.</p>
             <div class="app-links-row">
               <a href="https://play.google.com/store/apps/details?id=com.neogenia.zlepseme_cesko" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout MUNIPOLIS na Google Play (otevře se v novém okně)">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none';" loading="lazy">
@@ -2734,8 +3743,8 @@
           </div>
 
           <div class="card-item">
-            <h4>🗺️ Mapy.cz (Offline stažení)</h4>
-            <p>Stáhněte si do mobilu offline mapu svého kraje dopředu. V krizovém stavu při výpadku mobilního internetu funguje navigace i turistické trasy bez signálu.</p>
+            <h4>🗺️ 4. Mapy.cz (Stáhněte si offline mapu ČR)</h4>
+            <p>V nastavení aplikace si předem stáhněte offline mapu celé ČR nebo svého kraje. Při výpadku internetu a mobilních dat vám bude plně fungovat pěší i silniční navigace.</p>
             <div class="app-links-row">
               <a href="https://play.google.com/store/apps/details?id=cz.seznam.mapy" target="_blank" rel="noopener noreferrer" class="store-badge-btn" title="Stáhnout Mapy.cz na Google Play (otevře se v novém okně)">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" width="18" height="18" class="store-badge-icon" onerror="this.style.display='none';" loading="lazy">
@@ -2745,149 +3754,6 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="" width="16" height="18" class="store-badge-icon store-apple-icon" onerror="this.style.display='none';" loading="lazy">
                 <span class="store-badge-text">App Store</span>
               </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Výpadek internetu & Sirény -->
-        <h3>Jak získat informace při výpadku elektřiny a internetu</h3>
-        <div class="grid-2">
-          <!-- Karta 1: Český rozhlas Radiožurnál -->
-          <div class="card-item">
-            <h4>📻 Český rozhlas Radiožurnál</h4>
-            <p>Oficiální celostátní krizový rozhlas se záložním generátorovým napájením. Při blackoutu nalaďte na bateriovém či klikovém rádiu nebo v autě (RDS kód <strong>232F</strong>):</p>
-            <ul style="font-family:var(--font-mono); font-size:0.9rem; margin-bottom:1rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(9.5rem, 1fr)); gap:0.25rem 0.5rem; list-style:none; padding-left:0;">
-              <li>• <strong>Praha:</strong> 94,6 MHz</li>
-              <li>• <strong>Brno:</strong> 89,5 MHz</li>
-              <li>• <strong>Ostrava:</strong> 101,4 MHz</li>
-              <li>• <strong>Plzeň:</strong> 89,1 MHz</li>
-              <li>• <strong>Pardubice:</strong> 89,7 MHz</li>
-              <li>• <strong>Č. Budějovice:</strong> 91,1 MHz</li>
-              <li>• <strong>Liberec:</strong> 95,9 MHz</li>
-              <li>• <strong>Jihlava:</strong> 90,7 MHz</li>
-              <li>• <strong>Ústí n. L.:</strong> 90,9 MHz</li>
-              <li>• <strong>Zlín:</strong> 99,5 MHz</li>
-            </ul>
-            <div class="app-links-row">
-              <a href="https://www.mujrozhlas.cz/zive/radiozurnal?autoplay=1" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Spustit živé vysílání Radiožurnálu (otevře se v novém okně)">
-                <span aria-hidden="true">🔴</span>
-                <span class="store-badge-text">Živé vysílání (přehrávač)</span>
-              </a>
-              <a href="https://www.irozhlas.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Otevřít textové zpravodajství iROZHLAS.cz (otevře se v novém okně)">
-                <span aria-hidden="true">📰</span>
-                <span class="store-badge-text">iROZHLAS.cz (textová verze)</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Karta 2: Česká televize ČT24 -->
-          <div class="card-item">
-            <h4>📺 Česká televize ČT24</h4>
-            <p>Nepřetržitý krizový zpravodajský kanál České televize. Bezplatně dostupný v pozemním vysílání DVB-T2 (multiplex 21), v kabelových sítích, na satelitu i přes internet.</p>
-            <p><strong>Při přetížení serverů / slabém signálu:</strong> Využijte oficiální Teletext ČT – načte se v jednotkách kB textu okamžitě i při výpadcích videa a na pomalém mobilním připojení.</p>
-            <div class="app-links-row">
-              <a href="https://ct24.ceskatelevize.cz/video/zive-vysilani" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Spustit živé vysílání ČT24 (otevře se v novém okně)">
-                <span aria-hidden="true">🔴</span>
-                <span class="store-badge-text">Živé vysílání ČT24</span>
-              </a>
-              <a href="https://teletext.ceskatelevize.cz/" target="_blank" rel="noopener noreferrer" class="store-badge-btn" style="flex:1 1 calc(50% - 0.25rem); justify-content:center;" title="Otevřít Teletext ČT online pro rychlé textové načtení (otevře se v novém okně)">
-                <span aria-hidden="true">📟</span>
-                <span class="store-badge-text">Teletext ČT (str. 100/110)</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Varovné signály sirén a chování při poplachu -->
-        <h3 id="sireny-a-poplach" style="margin-top: 2rem;">🚨 Varovné signály, chování při poplachu a vzdušném ohrožení</h3>
-        <p class="text-muted" style="margin-bottom: 1.25rem;">
-          Při vyhlášení poplachu, rozeznění sirén či nálezu vojenských trosek rozhodují vteřiny. Postupujte podle ověřených zásad IZS ČR a Vládního bezpečnostního centra Polska (RCB):
-        </p>
-
-        <div class="grid-2">
-          <!-- Karta 1: Varovné signály sirén (JSVV) -->
-          <div class="card-item">
-            <h4>🚨 Varovné signály sirén v ČR (JSVV)</h4>
-            <p>V ČR funguje přes 9 600 sirén. Rozlišujte tyto 3 základní tóny:</p>
-            <div style="margin-bottom:0.75rem;">
-              <strong style="color:var(--color-emergency);">1. VŠEOBECNÁ VÝSTRAHA (Kolísavý tón 140 s)</strong><br>
-              <span style="font-size:0.9rem;">Hrozí bezprostřední nebezpečí! Okamžitě se ukryjte do pevné budovy, zavřete okna, vypněte ventilaci a nalaďte ČRo Radiožurnál či ČT24.</span>
-            </div>
-            <div style="margin-bottom:0.75rem;">
-              <strong>2. POŽÁRNÍ POPLACH (Přerušovaný tón 1 min / „HÓ-ŘÍ“)</strong><br>
-              <span style="font-size:0.9rem;">Svolání jednotek hasičů. Pro obyvatelstvo neznamená přímé ohrožení.</span>
-            </div>
-            <div style="margin-bottom:0.75rem;">
-              <strong>3. ZKOUŠKA SIRÉN (Stálý nepřerušovaný tón 140 s)</strong><br>
-              <span style="font-size:0.9rem;">Pravidelný test: každou 1. středu v měsíci přesně ve 12:00.</span>
-            </div>
-            <div style="margin-top:auto; padding-top:0.5rem;">
-              <small class="text-muted">Po zaznění tónu 1 vždy vyhledejte bezpečí a ověřte pokyny v oficiálním vysílání.</small>
-            </div>
-          </div>
-
-          <!-- Karta 2: Při poplachu v budově: Co dělat hned -->
-          <div class="card-item">
-            <h4>🏢 Při poplachu: Co dělat hned (v budově)</h4>
-            <p>Zazní-li siréna nebo krizové varování, když jste doma či v práci:</p>
-            <ol style="margin-bottom:0.75rem; padding-left:1.25rem; font-size:0.9rem; line-height:1.5;">
-              <li style="margin-bottom:0.35rem;"><strong>Jděte do úkrytu:</strong> Použijte předem známou trasu do suterénu, sklepa či krytu.</li>
-              <li style="margin-bottom:0.35rem;"><strong>Vezměte nejdůležitější:</strong> Pokud je čas, vezměte evakuační batoh a nezbytné léky.</li>
-              <li style="margin-bottom:0.35rem;"><strong style="color:var(--color-emergency);">Použijte schody:</strong> Výtah nikdy nepoužívejte – při výpadku elektřiny v něm uvíznete!</li>
-              <li style="margin-bottom:0.35rem;"><strong>Vyberte bezpečné místo:</strong> Hledejte prostor bez oken se silnými zdmi a pevným stropem (chodba, jádro, koupelna).</li>
-              <li style="margin-bottom:0.35rem;"><strong>Nevycházejte předčasně:</strong> Úkryt opusťte až po oficiálním pokynu nebo odvolání hrozby.</li>
-              <li><strong>Omezte volání:</strong> Nezahlcujte sítě pro záchranáře – s rodinou komunikujte přes <strong>SMS</strong>.</li>
-            </ol>
-            <div style="margin-top:auto; padding-top:0.5rem;">
-              <small class="text-muted">🤝 <strong>Sousedská pomoc:</strong> Zkontrolujte seniory a rodiny s dětmi v patře.</small>
-            </div>
-          </div>
-
-          <!-- Karta 3: Co dělat při poplachu venku -->
-          <div class="card-item">
-            <h4>🏃 Když vás poplach zastihne venku</h4>
-            <p>Nemáte-li na dosah bezpečí domova a ozve se poplach či výbuch:</p>
-            <ol style="margin-bottom:0.75rem; padding-left:1.25rem; font-size:0.9rem; line-height:1.5;">
-              <li style="margin-bottom:0.35rem;"><strong style="color:var(--color-emergency);">Při explozi okamžitě k zemi:</strong> Ihned padněte na břicho obličejem dolů, nohama k výbuchu.</li>
-              <li style="margin-bottom:0.35rem;"><strong>Využijte terén:</strong> Zalehněte do prohlubně, příkopu, jámy, výmolu nebo za masivní pevnou překážku.</li>
-              <li style="margin-bottom:0.35rem;"><strong>Chraňte si hlavu a krk:</strong> Rukama pevně kryjte zátylek, lokty přitiskněte k tělu a ústa nechte pootevřená pro vyrovnání tlaku.</li>
-              <li><strong>Vyhledejte úkryt:</strong> Jakmile to půjde, přesuňte se do podzemí (kryt, metro, podchod, garáže, zděný sklep). Vyhněte se výlohám a oknům!</li>
-            </ol>
-            <div style="margin-top:auto; padding-top:0.5rem;">
-              <small class="text-muted">Tlaková vlna tříští sklo na stovky metrů. Vyhněte se proskleným přístřeškům.</small>
-            </div>
-          </div>
-
-          <!-- Karta 4: Nález dronu, rakety nebo vojenských trosek -->
-          <div class="card-item">
-            <h4>💣 Nález dronu, rakety nebo vojenských trosek</h4>
-            <p>Při nálezu havarovaného bezpilotního prostředku či trosek munice:</p>
-            <ol style="margin-bottom:0.75rem; padding-left:1.25rem; font-size:0.9rem; line-height:1.5;">
-              <li style="margin-bottom:0.35rem;"><strong style="color:var(--color-emergency);">Nepřibližujte se:</strong> Udržujte odstup minimálně 100 metrů.</li>
-              <li style="margin-bottom:0.35rem;"><strong>Nesahejte a nemanipulujte:</strong> Trosky mohou obsahovat nevybuchlou munici, nástražné systémy nebo toxické palivo.</li>
-              <li style="margin-bottom:0.35rem;"><strong>Varujte ostatní v okolí:</strong> Zabraňte vstupu kolemjdoucích a především dětí do nebezpečného prostoru.</li>
-              <li style="margin-bottom:0.35rem;"><strong>Zavolejte na linku 112:</strong> Nahlaste přesnou polohu trosek a popis situace.</li>
-              <li><strong>Držte odstup až do příjezdu IZS:</strong> Vyčkejte v bezpečné vzdálenosti na Policii ČR a pyrotechniky.</li>
-            </ol>
-            <div style="margin-top:auto; padding-top:0.5rem;">
-              <small class="text-muted">⚠️ <strong>Pozor:</strong> I po dopadu a zdánlivém vyhoření mohou trosky kdykoli explodovat.</small>
-            </div>
-          </div>
-        </div>
-
-        <!-- Banner krizových zásad -->
-        <div class="alert-box tip" style="margin-top: 0.25rem; margin-bottom: 1.5rem;">
-          <span class="alert-icon" aria-hidden="true">🛡️</span>
-          <div class="alert-content">
-            <strong>Klíčové zásady civilní ochrany při leteckém a krizovém poplachu:</strong>
-            <p style="margin: 0.25rem 0 0.5rem 0; font-size: 0.9rem;">
-              Tato praktická doporučení vycházejí z bezpečnostních standardů Vládního bezpečnostního centra Polska (RCB) a polských úřadů civilní ochrany (gov.pl / OLIOC), vytvořených pro ochranu obyvatelstva v moderních bezpečnostních podmínkách.
-            </p>
-            <div style="display:flex; flex-wrap:wrap; gap:0.75rem 1.25rem; font-size:0.875rem;">
-              <span>📞 Tísňové volání: <strong>Linka 112</strong></span>
-              <span>💬 Komunikace s rodinou: <strong>Přednostně SMS (šetří síť)</strong></span>
-              <span>🚫 Odstup od trosek: <strong>Minimálně 100 metrů</strong></span>
-              <span>🤝 Vzájemná pomoc: <strong>Nezapomínejte na osamělé sousedy</strong></span>
             </div>
           </div>
         </div>
@@ -2914,6 +3780,16 @@
           <span class="badge badge-primary">Dle WHO a Červeného kříže</span>
         </div>
 
+        <!-- TL;DR Shrnutí sekce -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – Jak zvládnout akutní paniku a šok během 2 minut:</div>
+          <ul class="tldr-list">
+            <li><strong>1. Zpomalte dech (4–4–4–4):</strong> 4 s nádech nosem ➔ 4 s zadržet ➔ 4 s výdech ústy ➔ 4 s pauza. Aktivuje brzdu nervového systému.</li>
+            <li><strong>2. Uzemněte smysly (5–4–3–2–1):</strong> Nahlas pojmenujte 5 věcí, co vidíte, 4 čeho se dotýkáte, 3 co slyšíte + napijte se vody a dejte si trochu cukru.</li>
+            <li><strong>3. Pomoc druhému:</strong> Oslovujte jménem, <strong>neříkejte „Uklidni se / Neplač“</strong>, nechte tělo třást se (odbourává adrenalin) a dejte mu jednoduchý úkol.</li>
+          </ul>
+        </div>
+
         <div class="alert-box tip">
           <span class="alert-icon" aria-hidden="true">🌱</span>
           <div class="alert-content">
@@ -2924,9 +3800,9 @@
 
         <!-- INTERAKTIVNÍ DECHOVÉ CVIČENÍ (KRABICOVÉ DÝCHÁNÍ 4-4-4-4) -->
         <div class="breathing-widget">
-          <h3>🌬️ Zklidňující krabicové dýchání (Box Breathing)</h3>
-          <p style="max-width:38rem; margin:0 auto 1rem;">
-            Tuto techniku využívají záchranáři i armáda k okamžitému snížení hladiny stresových hormonů (kortizolu a adrenalinu). Dýchejte podle vizuálního kruhu:
+          <h3>🌬️ Zklidňující krabicové dýchání (Box Breathing 4–4–4–4)</h3>
+          <p style="max-width:38rem; margin:0 auto 0.75rem;">
+            Technika záchranářů a armády k rychlému snížení hladiny stresových hormonů (kortizolu a adrenalinu). Klepněte na kruh nebo tlačítko a dýchejte podle návodu:
           </p>
 
           <div class="breathing-circle-outer" id="breathing-circle-outer" role="button" tabindex="0" title="Kliknutím spustíte nebo zastavíte dechové cvičení" aria-label="Kliknutím spustíte nebo zastavíte dechové cvičení">
@@ -2936,7 +3812,8 @@
             </div>
           </div>
 
-          <div class="breathing-status" id="breathing-instruction">Připravte se...</div>
+          <div class="breathing-status" id="breathing-instruction">Připravte se... (doporučujeme 4 celé cykly)</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700; margin-bottom:0.5rem;" id="breathing-cycles-label">Dokončené cykly: 0 / 4</div>
 
           <div class="breathing-controls">
             <button type="button" class="btn btn-primary" id="btn-toggle-breathing">
@@ -2946,8 +3823,8 @@
         </div>
 
         <!-- Smyslové uzemnění Grounding 5-4-3-2-1 -->
-        <h3>Technika smyslového uzemnění (Grounding 5-4-3-2-1)</h3>
-        <p>Pokud cítíte paniku, dušnost, derealizaci nebo ztrátu kontroly, posaďte se, položte chodidla na zem a nahlas pojmenujte:</p>
+        <h3>Technika smyslového uzemnění (Grounding 5–4–3–2–1)</h3>
+        <p>Pokud cítíte paniku, dušnost, derealizaci nebo ztrátu kontroly, posaďte se, položte chodidla pevně na podlahu a nahlas pojmenujte:</p>
 
         <div class="grid-3">
           <div class="card-item">
@@ -2960,7 +3837,7 @@
           </div>
           <div class="card-item">
             <h4>👂 3 věci, které SLYŠÍTE</h4>
-            <p>Zaplouchejte se: zvuk deště, vzdálený motor auta, vlastní dech, šum větru.</p>
+            <p>Zaposlouchejte se: zvuk deště, vzdálený motor auta, vlastní dech, šum větru.</p>
           </div>
           <div class="card-item">
             <h4>👃 2 věci, které CÍTÍTE ČICHEM</h4>
@@ -3034,7 +3911,7 @@
           <span class="alert-icon" aria-hidden="true">🚨</span>
           <div class="alert-content">
             <strong>Kdy bezodkladně vyhledat odborníka (psychologa / psychiatra):</strong>
-            <p>Pokud akutní potíže (nespavost, flashbacky, záchvaty paniky, ztráta schopnosti vstát a postarat se o sebe) trvají déle než <strong>4–6 týdnů</strong>, nebo se objeví myšlenky na sebepoškození a sebevraždu. Volejte Linku první psychické pomoci <strong>116 123</strong> (24/7 zdarma) nebo Centrum krizové intervence Bohnice <strong>284 016 666</strong>.</p>
+            <p>Pokud akutní potíže (nespavost, flashbacky, záchvaty paniky, ztráta schopnosti vstát a postarat se o sebe) trvají déle než <strong>4–6 týdnů</strong>, nebo se objeví myšlenky na sebepoškození a sebevraždu. Volejte Linku první psychické pomoci <a href="tel:116123"><strong>116 123</strong></a> (24/7 zdarma) nebo Centrum krizové intervence Bohnice <a href="tel:284016666"><strong>284 016 666</strong></a>.</p>
           </div>
         </div>
 
@@ -3058,6 +3935,16 @@
         <div class="section-header">
           <h2 id="deti-heading">👶 6. Jak mluvit s dětmi při krizových situacích</h2>
           <span class="badge badge-primary">Rodiče, učitelé & pečující</span>
+        </div>
+
+        <!-- TL;DR Shrnutí sekce -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – 3 zlatá pravidla komunikace s dětmi v krizi:</div>
+          <ul class="tldr-list">
+            <li><strong>1. Mluvte první a nelžete:</strong> Mlčení děsí víc než pravda. Řekněte větu: <em>„Jsem tady s tebou a uděláme všechno pro to, abychom byli v bezpečí.“</em></li>
+            <li><strong>2. Vypněte zprávy a dejte dítěti úkol:</strong> Opakované záběry katastrof děti traumatizují. Svěřte dítěti drobný úkol (např. <em>„Ty hlídáš baterku / plyšáka“</em>).</li>
+            <li><strong>3. Princip kyslíkové masky:</strong> Děti zrcadlí váš hlas a napětí. Nejdříve zklidněte svůj dech, teprve pak uklidňujte dítě.</li>
+          </ul>
         </div>
 
         <div class="alert-box warning">
@@ -3141,7 +4028,7 @@
           <span class="alert-icon" aria-hidden="true">🚨</span>
           <div class="alert-content">
             <strong>Varovné signály u dětí – Kdy kontaktovat odborníka:</strong>
-            <p>Pokud u dítěte déle než <strong>2–4 týdny</strong> přetrvávají noční děsy, trvalé odmítání jídla, apatie, psychosomatické bolesti břicha a hlavy bez lékařské příčiny, nebo sebepoškozování u teenagerů. Volejte bezplatně <strong>Linku bezpečí pro děti: 116 111</strong> nebo <strong>Rodičovskou linku: 606 021 021</strong>.</p>
+            <p>Pokud u dítěte déle než <strong>2–4 týdny</strong> přetrvávají noční děsy, trvalé odmítání jídla, apatie, psychosomatické bolesti břicha a hlavy bez lékařské příčiny, nebo sebepoškozování u teenagerů. Volejte bezplatně <strong>Linku bezpečí pro děti: <a href="tel:116111">116 111</a></strong> nebo <strong>Rodičovskou linku: <a href="tel:606021021">606 021 021</a></strong>.</p>
           </div>
         </div>
 
@@ -3159,21 +4046,209 @@
 
 
       <!-- ====================================================================
-           7. SEKCE: MŮJ RODINNÝ KRIZOVÝ PLÁN (FORMULÁŘ)
+           7. SEKCE: PRO LIDI ŽIJÍCÍ OSAMĚLE
+           ==================================================================== -->
+      <section id="osameli" class="section-card" aria-labelledby="osameli-heading">
+        <div class="section-header">
+          <h2 id="osameli-heading">👤 7. Krizová připravenost pro lidi žijící osaměle</h2>
+          <span class="badge badge-primary">Téměř 2 miliony občanů ČR</span>
+        </div>
+
+        <!-- TL;DR Shrnutí sekce -->
+        <div class="tldr-box">
+          <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE – 3 kroky pro bezpečí, když žijete sami:</div>
+          <ul class="tldr-list">
+            <li><strong>1. Sousedský signál:</strong> Domluvte se s <strong>1 sousedem</strong>, vyměňte si čísla na papíře a určete kontrolní signál (např. večerní světlo nebo vybraná schránka).</li>
+            <li><strong>2. Registrace u obce:</strong> Nahlaste se na sociálním odboru své obce (zákon č. 240/2000 Sb.), aby pro vás při evakuaci přijeli hasiči.</li>
+            <li><strong>3. Bezpečí v bytě:</strong> Mějte čelovku u postele, konzervy s otevíracím očkem a <strong>seznam léků připevněný magnetem na lednici</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="alert-box tip">
+          <span class="alert-icon" aria-hidden="true">💡</span>
+          <div class="alert-content">
+            <strong>Žít osaměle neznamená být bezmocný!</strong>
+            <p>Většina příruček předpokládá velkou rodinu a dvě auta. Člověk žijící sám potřebuje jinou strategii: <em>systém místo rodiny</em>. Nemusíte hledat desítky přátel – stačí 1 domluvený soused, registrace u obce a tísňové technologie.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card-item">
+            <h4>🤝 1. Záchranná síť (Sousedský signál)</h4>
+            <p>
+              Stačí jediný soused, se kterým si vyměníte telefonní číslo na papíře. Domluvte si jednoduché pravidlo:
+            </p>
+            <p style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-md); font-weight:600; font-size:0.95rem;">
+              „Když 2 dny nerozsvítím večer v kuchyni nebo nevyzvednu noviny ze schránky, prozvoňte mě nebo zavolejte záchranku.“
+            </p>
+            <p class="text-muted" style="font-size:0.875rem;">Dejte kontakt na sebe i správci domu či výboru SVJ.</p>
+          </div>
+
+          <div class="card-item">
+            <h4>🏛️ 2. Právní registrace u obce</h4>
+            <p>
+              Dle zákona č. <strong>240/2000 Sb.</strong> (krizový zákon) a zákona č. <strong>239/2000 Sb.</strong> (zákon o IZS) mají obce zákonnou povinnost plánovat pomoc a evakuaci osobám se sníženou mobilitou či osamělým seniorům.
+            </p>
+            <p>
+              <strong>Co udělat:</strong> Zavolejte na sociální odbor své obce a požádejte o zapsání do krizového plánu, aby pro vás hasiči přijeli.
+            </p>
+          </div>
+
+          <div class="card-item">
+            <h4>🚨 3. SOS technologie & Zdraví</h4>
+            <ul>
+              <li><strong>SOS tlačítko / náramek:</strong> Život 90 (tel. <a href="tel:800157157">800 157 157</a>) nebo Elpida nabízejí tlačítka s detektorem pádu fungující i bez mobilu.</li>
+              <li><strong>Léky na 14 dní:</strong> Mějte doma zásobu na celé 2 týdny a seznam léků magnetem na lednici (první místo, kam se dívají lékaři záchranky).</li>
+              <li><strong>Aplikace Záchranka:</strong> Předvyplňte své diagnózy pro dispečink.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Specifika a prevence pádů potmě -->
+        <h3>Prevence úrazů a psychická stabilita v samotě</h3>
+        <div class="grid-2">
+          <div class="card-item">
+            <h4>🔦 Bezpečí domova při blackoutu</h4>
+            <ul>
+              <li><strong>Svítilna u lůžka:</strong> Mějte čelovku na dosah ruky od polštáře. Žádné noční tápání ve tmě!</li>
+              <li><strong>Průchozí trasa:</strong> Odstraňte kluzké koberečky a kabely mezi postelí, toaletou a vchodem.</li>
+              <li><strong>Konzervy:</strong> Kupujte pouze konzervy s otevíracím očkem/kroužkem (pro případ snížené síly v rukou či artritidy).</li>
+              <li><strong>Signál z okna:</strong> Při imobilitě a nefunkčních sítích vyvěste z okna bílé prostěradlo – mezinárodní signál pro IZS, že v bytě potřebujete pomoc.</li>
+            </ul>
+          </div>
+
+          <div class="card-item">
+            <h4>🧘 Psychická odolnost v izolaci</h4>
+            <ul>
+              <li><strong>Pevný denní rytmus:</strong> Vstávání, hygiena, strava a spánek v přesný čas ukotvují mozek.</li>
+              <li><strong>Mluvení nahlas k sobě:</strong> Nahlas komentujte své úkony: <em>„Teď si uvařím čaj, pak zkontroluji rádio.“</em> Snižuje to úzkost a stabilizuje kognitivní funkce.</li>
+              <li><strong>Linky důvěry nejsou ostuda:</strong> Volat na linku <a href="tel:116123"><strong>116 123</strong></a> (24/7, zdarma) nebo Senior telefon <a href="tel:800157157"><strong>800 157 157</strong></a> je naprosto v pořádku i tehdy, když si prostě jen potřebujete s někým promluvit.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Checklist pro osamělé (10 klíčových bodů) -->
+        <details class="styled-details" open>
+          <summary class="styled-summary">
+            <span>📋 Interaktivní kontrolní seznam pro ty, kteří se starají sami o sebe (10 bodů)</span>
+            <span class="summary-icon" aria-hidden="true">▼</span>
+          </summary>
+          <div class="details-body">
+            <div class="checklist-progress-bar-container" aria-live="polite">
+              <div class="progress-info">
+                <span>Stav checklistu pro osamělé:</span>
+                <span id="progress-osameli-label">0 z 10 splněno (0 %)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-fill" id="progress-osameli-bar" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <ul class="checklist-group" data-checklist-id="osameli">
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-1" data-key="osa-1">
+                <label for="chk-osa-1" class="checklist-text">
+                  <strong>1. Sousedský kontakt:</strong> Znám jméno alespoň jednoho souseda a máme na sebe telefonní číslo na papíře.
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-2" data-key="osa-2">
+                <label for="chk-osa-2" class="checklist-text">
+                  <strong>2. Signál bezpečí:</strong> Máme se sousedem domluvený jednoduchý signál kontroly bezpečí (světlo, schránka).
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-3" data-key="osa-3">
+                <label for="chk-osa-3" class="checklist-text">
+                  <strong>3. Registrace u obce:</strong> Obec ví, že bych při evakuaci mohl/a potřebovat pomoc (nahlášeno na sociální odbor).
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-4" data-key="osa-4">
+                <label for="chk-osa-4" class="checklist-text">
+                  <strong>4. Voda a konzervy s očkem:</strong> Mám doma pitnou vodu (alespoň 10 litrů v PET lahvích) a jídlo na 3 dny s očkem na otevírání.
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-5" data-key="osa-5">
+                <label for="chk-osa-5" class="checklist-text">
+                  <strong>5. Léky a lístek na lednici:</strong> Mám zásobu pravidelných léků na 14 dní a jejich seznam připevněný magnetem na lednici.
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-6" data-key="osa-6">
+                <label for="chk-osa-6" class="checklist-text">
+                  <strong>6. Světlo u postele:</strong> Mám svítilnu přímo na dosah ruky od postele a volnou trasu k toaletě bez koberečků.
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-7" data-key="osa-7">
+                <label for="chk-osa-7" class="checklist-text">
+                  <strong>7. Hotovost doma:</strong> Mám hotovost 3 000 až 5 000 Kč v drobných bankovkách (100, 200, 500 Kč).
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-8" data-key="osa-8">
+                <label for="chk-osa-8" class="checklist-text">
+                  <strong>8. Lehký batoh:</strong> Mám evakuační batoh tak lehký, abych jej unesl/a sám/sama i po schodech.
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-9" data-key="osa-9">
+                <label for="chk-osa-9" class="checklist-text">
+                  <strong>9. Aplikace Záchranka:</strong> Mám v telefonu aplikaci Záchranka s vyplněnými zdravotními údaji.
+                </label>
+              </li>
+              <li class="checklist-item">
+                <input type="checkbox" id="chk-osa-10" data-key="osa-10">
+                <label for="chk-osa-10" class="checklist-text">
+                  <strong>10. Linky pomoci:</strong> Mám napsané bezplatné číslo krizové linky 116 123 (a pro seniory 800 157 157).
+                </label>
+              </li>
+            </ul>
+
+            <div style="display:flex; justify-content: flex-end; margin-top: 0.75rem;">
+              <button type="button" class="btn btn-secondary" style="font-size:0.875rem; padding:0.4rem 0.8rem;" onclick="resetChecklist('osameli')">
+                ↺ Resetovat checklist pro osamělé
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Box ke stažení PDF -->
+        <div class="download-card">
+          <div class="download-info">
+            <h4>📄 Krizový manuál a checklist pro osaměle žijící</h4>
+            <p>Kompletní 13stránkový průvodce krizovou připraveností pro ty, kteří nemají nikoho blízkého.</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            <a href="data-manual/02a_Krizova_pripravenost_pro_lidi_zijici_osamele_manual.pdf" download class="download-btn">
+              📥 Manuál pro osamělé <span class="download-file-size">(PDF, 80 KB)</span>
+            </a>
+            <a href="data-manual/02b_Checklist_pro_lidi_zijici_osamele.pdf" download class="download-btn">
+              📥 Checklist pro osamělé <span class="download-file-size">(PDF, 91 KB)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ====================================================================
+           8. SEKCE: MŮJ RODINNÝ KRIZOVÝ PLÁN (FORMULÁŘ)
            ==================================================================== -->
       <section id="rodinny-plan" class="section-card" aria-labelledby="plan-heading">
         <div class="section-header">
-          <h2 id="plan-heading">📝 Můj rodinný krizový plán k vyplnění a tisku</h2>
-          <span class="badge badge-primary">Uloží se v prohlížeči</span>
+          <h2 id="plan-heading">📝 8. Můj rodinný krizový plán k vyplnění a tisku (A4)</h2>
+          <span class="badge badge-primary" id="plan-autosave-status">✓ Automaticky ukládáno v prohlížeči</span>
         </div>
 
         <div class="print-plan-header" aria-hidden="true">
-          <h2 style="margin:0 0 0.25rem 0;">🛡️ 72 HODIN – Můj rodinný krizový plán</h2>
-          <p style="margin:0; font-size:9pt; color:#444;">Vytištěno pro případ výpadku elektřiny a sítí. Uložte doma k dokladům nebo do evakuačního batohu.</p>
+          <h2 style="margin:0 0 0.25rem 0;">🛡️ 72 HODIN – Krizová karta a rodinný plán domácnosti</h2>
+          <p style="margin:0; font-size:9pt; color:#444;">Vytištěno z 72hodin.info pro případ výpadku elektřiny a sítí. Připevněte na lednici, zevnitř vchodových dveří nebo uložte do evakuačního batohu.</p>
         </div>
 
         <p>
-          Tento formulář si můžete vyplnit přímo na této stránce. Zadané údaje se ukládají výhradně ve vašem zařízení (localStorage). Nikam se neposílají přes internet. Až budete hotovi, <strong>vytiskněte si plán na tiskárně</strong> a uložte doma k dokladům.
+          Vyplňte si klíčové body domluvy vaší rodiny přímo zde. Údaje se <strong>automaticky ukládají pouze ve vašem prohlížeči</strong> (nikam se neposílají po internetu). Kliknutím na <strong>🖨️ Vytisknout můj plán (A4)</strong> vytisknete přehlednou jednostránkovou kartu i s tísňovými čísly a frekvencemi rádia.
         </p>
 
         <form id="family-plan-form">
@@ -3220,17 +4295,24 @@
           </div>
 
           <div class="form-group">
-            <label for="plan-notes" class="form-label">📋 Důležité osobní záznamy, diagnózy a frekvence rádia:</label>
-            <textarea id="plan-notes" class="form-textarea" placeholder="Alergie, pravidelné léky a jejich dávkování, číslo pojistné smlouvy, frekvence Českého rozhlasu..."></textarea>
+            <label for="plan-notes" class="form-label">📋 Důležité osobní záznamy, diagnózy, léky a frekvence rádia:</label>
+            <textarea id="plan-notes" class="form-textarea" placeholder="Alergie, pravidelné léky a jejich dávkování, číslo pojistné smlouvy, krajská frekvence Českého rozhlasu Radiožurnál..."></textarea>
+          </div>
+
+          <!-- Tisková referenční patička na A4 (zobrazí se při tisku plánu) -->
+          <div class="print-plan-footer-ref" aria-hidden="true">
+            <strong>🚨 TÍSŇOVÉ LINKY (24/7 zdarma):</strong> <strong>112</strong> (Obecná tíseň) • <strong>155</strong> (Záchranka) • <strong>150</strong> (Hasiči) • <strong>158</strong> (Policie) • <strong>116 123</strong> (Psychická pomoc) • <strong>603 111 158</strong> (SMS Policie)<br>
+            <strong>📻 ČRo RADIOŽURNÁL (RDS 232F):</strong> Praha 94,6 • Brno 89,5 • Ostrava 101,4 • Plzeň 89,1 • Hradec Kr. 90,5 • Pardubice 89,7 • Č. Budějovice 91,1 • Liberec 95,9 • Olomouc 88,7 • Zlín 99,5 MHz<br>
+            <strong>🔒 PŘED EVAKUACÍ BYTU:</strong> 1. Zkontrolovat osoby/zvířata → 2. Zavřít okna → 3. Vypnout spotřebiče → 4. Zavřít plyn a vodu → 5. Vypnout jistič → 6. Lístek na dveře → 7. SMS blízkým mimo oblast.
           </div>
 
           <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between; margin-top:1.5rem;">
-            <div style="display:flex; gap:0.5rem;">
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
               <button type="button" class="btn btn-primary" id="btn-print-plan">
                 🖨️ Vytisknout můj plán (A4)
               </button>
               <button type="button" class="btn btn-secondary" id="btn-save-plan">
-                💾 Uložit plán v prohlížeči
+                💾 Potvrdit uložení v prohlížeči
               </button>
             </div>
             <button type="button" class="btn btn-secondary" style="font-size:0.875rem; color:var(--color-emergency);" id="btn-clear-plan">
@@ -3246,7 +4328,7 @@
            ==================================================================== -->
       <section id="ke-stazeni" class="section-card" aria-labelledby="stazeni-heading">
         <div class="section-header">
-          <h2 id="stazeni-heading">📄 Kompletní knihovna PDF materiálů ke stažení</h2>
+          <h2 id="stazeni-heading">📄 9. Kompletní knihovna PDF materiálů ke stažení</h2>
           <span class="badge badge-primary">Pro tisk a offline archiv</span>
         </div>
 
@@ -3396,8 +4478,15 @@
     </div>
   </footer>
 
+  <!-- PLOVOUCÍ TLAČÍTKO PRO RYCHLÝ NÁVRAT NAHORU K VYHLEDÁVÁNÍ A ROZCESTNÍKU -->
+  <button type="button" class="back-to-top-fab" id="back-to-top-fab" aria-label="Návrat nahoru k vyhledávání a krizovému rozcestníku" title="Nahoru k vyhledávání a rozcestníku">
+    <span aria-hidden="true">↑</span>
+    <span>Nahoru / Hledat</span>
+  </button>
+
   <!-- ==========================================================================
-       VANILLA JAVASCRIPT LOGIKA (A11Y, Checkboxy, Časovač dechu, Test, Plán)
+       VANILLA JAVASCRIPT LOGIKA (Krizový rozcestník, Offline vyhledávání,
+       Kalkulačka zásob, A11Y, Checkboxy, Časovač dechu, Plán)
        ========================================================================== -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -3425,8 +4514,47 @@
         }
       };
 
+      // Pomocná funkce pro odstranění diakritiky při fulltextovém offline vyhledávání
+      function normalizeText(str) {
+        return (str || "")
+          .toString()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .trim();
+      }
+
+      // Pomocná funkce pro plynulý přechod na prvek s automatickým otevřením <details> a zvýrazněním
+      function scrollToAndHighlight(targetEl) {
+        if (!targetEl) return;
+
+        // Pokud je cíl nebo jeho rodič <details>, automaticky jej otevřeme
+        if (targetEl.tagName === "DETAILS") {
+          targetEl.open = true;
+        }
+        let parentDetails = targetEl.closest("details");
+        while (parentDetails) {
+          parentDetails.open = true;
+          parentDetails = parentDetails.parentElement ? parentDetails.parentElement.closest("details") : null;
+        }
+
+        const topNav = document.getElementById("top-nav");
+        const navOffset = (topNav ? topNav.offsetHeight : 95) + 20;
+        const rect = targetEl.getBoundingClientRect();
+        const targetY = rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0) - navOffset;
+
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+
+        targetEl.classList.remove("search-highlight-flash");
+        void targetEl.offsetWidth; // Vynutit reflow pro opakovanou animaci
+        targetEl.classList.add("search-highlight-flash");
+        setTimeout(() => {
+          targetEl.classList.remove("search-highlight-flash");
+        }, 2600);
+      }
+
       // ------------------------------------------------------------------------
-      // 1. A11Y OVLÁDÁNÍ VELIKOSTI PÍSMA
+      // 1. A11Y OVLÁDÁNÍ VELIKOSTI PÍSMA (100% / 125% / 150%)
       // ------------------------------------------------------------------------
       const fontSizes = ["normal", "large", "xlarge"];
       let currentFontIndex = 0;
@@ -3493,7 +4621,7 @@
       }
 
       // ------------------------------------------------------------------------
-      // 2. TMAVÝ / SVĚTLÝ REŽIM (REŽIM S IKONOU)
+      // 2. TMAVÝ / SVĚTLÝ REŽIM
       // ------------------------------------------------------------------------
       const themeBtn = document.getElementById("btn-theme-toggle");
 
@@ -3537,7 +4665,6 @@
         });
       }
 
-      // Reagovat na systémovou změnu schématu, pokud je auto
       if (window.matchMedia) {
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
           if (htmlEl.getAttribute("data-theme") === "auto") {
@@ -3547,13 +4674,552 @@
       }
 
       // ------------------------------------------------------------------------
-      // 3. MOBILNÍ NAVIGACE, KLIK NA LOGO & SCROLLSPY (AKTIVNÍ STAV MENU)
+      // 3. RYCHLÁ SOS ZÁSUVKA VE STICKY HLAVIČCE (#btn-sos-drawer)
+      // ------------------------------------------------------------------------
+      const sosDrawerBtn = document.getElementById("btn-sos-drawer");
+      const sosDrawer = document.getElementById("sos-quick-drawer");
+      const closeSosDrawerBtn = document.getElementById("btn-close-sos-drawer");
+
+      function setSosDrawerOpen(open) {
+        if (!sosDrawer || !sosDrawerBtn) return;
+        sosDrawer.hidden = !open;
+        sosDrawer.classList.toggle("open", open);
+        sosDrawerBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        setTimeout(updateFixedNavHeight, 20);
+      }
+
+      if (sosDrawerBtn && sosDrawer) {
+        sosDrawerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isOpen = !sosDrawer.hidden;
+          setSosDrawerOpen(!isOpen);
+        });
+      }
+
+      if (closeSosDrawerBtn) {
+        closeSosDrawerBtn.addEventListener("click", () => {
+          setSosDrawerOpen(false);
+          if (sosDrawerBtn) sosDrawerBtn.focus();
+        });
+      }
+
+      if (sosDrawer) {
+        sosDrawer.querySelectorAll('a[href^="#"]').forEach(link => {
+          link.addEventListener("click", (e) => {
+            const targetId = (link.getAttribute("href") || "").replace(/^#/, "");
+            const targetEl = targetId ? document.getElementById(targetId) : null;
+            setSosDrawerOpen(false);
+            if (targetEl) {
+              e.preventDefault();
+              scrollToAndHighlight(targetEl);
+            }
+          });
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // 4. OKAMŽITÉ OFFLINE VYHLEDÁVÁNÍ (#crisis-search-input)
+      // ------------------------------------------------------------------------
+      const searchInput = document.getElementById("crisis-search-input");
+      const searchClearBtn = document.getElementById("crisis-search-clear");
+      const searchResultsBox = document.getElementById("crisis-search-results");
+      const searchChips = document.querySelectorAll(".search-chip");
+
+      // Sestavení bohatého offline indexu klíčových krizových situací + obsahu DOMu
+      const searchIndex = [];
+
+      function addSearchEntry(title, snippet, sectionBadge, targetEl, keywords = "") {
+        if (!targetEl) return;
+        const normTitle = normalizeText(title);
+        const normSnippet = normalizeText(snippet);
+        const normKeywords = normalizeText(keywords);
+        searchIndex.push({
+          title,
+          snippet,
+          sectionBadge,
+          targetEl,
+          searchText: `${normTitle} ${normKeywords} ${normSnippet}`,
+          normTitle,
+          normKeywords
+        });
+      }
+
+      // A) Prioritní kurátorované položky pro nejčastější dotazy v krizi
+      addSearchEntry(
+        "🚨 Varovné signály sirén (Kolísavý vs. Stálý tón)",
+        "Kolísavý tón (140 s) = Všeobecná výstraha, okamžitě se ukryjte a zapněte ČRo Radiožurnál. Stálý tón 1. středu v 12:00 = zkouška.",
+        "Sirény & Poplach",
+        document.getElementById("sireny-a-poplach"),
+        "sirena sireny houka poplach kolisavy ton zkouska vzduch dron vybuch kryt sklep"
+      );
+      addSearchEntry(
+        "🎒 Evakuační batoh a Pravidlo 5P (odchod do 2 minut)",
+        "Papíry, Peníze, Prášky, Pití, Powerbanka + 7 kroků k bezpečnému uzavření bytu (plyn, voda, jistič, lístek na dveře).",
+        "Evakuace",
+        document.getElementById("evakuace"),
+        "evakuace evakuacni batoh zavazadlo odchod z domu 5p co sbalit listek na dvere"
+      );
+      addSearchEntry(
+        "📋 Akční 9bodový Evakuační checklist",
+        "Odškrtávací seznam kroků před zamčením bytu: oblečení, štítky pro děti, doklady, uzavření plynu a vody, SMS blízkým.",
+        "Evakuace",
+        document.getElementById("evakuace-checklist-details"),
+        "checklist evakuace odchod plyn voda jistic"
+      );
+      addSearchEntry(
+        "💧 Pitná voda, nouzová dezinfekce a zachytávání vody",
+        "Minimum 3 litry na osobu/den (2 l pití + 1 l hygiena). Při varování před kontaminací převařovat varem min. 1 minutu.",
+        "Domácnost 72h",
+        document.getElementById("domacnost"),
+        "voda pitna voda prevarit dezinfekce zasoba vody pet lahve vana"
+      );
+      addSearchEntry(
+        "🧮 Kalkulačka zásob domácnosti na 72 hodin",
+        "Spočítejte si přesné množství litrů vody, porcí jídla, kapacity powerbanky a hotovosti podle počtu dospělých, dětí a zvířat.",
+        "Domácnost 72h",
+        document.querySelector(".supply-calculator"),
+        "kalkulacka vypocet zasob kolik vody jidla hotovost powerbanka"
+      );
+      addSearchEntry(
+        "🔌 Blackout / Výpadek elektřiny, topení a nouzové WC",
+        "Neotvírejte lednici, odpojte spotřebiče, nikdy nepoužívejte venkovní grily/agregáty v bytě (riziko otravy CO!). Nouzové WC z vědra a pytlů.",
+        "Domácnost 72h",
+        document.getElementById("domacnost"),
+        "blackout vypadek proudu elektrina elektriny tma svicka celovka topeni zima wc toaleta odpadky"
+      );
+      addSearchEntry(
+        "📻 Frekvence ČRo Radiožurnál (FM) pro všech 14 krajů ČR",
+        "Praha 94.6 FM, Brno 89.5 FM, Ostrava 101.4 FM, Plzeň 89.1 FM, České Budějovice 91.1 FM, Liberec 95.9 FM, Zlín 99.5 FM...",
+        "Krizové kontakty",
+        document.getElementById("radio-frekvence"),
+        "radio radiozurnal frekvence fm vkv vysilani zpravy rozhlas"
+      );
+      addSearchEntry(
+        "📞 Tísňové linky IZS (112, 150, 155, 158) a jak mluvit s operátorem",
+        "5 pravidel: 1. KDE se stalo, 2. CO se stalo, 3. KOLIK zraněných, 4. KDO volá, 5. NEZAVĚŠOVAT jako první.",
+        "Krizové kontakty",
+        document.getElementById("kontakty"),
+        "112 150 155 158 hasici zachranka policie telefon cisla operator tisnove volani"
+      );
+      addSearchEntry(
+        "🫁 Krabicové dýchání 4-4-4-4 a Uzemnění 5-4-3-2-1 proti panice",
+        "Interaktivní časovač dechu (4 s nádech – 4 s zadržet – 4 s výdech – 4 s pauza) a zapojení 5 smyslů pro okamžité zastavení šoku.",
+        "Psychická pomoc",
+        document.getElementById("psychika"),
+        "panika sok strach uzkost dech dychani krabicove uzemneni 5-4-3-2-1 třes pláč"
+      );
+      addSearchEntry(
+        "🧸 Jak mluvit s dětmi v krizi (dle věku 0–18 let)",
+        "10 zlatých pravidel pro rodiče: buďte klidnou kotvou, mluvte pravdu přiměřeně věku, vypněte televizi v přítomnosti dětí.",
+        "Děti v krizi",
+        document.getElementById("deti"),
+        "deti dite batole skolaci dospivajici rodice strach u deti"
+      );
+      addSearchEntry(
+        "🤝 Lidé žijící osaměle a senioři (Pravidlo 2 klíčů, SOS karta)",
+        "Dohoda se sousedem na signálu „Jsem v pořádku“, SOS karta na lednici pro záchranáře, zásoba léků na 7–14 dní.",
+        "Osaměle žijící",
+        document.getElementById("osameli"),
+        "osameli seniori sam doma soused klice sos karta lednice leky"
+      );
+      addSearchEntry(
+        "📝 Rodinný krizový plán k vyplnění a tisku na 1 A4",
+        "Domluvte si 2 body setkání (blízko domu a mimo čtvrť), kontakt mimo region, umístění uzávěrů plynu/vody a vytiskněte na A4.",
+        "Rodinný plán",
+        document.getElementById("rodinny-plan"),
+        "rodinny plan misto setkani sraz uzavery plyn voda tisk a4"
+      );
+
+      // B) Automatické indexování všech karet, checklistů a řádků tabulek na stránce
+      const sectionBadgeNames = {
+        "domacnost": "Domácnost 72h",
+        "evakuace": "Evakuace",
+        "sireny-a-poplach": "Sirény & Poplach",
+        "kontakty": "Krizové kontakty",
+        "psychika": "Psychická pomoc",
+        "deti": "Děti v krizi",
+        "osameli": "Osaměle žijící",
+        "rodinny-plan": "Rodinný plán",
+        "ke-stazeni": "PDF ke stažení"
+      };
+
+      document.querySelectorAll(".section-card").forEach(section => {
+        const secHeading = section.querySelector("h2");
+        const secBadge = sectionBadgeNames[section.id] || (secHeading ? secHeading.textContent.replace(/^[^\wÁ-ž]+/, "").trim().substring(0, 28) : "Sekce");
+
+        section.querySelectorAll(".card-item, .callout, .checklist-item, details.styled-details").forEach(item => {
+          const headingEl = item.querySelector("h3, h4, summary, strong");
+          const title = headingEl ? headingEl.textContent.trim() : "";
+          const fullText = item.textContent.replace(/\s+/g, " ").trim();
+          if (title && fullText.length > 20) {
+            const snippet = fullText.replace(title, "").trim().substring(0, 145) + (fullText.length > 165 ? "…" : "");
+            addSearchEntry(title, snippet, secBadge, item);
+          }
+        });
+
+        section.querySelectorAll("table.data-table tbody tr").forEach(row => {
+          const cells = Array.from(row.querySelectorAll("td")).map(td => td.textContent.replace(/\s+/g, " ").trim());
+          if (cells.length >= 2) {
+            const title = `${cells[0]} — ${cells[1]}`;
+            const snippet = cells.slice(2).join(" | ");
+            addSearchEntry(title, snippet, secBadge, row);
+          }
+        });
+      });
+
+      function closeSearchResults() {
+        if (!searchResultsBox) return;
+        searchResultsBox.classList.remove("active");
+        searchResultsBox.classList.remove("open");
+      }
+
+      function renderSearchResults(rawQuery) {
+        if (!searchResultsBox) return;
+        const q = normalizeText(rawQuery);
+
+        if (searchClearBtn) {
+          searchClearBtn.style.display = rawQuery && rawQuery.trim().length > 0 ? "inline-block" : "none";
+        }
+
+        if (!q || q.length < 2) {
+          closeSearchResults();
+          searchResultsBox.innerHTML = "";
+          return;
+        }
+
+        const tokens = q.split(/\s+/).filter(Boolean);
+        const scored = [];
+        const seenTargets = new Set();
+
+        searchIndex.forEach(entry => {
+          let matchesAll = true;
+          let score = 0;
+
+          for (const tok of tokens) {
+            if (!entry.searchText.includes(tok)) {
+              matchesAll = false;
+              break;
+            }
+            if (entry.normTitle.includes(tok)) score += 10;
+            if (entry.normKeywords && entry.normKeywords.includes(tok)) score += 8;
+            score += 2;
+          }
+
+          if (matchesAll && !seenTargets.has(entry.targetEl)) {
+            seenTargets.add(entry.targetEl);
+            scored.push({ entry, score });
+          }
+        });
+
+        scored.sort((a, b) => b.score - a.score);
+        const topResults = scored.slice(0, 8);
+
+        searchResultsBox.innerHTML = "";
+        if (topResults.length === 0) {
+          const emptyDiv = document.createElement("div");
+          emptyDiv.className = "search-no-results";
+          emptyDiv.textContent = `Pro výraz „${rawQuery.trim()}“ nebyl nalezen žádný přímý návod. Zkuste např. „siréna“, „voda“, „evakuace“, „plyn“ nebo „112“.`;
+          searchResultsBox.appendChild(emptyDiv);
+        } else {
+          topResults.forEach(({ entry }) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "search-result-item";
+            btn.setAttribute("role", "option");
+            btn.style.width = "100%";
+            btn.style.textAlign = "left";
+
+            const contentDiv = document.createElement("div");
+            contentDiv.style.flex = "1";
+
+            const titleSpan = document.createElement("span");
+            titleSpan.className = "search-result-title";
+            titleSpan.textContent = entry.title;
+
+            const snippetSpan = document.createElement("span");
+            snippetSpan.className = "search-result-snippet";
+            snippetSpan.textContent = entry.snippet;
+
+            contentDiv.appendChild(titleSpan);
+            contentDiv.appendChild(snippetSpan);
+
+            const badgeSpan = document.createElement("span");
+            badgeSpan.className = "badge";
+            badgeSpan.style.fontSize = "0.7rem";
+            badgeSpan.style.flexShrink = "0";
+            badgeSpan.textContent = entry.sectionBadge;
+
+            btn.appendChild(contentDiv);
+            btn.appendChild(badgeSpan);
+
+            btn.addEventListener("click", () => {
+              closeSearchResults();
+              scrollToAndHighlight(entry.targetEl);
+            });
+
+            searchResultsBox.appendChild(btn);
+          });
+        }
+
+        searchResultsBox.classList.add("active");
+        searchResultsBox.classList.add("open");
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener("input", () => {
+          renderSearchResults(searchInput.value);
+        });
+        searchInput.addEventListener("focus", () => {
+          if (searchInput.value && searchInput.value.trim().length >= 2) {
+            renderSearchResults(searchInput.value);
+          }
+        });
+      }
+
+      if (searchClearBtn && searchInput) {
+        searchClearBtn.addEventListener("click", () => {
+          searchInput.value = "";
+          renderSearchResults("");
+          searchInput.focus();
+        });
+      }
+
+      searchChips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          const query = chip.getAttribute("data-query") || "";
+          if (searchInput) {
+            searchInput.value = query;
+            renderSearchResults(query);
+            searchInput.focus();
+          }
+        });
+      });
+
+      // Klávesová zkratka "/" pro okamžité vyhledávání a Escape pro zavření
+      document.addEventListener("keydown", (e) => {
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";
+        const isInputFocused = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable);
+
+        if (e.key === "/" && !isInputFocused && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          if (searchInput) {
+            e.preventDefault();
+            searchInput.focus();
+            searchInput.select();
+          }
+        } else if (e.key === "Escape") {
+          if (searchResultsBox && searchResultsBox.classList.contains("active")) {
+            closeSearchResults();
+          }
+          if (sosDrawer && !sosDrawer.hidden) {
+            setSosDrawerOpen(false);
+          }
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (searchResultsBox && searchResultsBox.classList.contains("active")) {
+          if (!e.target.closest(".crisis-search-wrapper")) {
+            closeSearchResults();
+          }
+        }
+        if (sosDrawer && !sosDrawer.hidden) {
+          if (!e.target.closest("#sos-quick-drawer") && !e.target.closest("#btn-sos-drawer")) {
+            setSosDrawerOpen(false);
+          }
+        }
+      });
+
+      // ------------------------------------------------------------------------
+      // 5. AKUTNÍ KRIZOVÝ ROZCESTNÍK (6 SCÉNÁŘŮ S OKAMŽITÝM POSTUPEM)
+      // ------------------------------------------------------------------------
+      const triageScenarios = {
+        blackout: {
+          title: "⚡ Výpadek proudu (Blackout) – Co udělat v prvních 15 minutách:",
+          steps: [
+            "<strong>Odpojte spotřebiče ze zásuvek:</strong> Vypněte sporák, troubu, žehličku a přímotopy (při nahození sítě hrozí požár a přepětí). Nechte zapnuté jen 1 světlo jako kontrolku obnovení proudu.",
+            "<strong>Neotvírejte lednici ani mrazák:</strong> Zavřená lednice udrží chlad 12–24 hodin, plný mrazák až 48 hodin. Nejdříve spotřebujte čerstvé jídlo.",
+            "<strong>Zajistěte bezpečné světlo:</strong> Použijte čelovku nebo baterku. Svíčky nikdy nenechávejte hořet bez dozoru!",
+            "<strong>Natočte vodu do zásoby:</strong> Pokud ještě teče voda z kohoutku, ihned napusťte hrnce, lahve a vanu (čerpadla vodáren mohou po několika hodinách vypadnout).",
+            "<strong>Šetřete baterii mobilu a nalaďte rádio:</strong> Zapněte v telefonu úsporný režim, ztlumte jas na minimum a informace sledujte na bateriovém rádiu nebo v autě (<strong>ČRo Radiožurnál</strong>)."
+          ],
+          warning: "⚠️ <strong>POZOR NA OTRAVU CO:</strong> Nikdy nepoužívejte v bytě venkovní grily, elektrocentrály ani plynové vařiče bez otevřeného okna!",
+          primaryText: "🏠 Přejít na kompletní checklist domácnosti",
+          primaryHref: "#domacnost",
+          secondaryText: "📻 Frekvence Českého rozhlasu",
+          secondaryHref: "#radio-frekvence"
+        },
+        sireny: {
+          title: "🚨 Houkají sirény / Poplach – Okamžitý postup do 60 vteřin:",
+          steps: [
+            "<strong>Rozlište tón sirény:</strong> <strong>Kolísavý tón (140 s)</strong> = skutečné nebezpečí (Všeobecná výstraha). Stálý tón 1. středu v měsíci ve 12:00 = pouze zkouška sirén.",
+            "<strong>Okamžitě se ukryjte v budově:</strong> Jděte do suterénu, sklepa nebo místnosti bez oken u nosných zdí (koupelna, chodba). <strong>Nikdy nepoužívejte výtah!</strong>",
+            "<strong>Zavřete okna a vypněte ventilaci:</strong> Utěsněte okna, dveře a vypněte klimatizaci/rekuperaci pro případ chemického či radiačního úniku.",
+            "<strong>Pokud jste venku při explozi:</strong> Padněte ihned na břicho do prohlubně, hlavu chraňte rukama a ústa nechte mírně pootevřená (vyrovnání tlakové vlny).",
+            "<strong>Zjistěte důvod poplachu:</strong> Zapněte <strong>ČRo Radiožurnál</strong>, <strong>ČT24</strong> nebo sledujte obecní rozhlas a SMS varování. Nešiřte neověřené fámy."
+          ],
+          warning: "💣 <strong>NÁLEZ TROSEK ČI DRONU:</strong> Nikdy se nepřibližujte na méně než <strong>100 metrů</strong>, nedotýkejte se jich, nefoťte s bleskem a volejte <strong>112</strong>!",
+          primaryText: "🚨 Přejít na sekci Sirény & Poplach",
+          primaryHref: "#sireny-a-poplach",
+          secondaryText: "📻 Frekvence ČRo Radiožurnál",
+          secondaryHref: "#radio-frekvence"
+        },
+        evakuace: {
+          title: "🎒 Musím se evakuovat TEĎ – Pravidlo 5P (odchod do 2 minut):",
+          steps: [
+            "<strong>Sbalte „5P“:</strong> 1. <strong>Papíry</strong> (občanka, pas, pojišťovna), 2. <strong>Peníze</strong> (hotovost + karta), 3. <strong>Prášky</strong> (osobní léky na 3–7 dní + brýle), 4. <strong>Pití a jídlo</strong> na cestu, 5. <strong>Powerbanka a mobil</strong>.",
+            "<strong>Obujte pevnou obuv a dlouhé oblečení:</strong> Pevné prošlápnuté boty, nepromokavou bundu a dětem/seniorům vložte do kapsy kartičku se jménem a telefonem.",
+            "<strong>Zavřete plyn, vodu a vypněte jistič:</strong> Vypněte sporák a spotřebiče, zavřete všechna okna, uzavřete hlavní uzávěr plynu a vody a shoďte hlavní jistič.",
+            "<strong>Nalepte vzkaz na vchodové dveře:</strong> <em>„Odešli jsme dne [čas] do [cíl], jsme [počet] osob v pořádku“</em> – ušetří to hasičům vyražení vašich dveří.",
+            "<strong>Pošlete krátkou SMS blízkým:</strong> Napište kontaktu mimo zasaženou oblast, že odcházíte a jste v pořádku (upřednostněte SMS před voláním)."
+          ],
+          warning: "🚨 <strong>ZÁVAZNÝ POKYN:</strong> Vyhlásí-li evakuaci hasiči, policie nebo starosta, neodkládejte odchod a přesuňte se po určené trase.",
+          primaryText: "📋 Otevřít 9bodový Evakuační checklist",
+          primaryHref: "#evakuace-checklist-details",
+          secondaryText: "🎒 Celá sekce Evakuace a zabezpečení bytu",
+          secondaryHref: "#evakuace"
+        },
+        voda: {
+          title: "💧 Neteče pitná voda nebo je kontaminovaná – Co udělat ihned:",
+          steps: [
+            "<strong>Zachyťte zbývající vodu:</strong> Pokud v trubkách ještě klesá tlak, okamžitě natočte vodu do všech hrnců, PET lahví a napusťte vanu (pro splachování WC).",
+            "<strong>Využijte skryté zásoby v bytě:</strong> Čistá voda je v bojleru (ohřívači vody) a v nádržce WC (pokud v ní nejsou chemické tablety – slouží jako užitková voda).",
+            "<strong>Při podezření na kontaminaci PŘEVAŘUJTE:</strong> Vodu nechte projít <strong>klokotavým varem po dobu min. 1 minuty</strong> (nebo použijte tablety Aquatabs / Sanosil dle návodu).",
+            "<strong>Hlídejte příděl pitné vody:</strong> Počítejte s minimem <strong>2 litry na osobu a den jen na pití</strong> (přednost mají děti, kojící matky a nemocní).",
+            "<strong>Sledujte přistavení cisteren:</strong> Obec a vodárny přistavují cisterny s pitnou vodou – připravte si čisté uzavíratelné kanystry nebo kbelíky s víkem."
+          ],
+          warning: "🚱 <strong>POZOR:</strong> Zakalenou nebo zapáchající vodu nikdy nepijte bez převaření – při krizi je průjmové onemocnění a dehydratace kritickým rizikem!",
+          primaryText: "🧮 Spočítat potřebu vody v kalkulačce",
+          primaryHref: "#domacnost",
+          secondaryText: "📢 Jak dostávat zprávy obce (MUNIPOLIS)",
+          secondaryHref: "#kontakty"
+        },
+        panika: {
+          title: "😰 Akutní panika, šok nebo silný třes – Zklidnění do 2 minut:",
+          steps: [
+            "<strong>Spusťte Krabicové dýchání (4–4–4–4):</strong> 4 vteřiny nádech nosem do břicha ➔ 4 s zadržet ➔ 4 s pomalý výdech ústy ➔ 4 s pauza. Zopakujte 4×.",
+            "<strong>Uzemněte smysly (5–4–3–2–1):</strong> Posaďte se, opřete chodidla o zem a nahlas pojmenujte: <strong>5 věcí, co vidíte</strong>, <strong>4 čeho se dotýkáte</strong>, <strong>3 zvuky, co slyšíte</strong>.",
+            "<strong>Dejte tělu vodu a rychlý cukr:</strong> Mozek v šoku extrémně rychle spaluje glukózu – vypijte pár doušků vody a snězte kousek čokolády či hroznového cukru.",
+            "<strong>Nezastavujte třes ani pláč:</strong> Třes rukou a těla je přirozený ventil, kterým organismus odbourává přebytečný adrenalin.",
+            "<strong>Pomáháte-li druhému v šoku:</strong> Oslovujte ho jménem, neříkejte <em>„Uklidni se“</em> a zadejte mu 1 drobný konkrétní úkol (např. <em>„Podrž mi prosím tuto baterku“</em>)."
+          ],
+          warning: "📞 <strong>BEZPLATNÁ POMOC 24/7:</strong> Kdykoliv můžete zavolat na <strong>Linku první psychické pomoci <a href='tel:116123'>116 123</a></strong> nebo <strong>Linku bezpečí pro děti <a href='tel:116111'>116 111</a></strong>.",
+          primaryText: "🌬️ Spustit interaktivní časovač dechu 4–4–4–4",
+          primaryHref: "#psychika",
+          secondaryText: "👶 Jak uklidnit a mluvit s dětmi",
+          secondaryHref: "#deti"
+        },
+        info: {
+          title: "📞 Volám pomoc / Výpadek signálu – Jak komunikovat:",
+          steps: [
+            "<strong>Které tísňové číslo volat:</strong> <strong>155</strong> Záchranka (život/úrazy), <strong>150</strong> Hasiči (požár/voda/vyproštění), <strong>158</strong> Policie (bezpečí), <strong>112</strong> (více složek IZS / bez SIM / GPS lokalizace).",
+            "<strong>Pravidlo 5 kroků pro operátora:</strong> 1. <strong>KDE</strong> se to stalo (adresa/orientační bod), 2. <strong>CO</strong> se stalo, 3. <strong>KOLIK</strong> je zraněných, 4. <strong>KDO</strong> volá, 5. <strong>NEZAVĚŠUJTE PRVNÍ!</strong>",
+            "<strong>Použijte aplikaci ZÁCHRANKA:</strong> Stisknutím nouzového tlačítka v aplikaci odešlete záchranářům přesnou GPS polohu i stav baterie jedním dotykem.",
+            "<strong>Když vypadne mobilní síť i internet:</strong> Nalaďte na bateriovém rádiu nebo v autorádiu <strong>Český rozhlas Radiožurnál</strong> (má záložní vysílače pro všech 14 krajů).",
+            "<strong>Při přetížené síti (2G/EDGE):</strong> Nevolejte – pište krátké <strong>SMS zprávy</strong> (projdou i při minimálním signálu) a pro zprávy otevřete textový <strong>Teletext ČT</strong>."
+          ],
+          warning: "📵 <strong>ŠETŘETE SÍŤ PRO ZÁCHRANÁŘE:</strong> V prvních hodinách krize netelefonujte známým jen ze zvědavosti – pošlete stručnou SMS.",
+          primaryText: "📞 Přehled všech 13 krizových linek",
+          primaryHref: "#kontakty",
+          secondaryText: "📻 Frekvence ČRo Radiožurnál (14 krajů)",
+          secondaryHref: "#radio-frekvence"
+        }
+      };
+
+      const triageBtns = Array.from(document.querySelectorAll(".triage-tab-btn"));
+      const triagePanel = document.getElementById("triage-panel");
+      const triageTitleEl = document.getElementById("triage-panel-title");
+      const triageStepsEl = document.getElementById("triage-steps-list");
+      const triageWarningEl = document.getElementById("triage-warning-bar");
+      const triagePrimaryLink = document.getElementById("triage-action-link");
+      const triageSecondaryLink = document.getElementById("triage-secondary-link");
+      const closeTriageBtn = document.getElementById("btn-close-triage");
+
+      function activateTriageScenario(scenarioId) {
+        const data = triageScenarios[scenarioId];
+        if (!data || !triagePanel) return;
+
+        triagePanel.hidden = false;
+
+        triageBtns.forEach(btn => {
+          const btnScenario = btn.getAttribute("data-scenario") || btn.getAttribute("data-triage");
+          const isMatch = btnScenario === scenarioId;
+          btn.classList.toggle("active", isMatch);
+          btn.setAttribute("aria-selected", isMatch ? "true" : "false");
+        });
+
+        if (triageTitleEl) triageTitleEl.textContent = data.title;
+        if (triageStepsEl) {
+          triageStepsEl.innerHTML = data.steps.map(step => `<li>${step}</li>`).join("");
+        }
+        if (triageWarningEl) {
+          triageWarningEl.innerHTML = data.warning;
+        }
+        if (triagePrimaryLink) {
+          triagePrimaryLink.textContent = data.primaryText;
+          triagePrimaryLink.setAttribute("href", data.primaryHref);
+        }
+        if (triageSecondaryLink) {
+          triageSecondaryLink.textContent = data.secondaryText;
+          triageSecondaryLink.setAttribute("href", data.secondaryHref);
+        }
+      }
+
+      triageBtns.forEach((btn, idx) => {
+        btn.addEventListener("click", () => {
+          const scenarioId = btn.getAttribute("data-scenario") || btn.getAttribute("data-triage");
+          if (scenarioId) {
+            activateTriageScenario(scenarioId);
+          }
+        });
+
+        btn.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            const nextBtn = triageBtns[(idx + 1) % triageBtns.length];
+            nextBtn.focus();
+            nextBtn.click();
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            const prevBtn = triageBtns[(idx - 1 + triageBtns.length) % triageBtns.length];
+            prevBtn.focus();
+            prevBtn.click();
+          }
+        });
+      });
+
+      if (closeTriageBtn && triagePanel) {
+        closeTriageBtn.addEventListener("click", () => {
+          triagePanel.hidden = true;
+          triageBtns.forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
+        });
+      }
+
+      // Plynulý přechod pro odkazy uvnitř krizového rozcestníku (včetně otevření <details>)
+      if (triagePanel) {
+        triagePanel.addEventListener("click", (e) => {
+          const link = e.target.closest("a[href^='#']");
+          if (!link) return;
+          const targetId = (link.getAttribute("href") || "").replace(/^#/, "");
+          const targetEl = targetId ? document.getElementById(targetId) : null;
+          if (targetEl) {
+            e.preventDefault();
+            scrollToAndHighlight(targetEl);
+          }
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // 6. MOBILNÍ NAVIGACE, KLIK NA LOGO, SCROLLSPY & PLOVOUCÍ TLAČÍTKO NAHORU
       // ------------------------------------------------------------------------
       const brandLogoLink = document.querySelector(".brand");
       const mobileBtn = document.getElementById("mobile-menu-btn");
       const navMenu = document.getElementById("main-nav-menu");
       const navRowBottom = document.getElementById("nav-row-bottom");
       const navLinks = Array.from(document.querySelectorAll("#main-nav-menu .nav-link"));
+      const backToTopFab = document.getElementById("back-to-top-fab");
 
       function getNavTargetId(link) {
         if (link.hash && link.hash.length > 1) {
@@ -3585,7 +5251,6 @@
               item.link.classList.add("active");
               item.link.setAttribute("aria-current", "location");
 
-              // Horizontální vystředění aktivní položky v kontejneru menu na tabletech
               const navContainer = document.querySelector(".nav-container-bottom");
               if (navContainer && navContainer.scrollWidth > navContainer.clientWidth) {
                 const targetLeft = item.link.offsetLeft - (navContainer.clientWidth / 2) + (item.link.offsetWidth / 2);
@@ -3603,9 +5268,15 @@
       let manualClickTimeout = null;
 
       function updateActiveNavSection() {
+        const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+
+        // Zobrazení / skrytí plovoucího tlačítka "Nahoru / Hledat"
+        if (backToTopFab) {
+          backToTopFab.classList.toggle("visible", scrollY > 520);
+        }
+
         if (isManualClick || navSections.length === 0) return;
 
-        const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
         const topNav = document.getElementById("top-nav");
         const navHeight = topNav ? topNav.offsetHeight : 100;
         const docHeight = Math.max(
@@ -3616,13 +5287,11 @@
         );
         const winHeight = window.innerHeight;
 
-        // Pokud je uživatel na úplném konci stránky, aktivní je poslední sekce (ke-stazeni)
         if (scrollY + winHeight >= docHeight - 80) {
           setActiveNavButton(navSections[navSections.length - 1].id);
           return;
         }
 
-        // Dynamická detekce: bod pod fixní navigací, kde se aktuálně nachází čtený obsah
         const triggerY = navHeight + 80;
         let currentSectionId = null;
 
@@ -3636,6 +5305,15 @@
         }
 
         setActiveNavButton(currentSectionId);
+      }
+
+      if (backToTopFab) {
+        backToTopFab.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          setTimeout(() => {
+            if (searchInput) searchInput.focus();
+          }, 450);
+        });
       }
 
       if (brandLogoLink) {
@@ -3718,7 +5396,6 @@
       window.addEventListener("orientationchange", handleResizeThrottled, { passive: true });
       window.addEventListener("load", updateFixedNavHeight);
 
-      // Při kliknutí na odkaz v menu okamžitě označit příslušné tlačítko a plynule posunout
       navSections.forEach(item => {
         item.link.addEventListener("click", (e) => {
           isManualClick = true;
@@ -3747,8 +5424,176 @@
       updateActiveNavSection();
 
       // ------------------------------------------------------------------------
-      // 4. CHECKLISTY S PERSISTENCÍ V LOCALSTORAGE A PROGRESEM
+      // 7. INTERAKTIVNÍ KALKULAČKA ZÁSOB NA 72 HODIN
       // ------------------------------------------------------------------------
+      let calcState = {
+        adults: parseInt(safeStorage.get("72h_calc_adults", "2"), 10) || 2,
+        kids: parseInt(safeStorage.get("72h_calc_kids", "0"), 10) || 0,
+        pets: parseInt(safeStorage.get("72h_calc_pets", "0"), 10) || 0
+      };
+      calcState.adults = Math.min(15, Math.max(1, calcState.adults));
+      calcState.kids = Math.min(15, Math.max(0, calcState.kids));
+      calcState.pets = Math.min(10, Math.max(0, calcState.pets));
+
+      function updateSupplyCalculatorUI() {
+        const adultsEl = document.getElementById("calc-adults-val");
+        const kidsEl = document.getElementById("calc-kids-val");
+        const petsEl = document.getElementById("calc-pets-val");
+
+        if (adultsEl) adultsEl.textContent = calcState.adults;
+        if (kidsEl) kidsEl.textContent = calcState.kids;
+        if (petsEl) petsEl.textContent = calcState.pets;
+
+        // Voda na 72 hodin: 9 l na dospělého (3 l/den), 6 l na dítě (2 l/den), 3 l na zvíře (1 l/den)
+        const totalLiters = (calcState.adults * 9) + (calcState.kids * 6) + (calcState.pets * 3);
+        const petBottles = Math.ceil(totalLiters / 1.5);
+
+        // Jídlo na 72 hodin: 9 hlavních porcí na osobu + 3 vysokoenergetické svačiny
+        const totalPeople = calcState.adults + calcState.kids;
+        const mainMeals = totalPeople * 9;
+        const snacks = totalPeople * 3;
+
+        // Powerbanka: 10 000 mAh na dospělého + 5 000 mAh na dítě (min 10 000 mAh)
+        const powerMah = Math.max(10000, (calcState.adults * 10000) + (calcState.kids * 5000));
+
+        // Hotovost: 1 500–2 500 Kč na dospělého + 500–1 000 Kč na dítě
+        const cashMin = (calcState.adults * 1500) + (calcState.kids * 500);
+        const cashMax = (calcState.adults * 2500) + (calcState.kids * 1000);
+
+        const resWater = document.getElementById("calc-res-water");
+        const resWaterSub = document.getElementById("calc-res-water-sub");
+        const resFood = document.getElementById("calc-res-food");
+        const resFoodSub = document.getElementById("calc-res-food-sub");
+        const resPower = document.getElementById("calc-res-power");
+        const resCash = document.getElementById("calc-res-cash");
+        const badgeWater = document.getElementById("badge-water-qty");
+
+        if (resWater) {
+          resWater.textContent = `${totalLiters} litrů`;
+        }
+        if (resWaterSub) {
+          resWaterSub.textContent = `💧 Voda na 3 dny (${petBottles}× 1,5l PET)`;
+        }
+        if (resFood) {
+          resFood.textContent = `${mainMeals} porcí + ${snacks} tyčinek`;
+        }
+        if (resFoodSub) {
+          resFoodSub.textContent = calcState.pets > 0
+            ? `🥫 Jídlo bez vaření + krmivo na 5 dní (${calcState.pets} zvíř.)`
+            : "🥫 Trvanlivé jídlo (na 3 dny bez vaření)";
+        }
+        if (resPower) {
+          resPower.textContent = `Min. ${powerMah.toLocaleString("cs-CZ")} mAh`;
+        }
+        if (resCash) {
+          resCash.textContent = `${cashMin.toLocaleString("cs-CZ")} – ${cashMax.toLocaleString("cs-CZ")} Kč`;
+        }
+        if (badgeWater) {
+          badgeWater.textContent = `Pro vaši domácnost: ${totalLiters} litrů (${petBottles}× 1,5l PET)`;
+        }
+      }
+
+      document.querySelectorAll(".calc-step-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-calc-target") || btn.getAttribute("data-target");
+          const step = parseInt(btn.getAttribute("data-calc-delta") || btn.getAttribute("data-step") || "0", 10);
+          if (!target || !step || !(target in calcState)) return;
+
+          if (target === "adults") {
+            calcState.adults = Math.min(15, Math.max(1, calcState.adults + step));
+            safeStorage.set("72h_calc_adults", String(calcState.adults));
+          } else if (target === "kids") {
+            calcState.kids = Math.min(15, Math.max(0, calcState.kids + step));
+            safeStorage.set("72h_calc_kids", String(calcState.kids));
+          } else if (target === "pets") {
+            calcState.pets = Math.min(10, Math.max(0, calcState.pets + step));
+            safeStorage.set("72h_calc_pets", String(calcState.pets));
+          }
+          updateSupplyCalculatorUI();
+        });
+      });
+
+      updateSupplyCalculatorUI();
+
+      // ------------------------------------------------------------------------
+      // 8. CHECKLISTY S PERSISTENCÍ V LOCALSTORAGE A AUTOMATICKÉ VYHODNOCENÍ
+      // ------------------------------------------------------------------------
+      const weekendActionTips = {
+        "dom-1": "Při příštím nákupu vezměte 1–2 balení (6× 1,5 l) neperlivé vody a uložte je do komory/sklepa.",
+        "dom-2": "Dokupte trvanlivé jídlo bez nutnosti vaření (konzervy s trhacím víčkem, ořechy, energetické tyčinky).",
+        "dom-3": "Zkontrolujte lékárničku a mějte v zásobě osobní pravidelné léky alespoň na 7–14 dní dopředu.",
+        "dom-4": "Pořiďte si čelovku s náhradními bateriemi, nabitou powerbanku a rádio na baterie / kliku.",
+        "dom-5": "Vytvořte si doma v obálce železnou rezervu v drobných bankovkách (100, 200, 500 Kč) a mincích.",
+        "dom-6": "Sbalte základní evakuační zavazadlo (doklady, léky, lahev vody, nabíječka) a dejte ho ke dveřím.",
+        "dom-7": "Domluvte si s rodinou 2 pevná místa setkání (u domu a mimo čtvrť), kdyby nefungovaly telefony.",
+        "dom-8": "Vypište 5 nejdůležitějších telefonních čísel blízkých na papírek a vložte si ho do peněženky.",
+        "dom-9": "Ukažte všem doma, kde přesně je hlavní uzávěr vody, plynu a hlavní elektrický jistič.",
+        "dom-10": "Domluvte, kdo v případě krize vyzvedne děti ze školy/školky, a dejte dětem do batohu SOS kartičku.",
+        "dom-11": "Připravte přepravku, očkovací průkaz a 5denní zásobu krmiva a vody pro domácí mazlíčky.",
+        "dom-12": "Zapněte si dvoufázové ověření (2FA) a uložte si fotky dokladů a pojistných smluv do bezpečného úložiště."
+      };
+
+      function updateReadinessFromChecklist() {
+        const group = document.querySelector('.checklist-group[data-checklist-id="domacnost"]');
+        if (!group) return;
+
+        const checkboxes = Array.from(group.querySelectorAll('input[type="checkbox"]'));
+        const total = checkboxes.length;
+        let score = 0;
+        const missingKeys = [];
+
+        checkboxes.forEach(chk => {
+          if (chk.checked) {
+            score++;
+          } else if (chk.dataset.key) {
+            missingKeys.push(chk.dataset.key);
+          }
+        });
+
+        const scoreNum = document.getElementById("test-score-num");
+        const scoreTitle = document.getElementById("test-score-title");
+        const scoreDesc = document.getElementById("test-score-desc");
+        const prioritiesBox = document.getElementById("test-priorities-box");
+        const prioritiesList = document.getElementById("test-priorities-list");
+
+        if (scoreNum) scoreNum.textContent = `${score} / ${total}`;
+
+        if (scoreTitle && scoreDesc) {
+          if (score >= 10) {
+            scoreTitle.textContent = "🌟 Vynikající krizová připravenost!";
+            scoreTitle.style.color = "var(--color-success)";
+            scoreDesc.textContent = "Vaše domácnost je skvěle zabezpečená pro většinu nečekaných výpadků a mimořádných událostí. Nezapomeňte zásoby 2× ročně zkontrolovat a obměnit.";
+          } else if (score >= 6) {
+            scoreTitle.textContent = "👍 Dobrý základ, ale chybí některé klíčové body";
+            scoreTitle.style.color = "var(--color-warning)";
+            scoreDesc.textContent = "Máte solidní základ, ale některá slabá místa by vás při delším výpadku zaskočila. Zaměřte se na 3 nejbližší kroky níže.";
+          } else if (score > 0) {
+            scoreTitle.textContent = "⚠️ Pozor: Zvýšená zranitelnost při výpadku";
+            scoreTitle.style.color = "var(--color-emergency)";
+            scoreDesc.textContent = "Při delším blackoutu nebo odstávce vody byste se rychle ocitli v potížích. Nemusíte řešit vše najednou – udělejte tento víkend první 3 kroky:";
+          } else {
+            scoreTitle.textContent = "Začněte odškrtávat položky v checklistu výše";
+            scoreTitle.style.color = "var(--text-main)";
+            scoreDesc.textContent = "Zaškrtněte body, které už doma splňujete. Systém vám automaticky vypočítá skóre a doporučí 3 nejjednodušší kroky na tento víkend.";
+          }
+        }
+
+        if (prioritiesBox && prioritiesList) {
+          prioritiesList.innerHTML = "";
+          if (missingKeys.length === 0) {
+            prioritiesBox.style.display = "none";
+          } else {
+            prioritiesBox.style.display = "block";
+            missingKeys.slice(0, 3).forEach(key => {
+              const li = document.createElement("li");
+              li.style.marginBottom = "0.25rem";
+              li.textContent = weekendActionTips[key] || "Doplňte další nezaškrtnutou položku z checklistu.";
+              prioritiesList.appendChild(li);
+            });
+          }
+        }
+      }
+
       function updateChecklistProgress(checklistId) {
         const group = document.querySelector(`.checklist-group[data-checklist-id="${checklistId}"]`);
         if (!group) return;
@@ -3770,6 +5615,10 @@
         if (label) label.textContent = `${checkedCount} z ${total} splněno (${percent} %)`;
         if (bar) bar.style.width = `${percent}%`;
         if (track) track.setAttribute("aria-valuenow", percent);
+
+        if (checklistId === "domacnost") {
+          updateReadinessFromChecklist();
+        }
       }
 
       // Delegovaný click listener: kliknutí na řádek .checklist-item přepne checkbox
@@ -3838,78 +5687,79 @@
         updateChecklistProgress(checklistId);
       };
 
-      // ------------------------------------------------------------------------
-      // 5. INTERAKTIVNÍ TEST PŘIPRAVENOSTI (12 OTÁZEK Z MANUÁLU 01a)
-      // ------------------------------------------------------------------------
-      const testOtazky = [
-        "Máme doma zásobu pitné vody a jídla alespoň na 3 dny pro všechny?",
-        "Máme zásobu pravidelných léků minimálně na 1 až 2 týdny?",
-        "Máme rádio na baterie nebo s ručním dobíjením a víme, kde přesně je?",
-        "Máme funkční svítilnu / čelovku a náhradní baterie?",
-        "Máme doma pohotovostní hotovost v drobných bankovkách a mincích?",
-        "Má každý člen domácnosti připravený evakuační batoh u dveří?",
-        "Máme domluvené 2 body setkání pro případ, že nepůjdou telefony a sítě?",
-        "Máme důležitá telefonní čísla vypsaná na papíře v peněžence?",
-        "Víme přesně, kde se uzavírá hlavní přívod vody, plynu a kde je jistič?",
-        "Máme plán pro děti a zranitelné členy (kdo je vyzvedne, co vezmou)?",
-        "Máme plán a výbavu pro domácí mazlíčky (přepravka, krmivo na 5 dní)?",
-        "Máme nastavenou základní digitální bezpečnost (aktualizace, 2FA, zálohy smluv)?"
-      ];
-
-      const testGrid = document.getElementById("test-questions-grid");
-      if (testGrid) {
-        testOtazky.forEach((q, idx) => {
-          const item = document.createElement("div");
-          item.className = "checklist-item";
-          item.innerHTML = `
-            <input type="checkbox" id="test-q-${idx}" name="test-q">
-            <label for="test-q-${idx}" class="checklist-text">
-              <strong>${idx + 1}.</strong> ${q}
-            </label>
-          `;
-          testGrid.appendChild(item);
-        });
-      }
-
       const evalBtn = document.getElementById("btn-evaluate-test");
       if (evalBtn) {
         evalBtn.addEventListener("click", () => {
-          const checkboxes = document.querySelectorAll("#test-questions-grid input[type='checkbox']");
-          let score = 0;
-          checkboxes.forEach(c => { if (c.checked) score++; });
-
+          updateReadinessFromChecklist();
           const resBox = document.getElementById("test-result-box");
-          const scoreNum = document.getElementById("test-score-num");
-          const scoreTitle = document.getElementById("test-score-title");
-          const scoreDesc = document.getElementById("test-score-desc");
-
-          scoreNum.textContent = `${score} / 12`;
-          resBox.style.display = "block";
-
-          if (score >= 10) {
-            scoreTitle.textContent = "🌟 Vynikající krizová připravenost!";
-            scoreTitle.style.color = "var(--color-success)";
-            scoreDesc.textContent = "Vaše domácnost je skvěle zabezpečená pro většinu nečekaných výpadků a událostí. Nezapomeňte zásoby 2× ročně zkontrolovat a obměnit.";
-          } else if (score >= 6) {
-            scoreTitle.textContent = "👍 Dobrý základ, ale chybí důležité věci";
-            scoreTitle.style.color = "var(--color-warning)";
-            scoreDesc.textContent = "Základní prvky máte, ale chybí vám některé klíčové body (např. rádio bez elektřiny, vypsaná čísla na papíře či uzávěry sítí). Projděte si nezaškrtnuté otázky a doplňte je.";
-          } else {
-            scoreTitle.textContent = "⚠️ Pozor: Vysoká zranitelnost při výpadku";
-            scoreTitle.style.color = "var(--color-emergency)";
-            scoreDesc.textContent = "Při delším blackoutu nebo povodni byste se rychle ocitli v potížích. Doporučujeme začít krok za krokem: pořiďte zásobu vody, baterku, rádio a sepište kontakty na papír.";
+          if (resBox) {
+            scrollToAndHighlight(resBox);
           }
-
-          resBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
         });
       }
 
       // ------------------------------------------------------------------------
-      // 6. INTERAKTIVNÍ ČASOVAČ DECHU (KRABICOVÉ DÝCHÁNÍ 4-4-4-4)
+      // 9. KOPÍROVÁNÍ EVAKUAČNÍ SMS JEDNÍM KLIKEM (#btn-copy-evak-sms)
+      // ------------------------------------------------------------------------
+      const copyEvakSmsBtn = document.getElementById("btn-copy-evak-sms");
+      const evakSmsTextEl = document.getElementById("evak-sms-text");
+
+      if (copyEvakSmsBtn && evakSmsTextEl) {
+        copyEvakSmsBtn.addEventListener("click", () => {
+          const textToCopy = evakSmsTextEl.textContent.trim();
+          const showSuccess = () => {
+            const origText = copyEvakSmsBtn.textContent;
+            copyEvakSmsBtn.textContent = "✓ Zkopírováno do schránky!";
+            setTimeout(() => {
+              copyEvakSmsBtn.textContent = origText;
+            }, 2200);
+          };
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textToCopy).then(showSuccess).catch(() => {
+              showSuccess();
+            });
+          } else {
+            const tempArea = document.createElement("textarea");
+            tempArea.value = textToCopy;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            try { document.execCommand("copy"); } catch (e) {}
+            document.body.removeChild(tempArea);
+            showSuccess();
+          }
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // 10. FILTROVÁNÍ TABULKY KRIZOVÝCH KONTAKTŮ DLE SITUACE
+      // ------------------------------------------------------------------------
+      const contactFilterBtns = document.querySelectorAll(".contact-filter-btn");
+      const contactRows = document.querySelectorAll("#contacts-table tbody tr[data-category]");
+
+      contactFilterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const filter = btn.getAttribute("data-contact-filter") || btn.getAttribute("data-filter") || "all";
+          contactFilterBtns.forEach(b => b.classList.toggle("active", b === btn));
+
+          contactRows.forEach(row => {
+            const cat = row.getAttribute("data-category");
+            if (filter === "all" || cat === filter) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // ------------------------------------------------------------------------
+      // 11. INTERAKTIVNÍ ČASOVAČ DECHU (KRABICOVÉ DÝCHÁNÍ 4-4-4-4 + POČÍTADLO CYKLŮ)
       // ------------------------------------------------------------------------
       let breathingInterval = null;
       let phaseIndex = 0; // 0: Nádech (4s), 1: Zadržet (4s), 2: Výdech (4s), 3: Zadržet (4s)
       let phaseTimeLeft = 4;
+      let completedCycles = 0;
       const phases = [
         { name: "Nádech nosem", class: "inhale", instruction: "Hluboký, klidný nádech nosem do břicha..." },
         { name: "Zadržet dech", class: "hold hold-inhale", instruction: "Zadržte dech v klidu, uvolněte ramena..." },
@@ -3922,7 +5772,19 @@
       const phaseText = document.getElementById("breathing-phase-text");
       const timerText = document.getElementById("breathing-timer");
       const instructionText = document.getElementById("breathing-instruction");
-      const toggleBtn = document.getElementById("btn-toggle-breathing") || document.getElementById("btn-start-breathing");
+      const cyclesLabel = document.getElementById("breathing-cycles-label");
+      const toggleBtn = document.getElementById("btn-toggle-breathing");
+
+      function updateBreathingCyclesLabel() {
+        if (!cyclesLabel) return;
+        if (completedCycles >= 4) {
+          cyclesLabel.textContent = `✓ Dokončeny ${completedCycles} cykly – skvělá práce, tepová frekvence klesá`;
+          cyclesLabel.style.color = "var(--color-success)";
+        } else {
+          cyclesLabel.textContent = `Dokončené cykly: ${completedCycles} / 4 (doporučeno pro zklidnění tepu)`;
+          cyclesLabel.style.color = "";
+        }
+      }
 
       function updateBreathingUI() {
         if (!phases[phaseIndex]) return;
@@ -3937,6 +5799,10 @@
         phaseTimeLeft--;
         if (phaseTimeLeft <= 0) {
           phaseIndex = (phaseIndex + 1) % 4;
+          if (phaseIndex === 0) {
+            completedCycles++;
+            updateBreathingCyclesLabel();
+          }
           phaseTimeLeft = 4;
         }
         updateBreathingUI();
@@ -3994,7 +5860,7 @@
       }
 
       // ------------------------------------------------------------------------
-      // 7. FORMULÁŘ RODINNÉHO KRIZOVÉHO PLÁNU (LOCALSTORAGE + TISK)
+      // 12. FORMULÁŘ RODINNÉHO KRIZOVÉHO PLÁNU (LOCALSTORAGE + INLINE STAV + TISK)
       // ------------------------------------------------------------------------
       const planFields = [
         "plan-meet-near",
@@ -4005,6 +5871,19 @@
         "plan-bag-loc",
         "plan-notes"
       ];
+      const planAutosaveStatus = document.getElementById("plan-autosave-status");
+      let autosaveTimer = null;
+
+      function flashPlanSaved(msg = "✓ Průběžně uloženo v tomto prohlížeči") {
+        if (!planAutosaveStatus) return;
+        planAutosaveStatus.textContent = msg;
+        planAutosaveStatus.style.background = "var(--color-primary-light)";
+        clearTimeout(autosaveTimer);
+        autosaveTimer = setTimeout(() => {
+          planAutosaveStatus.textContent = "✓ Automaticky ukládáno v prohlížeči";
+          planAutosaveStatus.style.background = "var(--bg-surface)";
+        }, 2000);
+      }
 
       planFields.forEach(id => {
         const el = document.getElementById(id);
@@ -4014,6 +5893,7 @@
 
           el.addEventListener("input", () => {
             safeStorage.set("72h_plan_" + id, el.value);
+            flashPlanSaved();
           });
         }
       });
@@ -4025,7 +5905,12 @@
             const el = document.getElementById(id);
             if (el) safeStorage.set("72h_plan_" + id, el.value);
           });
-          alert("✓ Váš krizový plán byl úspěšně uložen v tomto zařízení.");
+          flashPlanSaved("✓ Krizový plán byl úspěšně uložen v tomto zařízení!");
+          const origText = savePlanBtn.textContent;
+          savePlanBtn.textContent = "✓ Uloženo v zařízení!";
+          setTimeout(() => {
+            savePlanBtn.textContent = origText;
+          }, 2200);
         });
       }
 
@@ -4051,11 +5936,12 @@
               safeStorage.remove("72h_plan_" + id);
             }
           });
+          flashPlanSaved("✓ Formulář plánu byl vymazán");
         });
       }
 
       // ------------------------------------------------------------------------
-      // 8. UMAMI ANALYTICS EVENT TRACKING (Tísňová volání & Stažení PDF)
+      // 13. UMAMI ANALYTICS EVENT TRACKING (Tísňová volání & Stažení PDF)
       // ------------------------------------------------------------------------
       const trackUmami = (name, data) => {
         if (safeStorage.get("umami.disabled") === "1") return;

@@ -19,29 +19,32 @@ Projekt vychází z doporučení Ministerstva vnitra ČR (MV ČR), Hasičského 
 
 ---
 
-## 📌 Aktuální stav projektu
+## 📌 Aktuální stav projektu a Crisis UX vylepšení
 
-Projekt je ve stabilní produkční verzi nasazené přes GitHub Pages s vlastní doménou:
+Projekt je ve stabilní produkční verzi nasazené přes GitHub Pages s vlastní doménou a optimalizovaný dle zásad **Crisis UX** (okamžitá čitelnost pod vysokým stresem, minimální kognitivní zátěž, přístupnost WCAG AAA):
 
-* **Plná mobilní optimalizace:** Dvouřádková fixní hlavička s okamžitým přístupem k tísňovým linkám (112, 150, 155, 158) a hamburger menu, která zůstává pevně přichycená při scrollování bez zakrývání obsahu.
-* **Offline-Ready:** Web je napsán v čistém vanilla HTML, CSS a JS bez externích frameworků, závislostí či fontů třetích stran. Stránku lze uložit a číst kdykoliv offline.
-* **Interaktivní kontrolní seznamy (Checklisty):**
-  * Příprava zásob pro domácnost (voda, trvanlivé potraviny, teplo, hygiena, finance).
-  * Evakuační zavazadlo pro každého člena rodiny.
-  * Specifické rady a checklist pro lidi žijící osaměle.
-  * Automatické ukládání rozpracovaného stavu do paměti zařízení (`localStorage`) s animovaným ukazatelem dokončení.
-* **Psychologická první pomoc a krizové nástroje:**
-  * Interaktivní vizuální widget pro **Krabicové dýchání 4-4-4-4 (Box Breathing)** pro zvládnutí akutní paniky a stresu.
-  * Návody, jak mluvit o krizích s dětmi podle věkových kategorií.
-  * Rychlý test připravenosti (12 otázek) s okamžitým vyhodnocením skóre a doporučením.
-  * Formulář pro sestavení vlastního rodinného krizového plánu s možností přímého tisku na A4.
-* **Přístupnost (A11Y & WCAG AAA):**
+* **⚡ Akutní krizový rozcestník („Co se právě děje?“):** Přímo v horní části stránky je interaktivní rozcestník pro 6 nejčastějších krizových scénářů (*Blackout / nejde proud*, *Houkají sirény*, *Musím se evakuovat*, *Nejde pitná voda*, *Panika a šok*, *Výpadek signálu & Rádio*), který na jedno klepnutí zobrazí 3 nejdůležitější kroky pro prvních 60 vteřin.
+* **🔍 Okamžité offline vyhledávání (klávesa `/`):** Fulltextové vyhledávání bez závislosti na internetu (tolerantní k překlepům v diakritice) s rychlými štítky (*Siréna*, *Evakuační batoh*, *Voda*, *Plyn a jistič*, *Rádio FM*, *Děti*, *Panika*), které po kliknutí automaticky rozbalí příslušnou sekci a vizuálně zvýrazní hledaný návod.
+* **🚨 Stálá dostupnost SOS kontaktů (`📞 SOS` v hlavičce):** Kromě horní nouzové lišty je ve fixní hlavičce trvale dostupné červené tlačítko `📞 SOS` s výsuvným panelem pro okamžité volání `112`, `150`, `155`, `158` odkudkoliv na stránce. Na malých telefonech zůstávají pod čísly čitelné i textové popisky složek (*SOS*, *Hasiči*, *Záchranka*, *Policie*).
+* **⚡ Boxy „V KOSTCE (TL;DR)“ na začátku každé sekce:** Každá z 8 tematických kapitol začíná výrazným přehledem 3 nejdůležitějších bodů pro bleskové zorientování do 5 sekund.
+* **🧮 Interaktivní kalkulačka zásob na 72 hodin:** Dynamický výpočet potřebného množství litrů pitné vody (včetně počtu 1,5l PET lahví), porcí jídla bez vaření, kapacity powerbanky a hotovosti podle počtu dospělých, dětí a domácích mazlíčků.
+* **📋 Sjednocené interaktivní checklisty a akční plán na víkend:**
+  * Příprava zásob pro domácnost (12 bodů se štítky doporučeného množství) automaticky vyhodnocuje skóre připravenosti a navrhuje **3 nejbližší kroky na víkend** (bez nutnosti vyplňovat duplicitní dotazník).
+  * Otevřený 9bodový akční evakuační checklist + **šablona evakuační SMS na 1 kliknutí** (kopírování do schránky / přímé otevření v SMS aplikaci).
+  * Specifické rady a 10bodový checklist pro lidi žijící osaměle a seniory.
+  * Automatické ukládání stavu do `localStorage` s ukazatelem dokončení.
+* **🚨 Samostatná sekce Sirény & Poplach + 14 krajů ČRo Radiožurnál:**
+  * Vizuální grafické odlišení 3 tónů sirén (*Všeobecná výstraha – kolísavý 140 s*, *Požární poplach – přerušovaný 60 s*, *Zkouška sirén – stálý tón 1. středu v měsíci ve 12:00*).
+  * Kompletní přehled FM frekvencí **ČRo Radiožurnál pro všech 14 krajů ČR** a přímý odkaz na nízkoobjemový **Teletext ČT** pro přetížené mobilní sítě (2G/EDGE).
+  * Filtrovatelná tabulka krizových kontaktů (Vše / IZS / Psychika & Děti / Senioři / Speciální), která se na mobilech automaticky transformuje do přehledných dotykových karet bez horizontálního posouvání.
+* **🫁 Psychologická první pomoc a Rodinný plán:**
+  * Interaktivní **Krabicové dýchání 4-4-4-4 (Box Breathing)** s počítadlem dokončených cyklů a technika **Uzemnění 5-4-3-2-1**.
+  * Návody, jak mluvit o krizích s dětmi podle věkových kategorií (0–18 let).
+  * Formulář **Rodinného krizového plánu** s automatickým ukládáním a tiskem na 1 list A4 (doplněný o patičku s tísňovými čísly, tóny sirén a hlavními FM frekvencemi pro připevnění na lednici).
+* **♿ Přístupnost (A11Y & WCAG AAA) a soukromí:**
   * Přepínání tmavého a světlého režimu (šetří baterii telefonu na OLED displejích).
-  * Možnost cyklického zvětšení písma (100 % / 125 % / 150 %) pro seniory a slabozraké.
-  * Plná podpora ovládání z klávesnice a odečítačů obrazovky.
-* **Respekt k soukromí:**
-  * Žádné sledovací cookies, žádná otravná cookie lišta.
-  * Transparentní anonymní měření návštěvnosti přes open-source Umami Analytics s možností okamžitého opt-outu.
+  * Cyklické zvětšení písma (100 % / 125 % / 150 %) pro seniory a slabozraké.
+  * Žádné sledovací cookies, žádné externí skripty či fonty blokující vykreslení. Transparentní anonymní měření návštěvnosti přes open-source Umami Analytics s možností okamžitého opt-outu.
 
 ---
 
