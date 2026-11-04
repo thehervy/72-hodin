@@ -3442,7 +3442,7 @@
         </div>
 
         <!-- ZBRANĚ V DOMÁCNOSTI – výtah z právních předpisů se zdroji u každého bodu -->
-        <details class="styled-details" id="zbrane-doma">
+        <details class="styled-details" id="zbrane">
           <summary class="styled-summary">
             <span>🔐 Zbraně (Uložení, evakuace a krizové stavy)</span>
             <span class="summary-icon" aria-hidden="true">▼</span>
@@ -4928,6 +4928,57 @@
       }
 
       // ------------------------------------------------------------------------
+      // SDÍLITELNÉ ODKAZY (#kotva): lidsky čitelná ID bez diakritiky a interpunkce
+      // ------------------------------------------------------------------------
+      // „🔐 Zbraně (Uložení, evakuace…)“ → „zbrane-ulozeni-evakuace…“ (max. ~60 znaků, celá slova)
+      function slugify(text) {
+        const words = normalizeText(text || "").replace(/[^a-z0-9]+/g, " ").trim().split(/\s+/).filter(Boolean);
+        let slug = "";
+        for (const w of words) {
+          const next = slug ? slug + "-" + w : w;
+          if (next.length > 60 && slug) break;
+          slug = next;
+        }
+        return slug;
+      }
+
+      // Prvek bez id dostane deterministické id z nadpisu (při kolizi s příponou -2, -3 …)
+      function ensureHumanId(el, title) {
+        if (!el) return "";
+        if (el.id) return el.id;
+        // Úvodní číslování („1. Voda“) do kotvy nepatří
+        const base = slugify(String(title || "").replace(/^[^\p{L}\p{N}]*\d+[.)]\s+/u, "")) || "sekce";
+        let id = base;
+        let n = 2;
+        while (document.getElementById(id)) {
+          id = base + "-" + n++;
+        }
+        el.id = id;
+        return id;
+      }
+
+      // Staré kotvy, které už mohly být sdíleny
+      const hashAliases = { "zbrane-doma": "zbrane" };
+
+      function getHashTarget() {
+        let raw = (window.location.hash || "").replace(/^#/, "");
+        if (!raw) return null;
+        try { raw = decodeURIComponent(raw); } catch (e) {}
+        return document.getElementById(hashAliases[raw] || raw) || document.getElementById(slugify(raw));
+      }
+
+      // Přechod na prvek + zápis jeho kotvy do adresy (pro zkopírování a sdílení)
+      function navigateToElement(targetEl) {
+        if (!targetEl) return;
+        scrollToAndHighlight(targetEl);
+        if (targetEl.id && history.pushState && window.location.hash !== "#" + targetEl.id) {
+          try {
+            history.pushState(null, "", "#" + targetEl.id);
+          } catch (e) {}
+        }
+      }
+
+      // ------------------------------------------------------------------------
       // 1. A11Y OVLÁDÁNÍ VELIKOSTI PÍSMA (100% / 125% / 150%)
       // ------------------------------------------------------------------------
       const fontSizes = ["normal", "large", "xlarge"];
@@ -5158,7 +5209,7 @@
         "🔐 Zbraně (Uložení, evakuace a krizové stavy)",
         "Výtah ze zákona č. 90/2024 Sb.: zabezpečení ve schránce, přesun při evakuaci, vedlejší držitel, úschova, hlášení ztráty a nutná obrana. S odkazy na paragrafy.",
         "Domácnost 72h",
-        document.getElementById("zbrane-doma"),
+        document.getElementById("zbrane"),
         "zbran zbrane strelna zbran pistole puska revolver trezor schranka strelivo naboje zbrojni opravneni zbrojni list zbrojni prukaz nutna obrana uschova vedlejsi drzitel kradez ztrata"
       );
       addSearchEntry(
@@ -5234,6 +5285,7 @@
           const fullText = item.textContent.replace(/\s+/g, " ").trim();
           if (title && fullText.length > 20) {
             const snippet = fullText.replace(title, "").trim().substring(0, 145) + (fullText.length > 165 ? "…" : "");
+            ensureHumanId(item, title);
             addSearchEntry(title, snippet, secBadge, item);
           }
         });
@@ -5243,6 +5295,7 @@
           if (cells.length >= 2) {
             const title = `${cells[0]} — ${cells[1]}`;
             const snippet = cells.slice(2).join(" | ");
+            ensureHumanId(row, `${cells[0]} ${cells[1]}`);
             addSearchEntry(title, snippet, secBadge, row);
           }
         });
@@ -5335,7 +5388,7 @@
 
             btn.addEventListener("click", () => {
               closeSearchResults();
-              scrollToAndHighlight(entry.targetEl);
+              navigateToElement(entry.targetEl);
             });
 
             searchResultsBox.appendChild(btn);
@@ -5615,7 +5668,7 @@
           const targetEl = targetId ? document.getElementById(targetId) : null;
           if (targetEl) {
             e.preventDefault();
-            scrollToAndHighlight(targetEl);
+            navigateToElement(targetEl);
           }
         });
       }
@@ -5828,6 +5881,16 @@
       });
 
       updateActiveNavSection();
+
+      // Otevření sdíleného odkazu (#kotva): dorolovat pod fixní navigaci a rozbalit sbalené <details>
+      function openHashTarget() {
+        const targetEl = getHashTarget();
+        if (targetEl) scrollToAndHighlight(targetEl);
+      }
+      if (window.location.hash) {
+        requestAnimationFrame(openHashTarget);
+      }
+      window.addEventListener("hashchange", openHashTarget);
 
       // ------------------------------------------------------------------------
       // 7. INTERAKTIVNÍ KALKULAČKA ZÁSOB NA 72 HODIN
