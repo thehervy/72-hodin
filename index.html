@@ -857,6 +857,36 @@
       font-size: 0.8125rem;
     }
 
+    /* Tlačítko se zalomitelnými metadaty (např. velikost souboru):
+       při nedostatku místa jde popisek na 1. řádek, metadata na 2., vše na střed */
+    .btn.btn-wrap {
+      flex-wrap: wrap;
+      text-align: center;
+      gap: 0.125rem 0.5rem;
+    }
+
+    /* Řádek nadpisu karty s odznakem vpravo */
+    .card-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .card-title-row > h3 {
+      min-width: 0;
+      overflow-wrap: break-word;
+    }
+
+    /* Kolečko s počtem stran vedle nadpisu karty */
+    .badge.badge-pages {
+      justify-content: center;
+      text-align: center;
+      line-height: 1.2;
+      background: #ffffff;
+      color: #0f766e;
+      font-weight: 800;
+    }
+
     /* KARTY & ODDÍLY */
     .section-card {
       background: var(--bg-surface);
@@ -1822,18 +1852,6 @@
       flex-shrink: 0;
     }
 
-    .crisis-search-kbd {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      background: var(--bg-surface-alt);
-      border: 0;
-      color: var(--text-muted);
-      padding: 0.15rem 0.5rem;
-      border-radius: var(--radius-sm);
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
     .search-quick-chips {
       display: flex;
       flex-wrap: wrap;
@@ -2715,6 +2733,11 @@
         min-height: 2.75rem;
       }
 
+      .btn.btn-wrap {
+        width: 100%;
+        padding: 0.625rem 0.75rem;
+      }
+
       .readiness-test {
         padding: 1.25rem 1rem;
       }
@@ -3064,7 +3087,6 @@
             <span class="crisis-search-icon" aria-hidden="true">🔍</span>
             <input type="search" id="crisis-search-input" class="crisis-search-input" placeholder="Co hledáte? Např. blackout, siréna, voda, plyn, batoh, léky, pes, otrava..." aria-label="Hledat v krizovém manuálu" autocomplete="off">
             <button type="button" id="crisis-search-clear" class="crisis-search-clear" aria-label="Vymazat hledání">✕ Vymazat</button>
-            <span class="crisis-search-kbd" aria-hidden="true" title="Stiskněte klávesu / pro rychlé hledání">/</span>
           </div>
           <div class="search-quick-chips" aria-label="Nejčastěji hledaná témata">
             <span class="search-chip-label">Rychle najít:</span>
@@ -4529,15 +4551,15 @@
         <div class="grid-2">
           <!-- Položka 06: Kompletní manuál -->
           <div class="card-item" style="background: var(--color-primary-light);">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div class="card-title-row">
               <h3 style="margin:0 0 0.5rem 0; color:var(--color-primary-text);">📕 06. Občanský manuál pro nepěkné časy (KOMPLET)</h3>
-              <span class="badge" style="background:#ffffff; color:#0f766e; font-weight:800;">62 stran</span>
+              <span class="badge badge-pages">62 stran</span>
             </div>
             <p style="color:var(--color-primary-text); font-size:0.95rem; margin-bottom:1rem;">
               Kompletní vydání obsahující veškeré příručky, podrobné návody, checklisty a krizové pokyny v jednom uceleném dokumentu.
             </p>
-            <a href="data-manual/06_Obcansky_manual_pro_nepekne_casy_KOMPLET.pdf" download class="btn btn-primary" style="margin-top:auto;">
-              📥 Stáhnout kompletní knihu <span class="download-file-size" style="color:#ffffff; opacity:0.85;">(PDF, 1.17 MB)</span>
+            <a href="data-manual/06_Obcansky_manual_pro_nepekne_casy_KOMPLET.pdf" download class="btn btn-primary btn-wrap" style="margin-top:auto;">
+              <span>📥 Stáhnout kompletní knihu</span> <span class="download-file-size" style="color:#ffffff; opacity:0.85;">(PDF, 1.17 MB)</span>
             </a>
           </div>
 
@@ -4670,10 +4692,10 @@
     </div>
   </footer>
 
-  <!-- PLOVOUCÍ TLAČÍTKO PRO RYCHLÝ NÁVRAT NAHORU K VYHLEDÁVÁNÍ A ROZCESTNÍKU -->
-  <button type="button" class="back-to-top-fab" id="back-to-top-fab" aria-label="Návrat nahoru k vyhledávání a krizovému rozcestníku" title="Nahoru k vyhledávání a rozcestníku">
+  <!-- PLOVOUCÍ TLAČÍTKO PRO RYCHLÝ NÁVRAT NAHORU -->
+  <button type="button" class="back-to-top-fab" id="back-to-top-fab" aria-label="Zpět na začátek stránky" title="Zpět na začátek stránky">
     <span aria-hidden="true">↑</span>
-    <span>Nahoru / Hledat</span>
+    <span>Nahoru</span>
   </button>
 
   <!-- ==========================================================================
@@ -5168,10 +5190,38 @@
         });
       }
 
+      // Na dotykových zařízeních dá focus do pole (bliká kurzor), ale neotevře
+      // klávesnici – ta by zakryla výsledky. Klávesnice vyjede až po klepnutí do pole.
+      const isTouchDevice = window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+      function focusSearchWithoutKeyboard() {
+        if (!searchInput) return;
+        if (isTouchDevice) {
+          searchInput.setAttribute("inputmode", "none");
+        }
+        searchInput.focus({ preventScroll: true });
+      }
+
+      if (searchInput) {
+        // Klepnutí do pole: zrušit potlačení klávesnice a nechat pole znovu získat focus
+        searchInput.addEventListener("pointerdown", () => {
+          if (searchInput.getAttribute("inputmode") === "none") {
+            searchInput.removeAttribute("inputmode");
+            searchInput.blur();
+          }
+        });
+        searchInput.addEventListener("blur", () => {
+          searchInput.removeAttribute("inputmode");
+        });
+      }
+
       if (searchClearBtn && searchInput) {
         searchClearBtn.addEventListener("click", () => {
           searchInput.value = "";
           renderSearchResults("");
+          // Po vymazání uživatel čeká, že začne psát – klávesnici otevřít
+          searchInput.removeAttribute("inputmode");
+          searchInput.blur();
           searchInput.focus();
         });
       }
@@ -5182,7 +5232,7 @@
           if (searchInput) {
             searchInput.value = query;
             renderSearchResults(query);
-            searchInput.focus();
+            focusSearchWithoutKeyboard();
           }
         });
       });
@@ -5462,7 +5512,7 @@
       function updateActiveNavSection() {
         const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
 
-        // Zobrazení / skrytí plovoucího tlačítka "Nahoru / Hledat"
+        // Zobrazení / skrytí plovoucího tlačítka "Nahoru"
         if (backToTopFab) {
           backToTopFab.classList.toggle("visible", scrollY > 520);
         }
@@ -5502,9 +5552,6 @@
       if (backToTopFab) {
         backToTopFab.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
-          setTimeout(() => {
-            if (searchInput) searchInput.focus();
-          }, 450);
         });
       }
 
