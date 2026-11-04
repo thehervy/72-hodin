@@ -1332,6 +1332,9 @@
 
     .details-body {
       padding: 0.25rem 1.5rem 1.5rem;
+      /* Obsah <details> v Chrome nedědí box-sizing z <html> (slot ::details-content),
+         karty s height:100 % by pak přetékaly o svůj padding. */
+      box-sizing: border-box;
     }
 
     /* Vnořené dlaždice na šedém podkladu jsou bílé (hierarchie bez rámečků) */
@@ -3440,7 +3443,7 @@
         <!-- ZBRANĚ V DOMÁCNOSTI – výtah z právních předpisů se zdroji u každého bodu -->
         <details class="styled-details" id="zbrane-doma">
           <summary class="styled-summary">
-            <span>🔐 Máte doma střelnou zbraň? Uložení, evakuace a krizové stavy</span>
+            <span>🔐 Zbraně (Uložení, evakuace a krizové stavy)</span>
             <span class="summary-icon" aria-hidden="true">▼</span>
           </summary>
           <div class="details-body">
@@ -5151,7 +5154,7 @@
         "kalkulacka vypocet zasob kolik vody jidla hotovost powerbanka"
       );
       addSearchEntry(
-        "🔐 Máte doma střelnou zbraň? Uložení, evakuace a krizové stavy",
+        "🔐 Zbraně (Uložení, evakuace a krizové stavy)",
         "Výtah ze zákona č. 90/2024 Sb.: zabezpečení ve schránce, přesun při evakuaci, vedlejší držitel, úschova, hlášení ztráty a nutná obrana. S odkazy na paragrafy.",
         "Domácnost 72h",
         document.getElementById("zbrane-doma"),
