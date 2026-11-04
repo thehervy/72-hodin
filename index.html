@@ -57,12 +57,35 @@
           }
           alert("✓ Sledování Umami bylo pro tento prohlížeč ZAPNUTO.");
         }
+
+        // Čistá sdílitelná adresa: parametry z Facebooku apod. (?fbclid=…, ?utm_…) z adresního
+        // řádku odstraníme, aby zůstalo jen 72hodin.info/#kotva. Kotva v URL vždy patří až za
+        // parametry (standard URL), proto je jediná cesta parametry smazat.
+        var loc = window.location;
+        var hash = loc.hash || "";
+        var junkInHash = hash.search(/[?&]/);
+        var cleanHash = junkInHash > -1 ? hash.slice(0, junkInHash) : hash;
+        if ((loc.search || junkInHash > -1) && window.history && window.history.replaceState) {
+          // Původní adresu si Umami vezme pro první pageview (viz umamiBeforeSend), statistiky
+          // o zdroji návštěvy (utm_*, fbclid) tak zůstanou zachované.
+          if (!u) window.__72hLandingUrl = loc.href;
+          window.history.replaceState(null, document.title, loc.pathname + (cleanHash.length > 1 ? cleanHash : ""));
+        }
       } catch (e) {}
+
+      window.umamiBeforeSend = function(type, payload) {
+        var landing = window.__72hLandingUrl;
+        if (landing && type === "event" && payload && !payload.name) {
+          window.__72hLandingUrl = null;
+          payload.url = landing;
+        }
+        return payload;
+      };
     })();
   </script>
 
   <!-- Umami Analytics (Cookieless, GDPR compliant, lightweight tracking) -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="d54cf4cc-5b1e-4b1d-bf4d-8b51efb4255e" data-domains="72hodin.info,www.72hodin.info"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="d54cf4cc-5b1e-4b1d-bf4d-8b51efb4255e" data-domains="72hodin.info,www.72hodin.info" data-before-send="umamiBeforeSend"></script>
 
   <style>
     /* ==========================================================================
@@ -217,6 +240,11 @@
       box-sizing: border-box;
       overflow-x: hidden;
       max-width: 100%;
+    }
+
+    /* Sdílené odkazy (#kotva): i nativní skok prohlížeče skončí pod fixní navigací */
+    [id] {
+      scroll-margin-top: calc(var(--fixed-nav-height, 4rem) + 1.25rem);
     }
 
     html[data-font-size="normal"] {
@@ -4963,6 +4991,7 @@
       function getHashTarget() {
         let raw = (window.location.hash || "").replace(/^#/, "");
         if (!raw) return null;
+        raw = raw.split(/[?&]/)[0]; // „#zbrane?fbclid=…“ → „zbrane“
         try { raw = decodeURIComponent(raw); } catch (e) {}
         return document.getElementById(hashAliases[raw] || raw) || document.getElementById(slugify(raw));
       }
@@ -5888,7 +5917,19 @@
         if (targetEl) scrollToAndHighlight(targetEl);
       }
       if (window.location.hash) {
-        requestAnimationFrame(openHashTarget);
+        setTimeout(openHashTarget, 0);
+        // Prohlížeč může po načtení ještě sám skočit na kotvu a náš posun přebít – dorovnáme
+        window.addEventListener("load", () => {
+          setTimeout(() => {
+            const targetEl = getHashTarget();
+            if (!targetEl) return;
+            const topNav = document.getElementById("top-nav");
+            const diff = targetEl.getBoundingClientRect().top - ((topNav ? topNav.offsetHeight : 95) + 20);
+            if (Math.abs(diff) > 40) {
+              window.scrollTo({ top: Math.max(0, (window.pageYOffset || 0) + diff), behavior: "smooth" });
+            }
+          }, 150);
+        });
       }
       window.addEventListener("hashchange", openHashTarget);
 
