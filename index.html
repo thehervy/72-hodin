@@ -994,6 +994,48 @@
       margin-bottom: 0;
     }
 
+    /* Ikona „i“ s odkazem na zdroj (paragraf zákona). Viditelný kroužek je malý,
+       klikací plocha se přes ::before rozšiřuje na ~44 px (WCAG 2.5.5). */
+    .src-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.375rem;
+      height: 1.375rem;
+      margin-left: 0.25rem;
+      vertical-align: text-bottom;
+      border-radius: var(--radius-full);
+      background: var(--text-muted);
+      color: var(--bg-surface) !important;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.875rem;
+      line-height: 1;
+      text-decoration: none !important;
+      flex-shrink: 0;
+    }
+
+    a.src-link::before {
+      content: "";
+      position: absolute;
+      inset: -0.6875rem;
+      border-radius: var(--radius-full);
+    }
+
+    a.src-link:hover,
+    a.src-link:focus-visible {
+      background: var(--text-main);
+    }
+
+    .src-footnote {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
     /* GRID ROZLOŽENÍ */
     .grid-2 {
       display: grid;
@@ -2393,6 +2435,21 @@
         border: 1px solid #ccc;
       }
 
+      /* Ikona zdroje se v tisku nahradí zkrácenou citací paragrafu */
+      .src-link {
+        width: auto !important;
+        height: auto !important;
+        background: none !important;
+        color: #000000 !important;
+        font-size: 0 !important;
+        margin-left: 0.15rem;
+      }
+
+      a.src-link::after {
+        content: "[" attr(data-cite) "]";
+        font: italic 8pt/1.2 var(--font-stack);
+      }
+
       /* Tisk pouze rodinného plánu při spuštění tlačítkem */
       body.print-plan-only .hero-section,
       body.print-plan-only .section-card:not(#rodinny-plan) {
@@ -3379,6 +3436,105 @@
             </div>
           </div>
         </div>
+
+        <!-- ZBRANĚ V DOMÁCNOSTI – výtah z právních předpisů se zdroji u každého bodu -->
+        <details class="styled-details" id="zbrane-doma">
+          <summary class="styled-summary">
+            <span>🔐 Máte doma střelnou zbraň? Uložení, evakuace a krizové stavy</span>
+            <span class="summary-icon" aria-hidden="true">▼</span>
+          </summary>
+          <div class="details-body">
+            <div class="alert-box warning" role="note">
+              <span class="alert-icon" aria-hidden="true">⚖️</span>
+              <div class="alert-content">
+                <p><strong>Informace si vždy ověřte sami.</strong> Jde o zjednodušený výtah z právních předpisů (stav k&nbsp;4.&nbsp;11.&nbsp;2026), ne o právní radu. Zákony se mění a rozhoduje vždy aktuální znění ve Sbírce zákonů. Při nejasnostech se obraťte na Policii&nbsp;ČR (krajské ředitelství) nebo na advokáta.</p>
+                <p>U každého bodu je ikona <span class="src-link" aria-hidden="true">i</span>, která otevře příslušný paragraf.</p>
+              </div>
+            </div>
+
+            <div class="tldr-box">
+              <div class="tldr-title"><span aria-hidden="true">⚡</span> V KOSTCE:</div>
+              <ul class="tldr-list">
+                <li><strong>Mimo dosah:</strong> Zbraň, kterou nemáte pod bezprostřední kontrolou, musí být zamčená – do 10&nbsp;kusů v&nbsp;ocelové schránce nebo skříni.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p83-2" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 83" aria-label="Zdroj: zákon č. 90/2024 Sb., § 83 (otevře se v novém okně)" data-cite="§ 83 z. 90/2024 Sb.">i</a></li>
+                <li><strong>Bez oprávnění nikdo:</strong> Zbraň nesmíte „půjčit“ ani členovi rodiny, který k tomu nemá oprávnění.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-3-b" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. b)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. b) (otevře se v novém okně)" data-cite="§ 11/3 b) z. 90/2024 Sb.">i</a></li>
+                <li><strong>Hlaste neprodleně na 158:</strong> ztrátu či krádež zbraně i její použití v&nbsp;nutné obraně.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-1-b" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. b)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. b) (otevře se v novém okně)" data-cite="§ 11/1 b) z. 90/2024 Sb.">i</a></li>
+              </ul>
+            </div>
+
+            <div class="grid-2">
+              <div class="card-item">
+                <h3>🔒 Uložení doma</h3>
+                <ul>
+                  <li>Zbraně a střelivo, které nemáte pod svou bezprostřední kontrolou, musíte zabezpečit proti zneužití, ztrátě a odcizení.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p83-1" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 1" aria-label="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 1 (otevře se v novém okně)" data-cite="§ 83/1 z. 90/2024 Sb.">i</a></li>
+                  <li><strong>Do 10 zbraní</strong> (a&nbsp;do 10&nbsp;000 nábojů): uzamčená ocelová schránka nebo skříň. <strong>11–20 zbraní:</strong> skříňový trezor nebo uzamčená místnost. <strong>Nad 20:</strong> navíc elektronické zabezpečení.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p83-2" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 2 a 3" aria-label="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 2 a 3 (otevře se v novém okně)" data-cite="§ 83/2–3 z. 90/2024 Sb.">i</a></li>
+                  <li>Schránka musí mít odolnost proti vloupání min. 15&nbsp;odporových jednotek a zámek alespoň třídy&nbsp;A (ČSN EN 1300). Při nákupu si to ověřte.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2025-187#p10" target="_blank" rel="noopener noreferrer" title="Zdroj: nařízení vlády č. 187/2025 Sb., § 10" aria-label="Zdroj: nařízení vlády č. 187/2025 Sb., § 10 (otevře se v novém okně)" data-cite="§ 10 NV 187/2025 Sb.">i</a></li>
+                  <li>Klíč nebo kód mějte jen u sebe – nikdo bez oprávnění se ke zbrani nesmí dostat.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-3-a" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. a) a b)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. a) a b) (otevře se v novém okně)" data-cite="§ 11/3 a)–b) z. 90/2024 Sb.">i</a></li>
+                  <li>Zachází-li se zbraní nezletilý, za dodržení zabezpečení odpovídá zákonný zástupce.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p83-5" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 5" aria-label="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 5 (otevře se v novém okně)" data-cite="§ 83/5 z. 90/2024 Sb.">i</a></li>
+                </ul>
+              </div>
+
+              <div class="card-item">
+                <h3>🚗 Evakuace a přesun</h3>
+                <ul>
+                  <li>Při odchodu zbraně buď nechte zamčené ve schránce či trezoru, nebo je vezměte s sebou a mějte je stále pod bezprostřední kontrolou.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p83-1" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 1" aria-label="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 1 (otevře se v novém okně)" data-cite="§ 83/1 z. 90/2024 Sb.">i</a></li>
+                  <li><strong>„Nošení“</strong> = mít zbraň na veřejnosti u sebe nabitou nebo viditelně.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p3-1-b" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 3 písm. b)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 3 písm. b) (otevře se v novém okně)" data-cite="§ 3 b) z. 90/2024 Sb.">i</a> Registrovanou zbraň smí nosit (skrytě) jen držitel <strong>rozšířeného</strong> zbrojního oprávnění.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p80-2" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 80 odst. 2" aria-label="Zdroj: zákon č. 90/2024 Sb., § 80 odst. 2 (otevře se v novém okně)" data-cite="§ 80/2 z. 90/2024 Sb.">i</a> Bez něj ji proto přesouvejte <strong>vybitou a ukrytou</strong> (pouzdro, kufr).</li>
+                  <li><strong>Zbraň v zaparkovaném autě</strong> (max. 2 zbraně nebo 1&nbsp;000 nábojů, nejdéle 4 hodiny): uzamčený kufr či schránka upevněná ke karoserii, zvenku neviditelná; zbraň vybitá, střelivo zvlášť; okna zavřená, auto zamčené.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2025-187#p13" target="_blank" rel="noopener noreferrer" title="Zdroj: nařízení vlády č. 187/2025 Sb., § 13" aria-label="Zdroj: nařízení vlády č. 187/2025 Sb., § 13 (otevře se v novém okně)" data-cite="§ 13 NV 187/2025 Sb.">i</a></li>
+                  <li><strong>U příbuzných či v náhradním ubytování:</strong> nejvýše 2 zbraně kategorie R2–R4 (nebo 1&nbsp;000 nábojů) stačí při dočasném uložení „vhodně zabezpečit“. Zákon blíže neurčuje jak – nejbezpečnější je uzamčená schránka.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p83-4" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 4" aria-label="Zdroj: zákon č. 90/2024 Sb., § 83 odst. 4 (otevře se v novém okně)" data-cite="§ 83/4 z. 90/2024 Sb.">i</a></li>
+                </ul>
+              </div>
+
+              <div class="card-item">
+                <h3>👪 Když se o zbraň postarat nemůžete</h3>
+                <ul>
+                  <li>Předat zbraň jinému lze jen způsobem, který zákon dovoluje.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-3-b" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. b)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. b) (otevře se v novém okně)" data-cite="§ 11/3 b) z. 90/2024 Sb.">i</a></li>
+                  <li><strong>Vedlejší držitel:</strong> blízkého se zbrojním oprávněním si můžete <strong>předem</strong> nechat zapsat k&nbsp;vaší zbrani v registru (žádost na krajském ředitelství policie). Pak mu ji smíte přenechat.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p71" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 71 a § 78 odst. 3 písm. a)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 71 a § 78 odst. 3 písm. a) (otevře se v novém okně)" data-cite="§ 71, § 78/3 a) z. 90/2024 Sb.">i</a></li>
+                  <li>Zbraň <strong>kategorie R4</strong> lze přenechat držiteli zbrojního oprávnění nejvýše na 30 dní po sobě.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p78-3-c" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 78 odst. 3 písm. c)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 78 odst. 3 písm. c) (otevře se v novém okně)" data-cite="§ 78/3 c) z. 90/2024 Sb.">i</a></li>
+                  <li><strong>Úschova:</strong> zbraň můžete uložit u podnikatele se zbrojní licencí ZL1, který úschovu nabízí.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p37-3-c" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 37 odst. 3 písm. c)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 37 odst. 3 písm. c) (otevře se v novém okně)" data-cite="§ 37/3 c) z. 90/2024 Sb.">i</a></li>
+                  <li><strong>Psychická krize v rodině:</strong> Prožívá-li někdo v domácnosti silnou krizi, zvažte dočasné uložení zbraně mimo domov některou z cest výše. Jde o obecné doporučení prevence, ne o zákonnou povinnost. Pomoc 24/7: <a href="tel:116123"><strong>116 123</strong></a>.</li>
+                </ul>
+              </div>
+
+              <div class="card-item">
+                <h3>📢 Povinnosti, které platí i v krizi</h3>
+                <ul>
+                  <li>Ztrátu nebo odcizení zbraně (např. po povodni či vloupání) hlaste policii <strong>neprodleně</strong> – <a href="tel:158"><strong>158</strong></a>.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-1-b" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. b)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. b) (otevře se v novém okně)" data-cite="§ 11/1 b) z. 90/2024 Sb.">i</a></li>
+                  <li>Použití zbraně k&nbsp;ostré střelbě v&nbsp;nutné obraně nebo krajní nouzi hlaste policii neprodleně.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-1-b-3" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. b) bod 3" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. b) bod 3 (otevře se v novém okně)" data-cite="§ 11/1 b) 3 z. 90/2024 Sb.">i</a></li>
+                  <li><strong>Nutná obrana má meze i v krizi:</strong> nejde o ni, je-li obrana zcela zjevně nepřiměřená způsobu útoku.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2009-40#p29" target="_blank" rel="noopener noreferrer" title="Zdroj: trestní zákoník č. 40/2009 Sb., § 29" aria-label="Zdroj: trestní zákoník č. 40/2009 Sb., § 29 (otevře se v novém okně)" data-cite="§ 29 tr. zákoníku">i</a> Právo bránit život i se zbraní je zaručeno „za podmínek, které stanoví zákon“.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/1993-2#cl6-4" target="_blank" rel="noopener noreferrer" title="Zdroj: Listina základních práv a svobod, čl. 6 odst. 4" aria-label="Zdroj: Listina základních práv a svobod, čl. 6 odst. 4 (otevře se v novém okně)" data-cite="čl. 6/4 Listiny">i</a></li>
+                  <li>Pod vlivem alkoholu či návykových látek, nebo když vaši schopnost snižují léky či zdravotní stav, se nesmí střílet ani zbraň nosit.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-3-e" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. e)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 3 písm. e) (otevře se v novém okně)" data-cite="§ 11/3 e) z. 90/2024 Sb.">i</a></li>
+                  <li>Na výzvu policie zbraň předložte.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p11-1-a" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. a)" aria-label="Zdroj: zákon č. 90/2024 Sb., § 11 odst. 1 písm. a) (otevře se v novém okně)" data-cite="§ 11/1 a) z. 90/2024 Sb.">i</a></li>
+                </ul>
+              </div>
+
+              <div class="card-item">
+                <h3>🏛️ Co může stát za krizového stavu</h3>
+                <ul>
+                  <li>Za stavu nebezpečí, nouzového stavu, stavu ohrožení státu nebo válečného stavu může vláda nařízením stanovit jiné podmínky nakládání se střelnými zbraněmi (vždy nejvýše na 3&nbsp;měsíce) a nařídit zvýšené kontroly.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2021-14#p17" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 14/2021 Sb., § 17" aria-label="Zdroj: zákon č. 14/2021 Sb., § 17 (otevře se v novém okně)" data-cite="§ 17 z. 14/2021 Sb.">i</a></li>
+                  <li>Tyto podmínky nesmějí být v rozporu se zájmem lidí na ochraně života, zdraví a majetku.&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2021-14#p17-3" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 14/2021 Sb., § 17 odst. 3" aria-label="Zdroj: zákon č. 14/2021 Sb., § 17 odst. 3 (otevře se v novém okně)" data-cite="§ 17/3 z. 14/2021 Sb.">i</a></li>
+                  <li>Automatickou povinnost odevzdat zbraně při krizovém stavu zákon nestanoví. Případná nová pravidla by vláda vyhlásila nařízením – sledujte oficiální zprávy (ČRo Radiožurnál, vláda, Policie&nbsp;ČR).</li>
+                  <li>Policie může zbraň zadržet nebo zajistit v&nbsp;jednotlivých případech, které stanoví zákon (např. při ohrožení života či zdraví).&nbsp;<a class="src-link" href="https://www.zakonyprolidi.cz/cs/2024-90#p122" target="_blank" rel="noopener noreferrer" title="Zdroj: zákon č. 90/2024 Sb., § 122 a § 123" aria-label="Zdroj: zákon č. 90/2024 Sb., § 122 a § 123 (otevře se v novém okně)" data-cite="§ 122–123 z. 90/2024 Sb.">i</a></li>
+                </ul>
+              </div>
+
+              <div class="card-item">
+                <h3>📄 Připravte si předem</h3>
+                <ul>
+                  <li><strong>Zbrojní list:</strong> stáhněte si zdarma PDF výpis svých oprávnění a zbraní z Portálu občana a uložte ho k dokladům i offline. Papírové zbrojní průkazy už oprávnění neprokazují.&nbsp;<a class="src-link" href="https://mv.gov.cz/nejcastejsi-otazky-k-nove-pravni-uprave-nakladani-se-zbranemi-strelivem-a-munici" target="_blank" rel="noopener noreferrer" title="Zdroj: MV ČR – Nejčastější otázky k nové právní úpravě" aria-label="Zdroj: MV ČR – Nejčastější otázky k nové právní úpravě zbraní (otevře se v novém okně)" data-cite="MV ČR – FAQ">i</a></li>
+                  <li><strong>Vedlejší držitel:</strong> domluvte se v rodině, kdo se o zbraň postará, a zápis vyřiďte s předstihem. Zapište si to do <a href="#rodinny-plan">rodinného plánu</a>.</li>
+                  <li><em>Praktické rady (nejsou předpisem):</em> schránku či trezor neumisťujte tam, kam může zatéct voda; zbraně si vyfoťte a poznamenejte značku, model a výrobní číslo – usnadní to ohlášení ztráty.</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="src-footnote">
+              <strong>Plné znění předpisů:</strong>
+              zákon č. 90/2024 Sb. o zbraních a střelivu (<a href="https://www.e-sbirka.cz/sb/2024/90" target="_blank" rel="noopener noreferrer">e-Sbírka</a>, <a href="https://www.zakonyprolidi.cz/cs/2024-90" target="_blank" rel="noopener noreferrer">Zákony pro lidi</a>) ·
+              nařízení vlády č. 187/2025 Sb. (<a href="https://www.e-sbirka.cz/sb/2025/187" target="_blank" rel="noopener noreferrer">e-Sbírka</a>) ·
+              zákon č. 14/2021 Sb. (<a href="https://www.e-sbirka.cz/sb/2021/14" target="_blank" rel="noopener noreferrer">e-Sbírka</a>) ·
+              <a href="https://mv.gov.cz/novy-zakon-o-zbranich" target="_blank" rel="noopener noreferrer">MV ČR – Nový zákon o zbraních</a>.
+              Ikony <span class="src-link" aria-hidden="true">i</span> vedou na neoficiální, ale přehledné konsolidované znění (Zákony pro lidi); závazné je znění v e-Sbírce.
+            </p>
+          </div>
+        </details>
 
         <!-- Box ke stažení PDF -->
         <div class="download-card">
@@ -4993,6 +5149,13 @@
         "Domácnost 72h",
         document.querySelector(".supply-calculator"),
         "kalkulacka vypocet zasob kolik vody jidla hotovost powerbanka"
+      );
+      addSearchEntry(
+        "🔐 Máte doma střelnou zbraň? Uložení, evakuace a krizové stavy",
+        "Výtah ze zákona č. 90/2024 Sb.: zabezpečení ve schránce, přesun při evakuaci, vedlejší držitel, úschova, hlášení ztráty a nutná obrana. S odkazy na paragrafy.",
+        "Domácnost 72h",
+        document.getElementById("zbrane-doma"),
+        "zbran zbrane strelna zbran pistole puska revolver trezor schranka strelivo naboje zbrojni opravneni zbrojni list zbrojni prukaz nutna obrana uschova vedlejsi drzitel kradez ztrata"
       );
       addSearchEntry(
         "🔌 Blackout / Výpadek elektřiny, topení a nouzové WC",
